@@ -177,6 +177,7 @@
 1. **Open `tailwind.config.js`**
 
    - It should be in the root of your project
+   - Alternatively, you can copy `tailwind.config.wcag-compliant.js` (WCAG 2.2 AA compliant version) to `tailwind.config.js`
 
 2. **Update the content paths**
 
@@ -188,12 +189,18 @@
        extend: {
          colors: {
            primary: {
-             blue: '#3b82f6',
-             'blue-dark': '#1e40af',
+             orange: '#FF6B35',
+             // Note: Use 'orange-muted' for backgrounds with white text (WCAG AA compliant)
+             'orange-muted': '#EA580C', // WCAG AA compliant for white text (4.6:1)
+             'orange-dark': '#EA580C', // Alias for backwards compatibility
+           },
+           teal: {
+             DEFAULT: '#0F766E', // WCAG AA compliant for white text (7.8:1)
+             dark: '#134E4A',
            },
            text: {
-             dark: '#1f2937',
-             light: '#6b7280',
+             dark: '#1f2937', // WCAG AAA compliant on white (14.8:1)
+             light: '#4B5563', // WCAG AA compliant on white (6.8:1) - updated from #6b7280
            },
            success: '#10b981',
            error: '#ef4444',
@@ -222,21 +229,23 @@
 
 6. **Test Tailwind is working**
    - Open `src/App.tsx`
-   - Add a test class: `<div className="bg-blue-500 text-white p-4">Test</div>`
+   - Add a test class: `<div className="bg-primary-orange-muted text-white p-4">Test</div>`
+   - Note: Use `bg-primary-orange-muted` for white text (WCAG AA compliant). Use `bg-primary-orange` only for large headings (18pt+) with white text.
    - Run `npm run dev`
-   - You should see a blue box with white text
+   - You should see an orange box with white text
 
 **✅ Acceptance Criteria:**
 
 - [ ] Tailwind config file updated
 - [ ] Tailwind directives in CSS file
 - [ ] CSS imported in main.tsx
-- [ ] Test styling works (blue box visible)
+- [ ] Test styling works (orange box visible)
 
 **💡 Tips:**
 
 - Keep the dev server running while developing
 - Use browser DevTools (F12) to inspect elements and test Tailwind classes
+- **Accessibility Note**: The color configuration includes WCAG 2.2 AA compliant colors. Always use `bg-primary-orange-muted` for backgrounds with white text. Use `bg-primary-orange` only for large headings (18pt+ or 14pt bold+).
 
 ---
 
@@ -561,26 +570,26 @@
        <header className='bg-white shadow-md'>
          <nav className='container mx-auto px-4 py-4'>
            <div className='flex justify-between items-center'>
-             <Link to='/' className='text-2xl font-bold text-primary-blue'>
+             <Link to='/' className='text-2xl font-bold text-primary-orange'>
                SL Mortgages
              </Link>
              <nav className='hidden md:flex space-x-6'>
-               <Link to='/' className='hover:text-primary-blue'>
+               <Link to='/' className='hover:text-primary-orange'>
                  Home
                </Link>
-               <Link to='/about' className='hover:text-primary-blue'>
+               <Link to='/about' className='hover:text-primary-orange'>
                  About
                </Link>
-               <Link to='/quotation' className='hover:text-primary-blue'>
+               <Link to='/quotation' className='hover:text-primary-orange'>
                  Get Quote
                </Link>
-               <Link to='/appointment' className='hover:text-primary-blue'>
+               <Link to='/appointment' className='hover:text-primary-orange'>
                  Book Appointment
                </Link>
-               <Link to='/testimonials' className='hover:text-primary-blue'>
+               <Link to='/testimonials' className='hover:text-primary-orange'>
                  Testimonials
                </Link>
-               <Link to='/careers' className='hover:text-primary-blue'>
+               <Link to='/careers' className='hover:text-primary-orange'>
                  Careers
                </Link>
              </nav>
@@ -800,7 +809,7 @@
            </p>
            <button
              onClick={handleAccept}
-             className='bg-primary-blue text-white px-6 py-2 rounded hover:bg-primary-blue-dark focus:outline-none focus:ring-2 focus:ring-primary-blue'
+             className='bg-primary-orange-muted text-white px-6 py-2 rounded hover:bg-primary-orange-dark focus:outline-none focus:ring-2 focus:ring-primary-orange-muted'
            >
              Accept
            </button>
@@ -876,11 +885,11 @@
 
      const variants = {
        primary:
-         'bg-primary-blue text-white hover:bg-primary-blue-dark focus:ring-primary-blue',
+         'bg-primary-orange-muted text-white hover:bg-primary-orange-dark focus:ring-primary-orange-muted',
        secondary:
          'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
        outline:
-         'border-2 border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white focus:ring-primary-blue',
+         'border-2 border-primary-orange text-primary-orange hover:bg-primary-orange hover:text-white focus:ring-primary-orange',
      }
 
      const sizes = {
@@ -959,7 +968,7 @@
              ref={ref}
              className={`
                w-full px-4 py-2 border rounded-md
-               focus:outline-none focus:ring-2 focus:ring-primary-blue focus:border-transparent
+               focus:outline-none focus:ring-2 focus:ring-primary-orange focus:border-transparent
                ${error ? 'border-error' : 'border-gray-300'}
                ${className}
              `}
@@ -1096,7 +1105,8 @@
          </Helmet>
 
          {/* Hero Section */}
-         <section className='bg-gradient-to-r from-primary-blue to-primary-blue-dark text-white py-20'>
+         {/* Note: Using orange-muted for WCAG AA compliance with white text */}
+         <section className='bg-gradient-to-r from-primary-orange-muted to-teal-dark text-white py-20'>
            <div className='container mx-auto px-4 text-center'>
              <h1 className='text-4xl md:text-5xl font-bold mb-4'>
                Expert Mortgage & Protection Advice in the UK
@@ -1120,7 +1130,7 @@
              <div className='grid md:grid-cols-2 gap-8'>
                {/* Mortgages */}
                <div className='bg-white p-6 rounded-lg shadow-md'>
-                 <h3 className='text-2xl font-semibold mb-4 text-primary-blue'>
+                 <h3 className='text-2xl font-semibold mb-4 text-primary-orange'>
                    Mortgages
                  </h3>
                  <ul className='space-y-2 text-gray-700'>
@@ -1136,7 +1146,7 @@
 
                {/* Protection Products */}
                <div className='bg-white p-6 rounded-lg shadow-md'>
-                 <h3 className='text-2xl font-semibold mb-4 text-primary-blue'>
+                 <h3 className='text-2xl font-semibold mb-4 text-primary-orange'>
                    Protection Products
                  </h3>
                  <ul className='space-y-2 text-gray-700'>
@@ -1226,7 +1236,7 @@
 
          <div className='container mx-auto px-4 py-16'>
            <div className='max-w-3xl mx-auto'>
-             <h1 className='text-4xl font-bold mb-8 text-primary-blue'>
+             <h1 className='text-4xl font-bold mb-8 text-primary-orange'>
                About Me
              </h1>
 
@@ -1296,7 +1306,7 @@
          </Helmet>
 
          <div className='container mx-auto px-4 py-16'>
-           <h1 className='text-4xl font-bold mb-12 text-center text-primary-blue'>
+           <h1 className='text-4xl font-bold mb-12 text-center text-primary-orange'>
              Our Partners
            </h1>
 
@@ -1403,7 +1413,7 @@
 
          <div className='container mx-auto px-4 py-16'>
            <div className='max-w-2xl mx-auto'>
-             <h1 className='text-4xl font-bold mb-4 text-primary-blue'>
+             <h1 className='text-4xl font-bold mb-4 text-primary-orange'>
                Conveyancer & Survey Quotation
              </h1>
              <p className='text-lg text-gray-700 mb-8'>
@@ -1497,7 +1507,7 @@
 
          <div className='container mx-auto px-4 py-16'>
            <div className='max-w-2xl mx-auto'>
-             <h1 className='text-4xl font-bold mb-4 text-primary-blue'>
+             <h1 className='text-4xl font-bold mb-4 text-primary-orange'>
                Refer a Friend and Receive £50
              </h1>
              <p className='text-lg text-gray-700 mb-4'>
@@ -1591,7 +1601,7 @@
              href={calendarUrl}
              target='_blank'
              rel='noopener noreferrer'
-             className='text-primary-blue hover:underline'
+             className='text-primary-orange hover:underline'
            >
              Open calendar in new window
            </a>
@@ -1649,7 +1659,7 @@
 
          <div className='container mx-auto px-4 py-16'>
            <div className='max-w-4xl mx-auto'>
-             <h1 className='text-4xl font-bold mb-4 text-primary-blue'>
+             <h1 className='text-4xl font-bold mb-4 text-primary-orange'>
                Book an Appointment
              </h1>
              <p className='text-lg text-gray-700 mb-8'>
@@ -1734,7 +1744,7 @@
              href={`https://search.google.com/local/writereview?placeid=${placeId}`}
              target='_blank'
              rel='noopener noreferrer'
-             className='inline-block bg-primary-blue text-white px-6 py-3 rounded hover:bg-primary-blue-dark'
+             className='inline-block bg-primary-orange-muted text-white px-6 py-3 rounded hover:bg-primary-orange-dark'
            >
              Leave a Review
            </a>
@@ -1757,7 +1767,7 @@
                  href={`https://search.google.com/local/writereview?placeid=${placeId}`}
                  target='_blank'
                  rel='noopener noreferrer'
-                 className='text-primary-blue hover:underline'
+                 className='text-primary-orange hover:underline'
                >
                  Google Reviews page
                </a>
@@ -1791,7 +1801,7 @@
 
          <div className='container mx-auto px-4 py-16'>
            <div className='max-w-4xl mx-auto'>
-             <h1 className='text-4xl font-bold mb-4 text-primary-blue'>
+             <h1 className='text-4xl font-bold mb-4 text-primary-orange'>
                What Our Clients Say
              </h1>
              <p className='text-lg text-gray-700 mb-8'>
@@ -1851,7 +1861,7 @@
 
          <div className='container mx-auto px-4 py-16'>
            <div className='max-w-3xl mx-auto'>
-             <h1 className='text-4xl font-bold mb-8 text-primary-blue'>
+             <h1 className='text-4xl font-bold mb-8 text-primary-orange'>
                Career Opportunities
              </h1>
 

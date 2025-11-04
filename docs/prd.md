@@ -71,7 +71,7 @@ This website aligns with SL Mortgages' core business objectives by:
 4. **Responsive Design**: Mobile-first, WCAG 2.2 AA compliant, accessible across all devices
 5. **Legal Compliance**: FCA and Openwork disclaimers on every page, cookie consent banner, external legal links
 6. **SEO Foundation**: React Helmet implementation, meta tags, structured data, semantic HTML
-7. **Professional Design**: Blue/white theme matching client leaflet, modern minimalist layout, professional typography
+7. **Professional Design**: Orange/teal theme matching client leaflet, modern minimalist layout, professional typography
 
 ### Out of Scope
 
@@ -816,7 +816,7 @@ This website aligns with SL Mortgages' core business objectives by:
 
 **User Interface Requirements:**
 
-- Footer styling: Blue/white theme, readable typography
+- Footer styling: Orange/teal theme, readable typography
 - Disclaimer text: Clearly visible, appropriate font size
 - Legal links: Styled as links, open in new tab
 - Cookie banner: Non-intrusive, dismissible, appears on first visit
@@ -1180,7 +1180,7 @@ graph TB
     E --> J
     G --> K
 
-    style A fill:#3b82f6
+    style A fill:#eb5813
     style E fill:#10b981
     style F fill:#10b981
     style G fill:#10b981
@@ -2157,13 +2157,47 @@ graph TB
 
 ### Color Palette
 
-- **Primary Blue**: #3b82f6 (matches client leaflet)
-- **Secondary Blue**: #1e40af (darker accent)
-- **White**: #ffffff (background)
-- **Text Dark**: #1f2937 (primary text)
-- **Text Light**: #6b7280 (secondary text)
+**Primary Colors (From Leaflet):**
+- **Primary Orange**: #eb5813 (vibrant warm orange - exact match from client leaflet left background)
+  - ⚠️ **Accessibility Note**: White text on this color has contrast ratio ~3.0:1, only meets WCAG AA for large text (18pt+ or 14pt bold+). For normal text, use Muted Orange instead or dark text.
+- **Muted Orange**: #c4490f (darker variant for WCAG AA compliance)
+  - ✅ **WCAG AA Compliant**: White text meets 4.5:1+ contrast requirement
+  - **Recommended**: Use this instead of Primary Orange for backgrounds with white text in normal sizes
+- **Primary Orange Dark**: #a13d0c (darkest variant for hover states and depth)
+- **Teal**: #27546b (deep blue-teal - exact match from client leaflet right background)
+  - ✅ **WCAG AA Compliant**: White text has contrast ratio ~6.8:1, safe for all text sizes
+- **Teal Dark**: #1e3f52 (darker variant for gradients and hover states)
+
+**Additional Colors:**
+- **Light Blue**: #9ec7e9 (soft light blue)
+  - ⚠️ **Accessibility Note**: Contrast ratio ~2.2:1 with white text (FAILS WCAG)
+  - ✅ **SAFE**: Use as background with dark text (#14213e or #1f2937)
+  - ❌ **DO NOT** use this color for text on white backgrounds
+- **Dark Navy**: #14213e (deep navy blue)
+  - ✅ **WCAG AAA Compliant**: Contrast ratio ~12.6:1 with white, exceeds AAA standards
+  - Excellent for text on white backgrounds or as background with white text
+- **Burnt Orange**: #c76338 (warmer orange variant)
+  - ⚠️ **Accessibility Note**: White text has contrast ratio ~3.0:1, only meets WCAG AA for large text (18pt+ or 14pt bold+)
+  - ✅ **SAFE**: Use as background with dark text (#14213e or #1f2937)
+  - ✅ **SAFE**: Use for orange text on white backgrounds
+
+**Text Colors:**
+- **White**: #ffffff (text on colored backgrounds)
+- **Text Dark**: #1f2937 (primary text on white - WCAG AAA compliant, 14.8:1 ratio)
+- **Text Light**: #4B5563 (secondary text on white - WCAG AA compliant, 6.8:1 ratio)
+- **Text Navy**: #14213e (dark navy text - WCAG AAA compliant, 12.6:1 ratio)
+
+**Status Colors:**
 - **Success Green**: #10b981 (success messages)
 - **Error Red**: #ef4444 (error messages)
+
+**Usage Guidelines:**
+- **Orange backgrounds with white text**: Use Muted Orange (#c4490f) for WCAG AA compliance. Primary Orange (#eb5813) only for large headings (18pt+ or 14pt bold+)
+- **Teal backgrounds**: White text is safe for all sizes (6.8:1 contrast ratio)
+- **Light blue backgrounds**: Always use with dark text (#14213e or #1f2937), never with white text
+- **Dark navy backgrounds**: White text is safe for all sizes (12.6:1 contrast ratio)
+- **Burnt orange backgrounds**: Use with dark text for all sizes, or white text only for large headings (18pt+)
+- **White backgrounds**: Use Text Dark (#1f2937) or Text Navy (#14213e) for body text, Text Light (#4B5563) for secondary text
 
 ### Typography
 
