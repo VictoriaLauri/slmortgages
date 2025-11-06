@@ -19,7 +19,7 @@ export default function Home() {
     <main>
       {/* Hero Section */}
       <section
-        className='relative bg-gradient-to-r from-blue-dark to-teal text-white py-8 md:py-10 overflow-hidden'
+        className='relative hero-gradient text-white py-8 md:py-10 overflow-hidden'
         aria-label='Mortgage and protection hero section'
       >
         <div className='absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-transparent pointer-events-none'></div>

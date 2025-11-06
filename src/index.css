@@ -69,7 +69,7 @@
 
   /* Hero section gradient - uses compliant colors */
   .hero-gradient {
-    @apply bg-gradient-to-r from-primary-orange-muted to-teal-dark text-white;
+    @apply bg-gradient-to-r from-primary-orange-muted via-blue-dark to-teal-dark text-white;
   }
 
   /* Alternative hero gradient using original orange (large text only) */
