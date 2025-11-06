@@ -1,65 +1,115 @@
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from '../components/ui'
 
 export default function Home() {
+  useEffect(() => {
+    document.title =
+      'SL Mortgages – Expert Mortgage & Protection Advice in the UK'
+    const meta =
+      document.querySelector('meta[name="description"]') ||
+      document.createElement('meta')
+    ;(meta as HTMLMetaElement).name = 'description'
+    ;(meta as HTMLMetaElement).content =
+      "Looking for clear, hassle-free mortgage advice? I'm here to help! As a dedicated Mortgage & Protection Advisor, I'm passionate about making the process simple and stress-free for you."
+    if (!document.head.contains(meta)) document.head.appendChild(meta)
+  }, [])
+
   return (
-    <main className='min-h-screen flex flex-col items-center justify-center gap-6 p-6 bg-gray-50'>
-      {/* Existing home page content */}
-      <h1 className='text-2xl font-bold mb-4'>Welcome to SL Mortgages</h1>
+    <main>
+      {/* Hero Section */}
+      <section
+        className='relative bg-gradient-to-r from-blue-dark to-teal text-white py-8 md:py-10 overflow-hidden'
+        aria-label='Mortgage and protection hero section'
+      >
+        <div className='absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-transparent pointer-events-none'></div>
 
-      {/* --- TEST BUTTONS SECTION --- */}
-      <section className='flex flex-wrap gap-4 justify-center items-center bg-white p-6 rounded-xl shadow-sm'>
-        <div className='space-y-2 text-center'>
-          <h2 className='font-semibold text-sm text-gray-600'>
-            Primary Buttons
-          </h2>
-          <div className='flex gap-3 flex-wrap justify-center'>
-            <Button variant='primary' size='sm'>
-              Primary SM
-            </Button>
+        <div className='relative z-10 max-w-3xl mx-auto px-4 text-center'>
+          <h1 className='text-2xl md:text-4xl font-bold mb-2 leading-snug'>
+            Expert Mortgage & Protection Advice in the UK
+          </h1>
+          <p className='text-sm md:text-base mb-4 text-blue-light max-w-xl mx-auto leading-relaxed'>
+            Looking for clear, hassle-free mortgage advice? I’m here to help —
+            guiding you from our first meeting to completion in plain,
+            easy-to-understand language.
+          </p>
+          <Link to='/appointment'>
             <Button variant='primary' size='md'>
-              Primary MD
+              Get in Touch
             </Button>
-            <Button variant='primary' size='lg'>
-              Primary LG
-            </Button>
-          </div>
+          </Link>
         </div>
+      </section>
 
-        <div className='space-y-2 text-center'>
-          <h2 className='font-semibold text-sm text-gray-600'>
-            Secondary Buttons
+      {/* Services Section */}
+      <section
+        className='py-8 md:py-10 bg-white'
+        aria-labelledby='services-heading'
+      >
+        <div className='max-w-5xl mx-auto px-4'>
+          <h2
+            id='services-heading'
+            className='text-2xl md:text-3xl font-bold text-center mb-6 text-text-navy'
+          >
+            Our Services
           </h2>
-          <div className='flex gap-3 flex-wrap justify-center'>
-            <Button variant='secondary' size='sm'>
-              Secondary SM
-            </Button>
-            <Button variant='secondary' size='md'>
-              Secondary MD
-            </Button>
-            <Button variant='secondary' size='lg'>
-              Secondary LG
-            </Button>
-          </div>
-        </div>
 
-        <div className='space-y-2 text-center'>
-          <h2 className='font-semibold text-sm text-gray-600'>
-            Outline Buttons
-          </h2>
-          <div className='flex gap-3 flex-wrap justify-center'>
-            <Button variant='outline' size='sm'>
-              Outline SM
-            </Button>
-            <Button variant='outline' size='md'>
-              Outline MD
-            </Button>
-            <Button variant='outline' size='lg'>
-              Outline LG
-            </Button>
+          <div className='grid md:grid-cols-2 gap-6'>
+            <article className='p-5 rounded-lg shadow-sm border border-gray-100'>
+              <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
+                Mortgages
+              </h3>
+              <ul className='list-disc list-inside text-text-light space-y-0.5'>
+                <li>First-time buyers & Home movers</li>
+                <li>Government schemes (Shared Ownership, Right to Buy)</li>
+                <li>
+                  Remortgages & Buy-to-let (Ltd Company, HMO, Holiday lets)
+                </li>
+                <li>Debt consolidation</li>
+                <li>Commercial & unregulated mortgages (referrals)</li>
+              </ul>
+            </article>
+
+            <article className='p-5 rounded-lg shadow-sm border border-gray-100'>
+              <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
+                Protection Products
+              </h3>
+              <ul className='list-disc list-inside text-text-light space-y-0.5'>
+                <li>Life cover / Mortgage protection</li>
+                <li>Critical illness (incl. enhanced cancer options)</li>
+                <li>Income protection (1–5 yrs or full-term)</li>
+                <li>Accident & Sickness Multi-cover from £10</li>
+                <li>Global treatment & second medical opinion</li>
+                <li>Home, Private Medical & Commercial insurance</li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
-      {/* --- END TEST SECTION --- */}
+
+      {/* CTA */}
+      <section
+        className='bg-blue-light py-8 md:py-10 border-t border-gray-200'
+        aria-label='Call to action'
+      >
+        <div className='max-w-3xl mx-auto px-4 text-center'>
+          <h2 className='text-2xl md:text-3xl font-bold mb-3 text-blue-dark'>
+            Ready to Get Started?
+          </h2>
+          <p className='text-base text-text-dark mb-5'>
+            Whether you’re a first-time buyer or remortgaging, I’ll help you
+            secure the right deal and protection for your future.
+          </p>
+          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
+            <Link to='/quotation'>
+              <Button variant='primary'>Request a Quote</Button>
+            </Link>
+            <Link to='/appointment'>
+              <Button variant='secondary'>Book Appointment</Button>
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
