@@ -1,5 +1,12 @@
 @import 'tailwindcss';
 
+/* Prevent layout shift when scrollbar appears/disappears */
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
 /* Custom Color Palette - Matching Leaflet Colors with WCAG 2.2 AA Compliance */
 @theme {
   /* Primary Orange Colors - From Leaflet */
