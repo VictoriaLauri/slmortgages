@@ -16,7 +16,7 @@ export default function About() {
   return (
     <main className='bg-white'>
       {/* Panel + Overlapping Image (Amy-style) */}
-      <section className='pt-16 md:pt-24 pb-12 md:pb-20'>
+      <section className='pt-8 md:pt-24 pb-12 md:pb-20'>
         <div className='max-w-6xl mx-auto px-4 md:px-8 grid md:grid-cols-12 gap-8 md:gap-10 items-start'>
           {/* Text panel */}
           <div className='md:col-span-8 order-2 md:order-1'>
