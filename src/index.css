@@ -118,4 +118,11 @@
     /* Use only with large text (18pt+ or 14pt bold+) */
     @apply bg-orange-burnt text-white p-6 rounded-lg shadow-md text-lg font-semibold;
   }
+
+  /* Ensure form fields stay white inside tinted containers */
+  .form-container input,
+  .form-container select,
+  .form-container textarea {
+    @apply bg-white;
+  }
 }
