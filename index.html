@@ -7,6 +7,17 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Hidden Netlify fallback form for build-time detection -->
+    <form name="quotation" netlify hidden>
+      <input type="text" name="dealType" />
+      <input type="text" name="title" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <textarea name="address"></textarea>
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
