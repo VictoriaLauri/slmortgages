@@ -21,7 +21,7 @@ export default function QuotationForm() {
     if (!formData.get('email')) newErrors.email = 'Email address is required.'
     else {
       const email = String(formData.get('email'))
-      const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailPattern.test(email))
         newErrors.email = 'Please enter a valid email address.'
     }
