@@ -3,15 +3,16 @@ import Layout from './components/layout/Layout'
 import About from './pages/About'
 import Appointment from './pages/Appointment'
 import Careers from './pages/Careers'
+import Contact from './pages/Contact'
 import Home from './pages/Home'
 import Partners from './pages/Partners'
 import Quotation from './pages/quotation/Index'
 import Purchase from './pages/quotation/Purchase'
+import Remortgage from './pages/quotation/Remortgage'
 import Sale from './pages/quotation/Sale'
 import SaleAndPurchase from './pages/quotation/SaleAndPurchase'
-import Remortgage from './pages/quotation/Remortgage'
 import Survey from './pages/quotation/Survey'
-import Referral from './pages/Referral'
+import Referral from './pages/ReferAFriend'
 import Testimonials from './pages/Testimonials'
 
 export default function AppRoutes() {
@@ -22,7 +23,10 @@ export default function AppRoutes() {
         <Route path='/about' element={<About />} />
         <Route path='/quotation' element={<Quotation />} />
         <Route path='/quotation/purchase' element={<Purchase />} />
-        <Route path='/quotation/sale-and-purchase' element={<SaleAndPurchase />} />
+        <Route
+          path='/quotation/sale-and-purchase'
+          element={<SaleAndPurchase />}
+        />
         <Route path='/quotation/sale' element={<Sale />} />
         <Route path='/quotation/remortgage' element={<Remortgage />} />
         <Route path='/quotation/survey' element={<Survey />} />
@@ -31,6 +35,7 @@ export default function AppRoutes() {
         <Route path='/referral' element={<Referral />} />
         <Route path='/testimonials' element={<Testimonials />} />
         <Route path='/partners' element={<Partners />} />
+        <Route path='/contact' element={<Contact />} />
       </Route>
     </Routes>
   )

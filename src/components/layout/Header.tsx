@@ -3,125 +3,214 @@ import { Link, useLocation } from 'react-router-dom'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isServicesOpen, setIsServicesOpen] = useState(false) // desktop default = closed
   const location = useLocation()
-  const menuButtonRef = useRef<HTMLButtonElement>(null)
-  const currentPageRef = useRef<HTMLAnchorElement>(null)
 
-  // Close menu on Escape key (keyboard support for accessibility)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const servicesButtonRef = useRef<HTMLButtonElement>(null)
+
+  // Detect mobile screen to force Services open on mobile only
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsServicesOpen(true) // mobile default = open
+    } else {
+      setIsServicesOpen(false) // desktop default = closed
+    }
+  }, [isMobile])
+
+  // Close menus on Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isMenuOpen) {
+      if (e.key === 'Escape') {
         setIsMenuOpen(false)
-        menuButtonRef.current?.focus()
+        setIsServicesOpen(isMobile ? true : false)
       }
     }
-
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [isMenuOpen])
+  }, [isMobile])
 
-  // Prevent body scroll when menu is open
+  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
+    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
     }
   }, [isMenuOpen])
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const closeMenu = () => {
+  const closeAllMenus = () => {
     setIsMenuOpen(false)
-    // Only return focus to button on keyboard navigation (not touch)
-    if (document.activeElement?.tagName === 'BUTTON') {
-      menuButtonRef.current?.focus()
-    }
+    setIsServicesOpen(isMobile ? true : false)
   }
 
-  const navLinks = [
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+
+  // Clicking any TOP NAV link closes dropdown on desktop
+  const handleTopNavClick = () => {
+    if (!isMobile) setIsServicesOpen(false)
+    setIsMenuOpen(false)
+  }
+
+  // Top nav links
+  const topNavLinks = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
-    { to: '/quotation', label: 'Conveyancing Quote' },
-    { to: '/appointment', label: 'Book Appointment' },
     { to: '/testimonials', label: 'Testimonials' },
+    { to: '/appointment', label: 'Book Appointment' },
+    { to: '/contact', label: 'Contact' },
+  ]
+
+  // Services dropdown links
+  const serviceLinks = [
+    { to: '/quotation', label: 'Conveyancing Quote' },
+    { to: '/refer-a-friend', label: 'Refer a Friend' },
     { to: '/careers', label: 'Careers' },
+    { to: '/partners', label: 'Partners' },
   ]
 
   return (
     <>
+      {/* HEADER */}
       <header className='sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100 backdrop-blur-sm'>
         <nav
           className='container mx-auto px-4 py-4'
           aria-label='Main navigation'
         >
           <div className='flex justify-between items-center'>
+            {/* LOGO */}
             <Link
               to='/'
-              className='text-2xl font-bold text-primary-orange hover:opacity-80 active:opacity-70 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange focus-visible:ring-offset-2 rounded'
+              onClick={handleTopNavClick}
+              className='text-2xl font-bold text-primary-orange hover:opacity-80 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange focus-visible:ring-offset-2 rounded'
             >
               SL Mortgages
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav
-              className='hidden md:flex space-x-6'
-              aria-label='Desktop navigation'
-            >
-              {navLinks.map((link) => {
-                const isActive = link.to === location.pathname
+            {/* DESKTOP NAV */}
+            <div className='hidden md:flex items-center space-x-6'>
+              {/* Home + About */}
+              {topNavLinks.slice(0, 2).map((link) => {
+                const isActive = location.pathname === link.to
                 return (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`hover:text-primary-orange focus:outline-none rounded px-2 py-1 ${
+                    onClick={handleTopNavClick}
+                    className={`hover:text-primary-orange rounded px-2 py-1 transition ${
                       isActive
                         ? 'text-primary-orange font-semibold border-b-2 border-primary-orange'
                         : ''
                     }`}
-                    aria-current={isActive ? 'page' : undefined}
                   >
                     {link.label}
                   </Link>
                 )
               })}
-            </nav>
 
-            {/* Mobile Menu Button */}
+              {/* SERVICES DROPDOWN */}
+              <div className='relative'>
+                <button
+                  ref={servicesButtonRef}
+                  onClick={() => setIsServicesOpen((prev) => !prev)}
+                  aria-expanded={isServicesOpen}
+                  aria-haspopup='true'
+                  className='px-2 py-1 flex items-center gap-1 hover:text-primary-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange focus-visible:ring-offset-2 rounded'
+                >
+                  Services
+                  <span
+                    aria-hidden='true'
+                    className={`transition-transform duration-200 ${
+                      isServicesOpen ? 'rotate-180' : ''
+                    }`}
+                  >
+                    ▾
+                  </span>
+                </button>
+
+                {/* DROPDOWN MENU — CENTERED + NARROWER (w-52) */}
+                <div
+                  role='menu'
+                  className={`
+                    absolute left-1/2 -translate-x-1/2 mt-2 w-52 bg-white 
+                    border border-gray-200 rounded-md shadow-lg z-50 
+                    transition-all duration-200
+                    ${
+                      isServicesOpen
+                        ? 'opacity-100 visible'
+                        : 'opacity-0 invisible'
+                    }
+                  `}
+                >
+                  {serviceLinks.map((s) => {
+                    const isActive = location.pathname === s.to
+                    return (
+                      <Link
+                        key={s.to}
+                        to={s.to}
+                        onClick={handleTopNavClick}
+                        role='menuitem'
+                        className={`block px-4 py-3 text-base rounded transition-colors ${
+                          isActive
+                            ? 'text-primary-orange font-semibold bg-gray-50'
+                            : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        {s.label}
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Testimonials | Book Appointment | Contact */}
+              {topNavLinks.slice(2).map((link) => {
+                const isActive = location.pathname === link.to
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={handleTopNavClick}
+                    className={`hover:text-primary-orange rounded px-2 py-1 transition ${
+                      isActive
+                        ? 'text-primary-orange font-semibold border-b-2 border-primary-orange'
+                        : ''
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* MOBILE MENU BUTTON */}
             <button
               ref={menuButtonRef}
               onClick={toggleMenu}
-              className='md:hidden p-2 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 rounded'
               aria-expanded={isMenuOpen}
-              aria-controls='mobile-menu'
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              className='md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2'
             >
               <span className='sr-only'>
                 {isMenuOpen ? 'Close menu' : 'Open menu'}
               </span>
+
               <div className='w-6 h-6 flex flex-col justify-center space-y-1.5'>
                 <span
-                  className={`block h-0.5 w-6 bg-gray-800 transition-all duration-300 ${
+                  className={`h-0.5 w-6 bg-gray-800 transition ${
                     isMenuOpen ? 'rotate-45 translate-y-2' : ''
                   }`}
-                  aria-hidden='true'
                 />
                 <span
-                  className={`block h-0.5 w-6 bg-gray-800 transition-all duration-300 ${
+                  className={`h-0.5 w-6 bg-gray-800 transition ${
                     isMenuOpen ? 'opacity-0' : ''
                   }`}
-                  aria-hidden='true'
                 />
                 <span
-                  className={`block h-0.5 w-6 bg-gray-800 transition-all duration-300 ${
+                  className={`h-0.5 w-6 bg-gray-800 transition ${
                     isMenuOpen ? '-rotate-45 -translate-y-2' : ''
                   }`}
-                  aria-hidden='true'
                 />
               </div>
             </button>
@@ -129,77 +218,83 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* MOBILE OVERLAY */}
       {isMenuOpen && (
         <div
           className='fixed inset-0 bg-black/50 backdrop-blur-sm z-[70] md:hidden'
-          onClick={closeMenu}
-          aria-hidden='true'
+          onClick={closeAllMenus}
         />
       )}
 
-      {/* Mobile Menu Panel */}
-      <div
-        id='mobile-menu'
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-[80] md:hidden transition-transform duration-300 ease-in-out ${
+      {/* MOBILE MENU PANEL */}
+      <aside
+        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl z-[80] md:hidden transition-transform duration-300 ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
-        aria-label='Mobile navigation'
       >
         <div className='flex flex-col h-full'>
           <div className='flex justify-between items-center p-4 border-b'>
             <span className='text-xl font-bold text-primary-orange'>Menu</span>
             <button
-              onClick={closeMenu}
-              className='min-w-[44px] min-h-[44px] px-4 py-2 text-base font-medium text-gray-700 hover:text-primary-orange hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 rounded transition-colors flex items-center gap-2'
-              aria-label='Close menu'
+              onClick={closeAllMenus}
+              className='px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2'
             >
-              <span>Close</span>
-              <svg
-                className='w-5 h-5'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-                aria-hidden='true'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M6 18L18 6M6 6l12 12'
-                />
-              </svg>
+              Close
             </button>
           </div>
-          <nav
-            className='flex-1 overflow-y-auto p-4'
-            aria-label='Mobile navigation links'
-          >
+
+          <nav className='flex-1 overflow-y-auto p-4'>
             <ul className='space-y-4'>
-              {navLinks.map((link) => {
-                const isActive = link.to === location.pathname
-                return (
-                  <li key={link.to}>
-                    <Link
-                      ref={isActive ? currentPageRef : null}
-                      to={link.to}
-                      onClick={closeMenu}
-                      className={`block py-3 px-4 text-lg rounded transition-colors focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 ${
-                        isActive
-                          ? 'bg-primary-orange text-white font-semibold'
-                          : 'hover:text-primary-orange hover:bg-gray-50'
-                      }`}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                )
-              })}
+              {/* HOME + ABOUT */}
+              {topNavLinks.slice(0, 2).map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    onClick={closeAllMenus}
+                    className='block py-3 px-4 text-lg rounded hover:bg-gray-50 hover:text-primary-orange'
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+
+              {/* SERVICES (always open on mobile) */}
+              <li>
+                <div className='py-3 px-4 text-lg font-semibold text-gray-800'>
+                  Services
+                </div>
+
+                <ul className='mt-2 ml-4 space-y-2'>
+                  {serviceLinks.map((s) => (
+                    <li key={s.to}>
+                      <Link
+                        to={s.to}
+                        onClick={closeAllMenus}
+                        className='block py-2 px-4 rounded text-base hover:bg-gray-50 hover:text-primary-orange'
+                      >
+                        {s.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+
+              {/* TESTIMONIALS + BOOK APPT + CONTACT */}
+              {topNavLinks.slice(2).map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    onClick={closeAllMenus}
+                    className='block py-3 px-4 text-lg rounded hover:bg-gray-50 hover:text-primary-orange'
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
-      </div>
+      </aside>
     </>
   )
 }
