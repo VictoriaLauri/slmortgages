@@ -47,7 +47,7 @@ export default function Header() {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
-    { to: '/quotation', label: 'Get Quote' },
+    { to: '/quotation', label: 'Conveyancing Quote' },
     { to: '/appointment', label: 'Book Appointment' },
     { to: '/testimonials', label: 'Testimonials' },
     { to: '/careers', label: 'Careers' },
