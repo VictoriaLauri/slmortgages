@@ -8,15 +8,38 @@
   <body>
     <div id="root"></div>
 
-    <!-- Hidden Netlify fallback form for build-time detection -->
-    <form name="quotation" netlify hidden>
-      <input type="text" name="dealType" />
-      <input type="text" name="title" />
-      <input type="text" name="firstName" />
-      <input type="text" name="lastName" />
-      <input type="email" name="email" />
-      <textarea name="address"></textarea>
-    </form>
+    <!-- Hidden Netlify Forms for React -->
+    <div hidden aria-hidden="true">
+      <!-- Purchase -->
+      <form name="purchase-quote" netlify>
+        <input type="hidden" name="form-name" value="purchase-quote" />
+        <input type="text" name="firstName" />
+      </form>
+
+      <!-- Sale -->
+      <form name="sale-quote" netlify>
+        <input type="hidden" name="form-name" value="sale-quote" />
+        <input type="text" name="firstName" />
+      </form>
+
+      <!-- Sale & Purchase -->
+      <form name="sale-purchase-quote" netlify>
+        <input type="hidden" name="form-name" value="sale-purchase-quote" />
+        <input type="text" name="firstName" />
+      </form>
+
+      <!-- Remortgage -->
+      <form name="remortgage-quote" netlify>
+        <input type="hidden" name="form-name" value="remortgage-quote" />
+        <input type="text" name="firstName" />
+      </form>
+
+      <!-- Survey -->
+      <form name="survey-quote" netlify>
+        <input type="hidden" name="form-name" value="survey-quote" />
+        <input type="text" name="firstName" />
+      </form>
+    </div>
 
     <script type="module" src="/src/main.tsx"></script>
   </body>
