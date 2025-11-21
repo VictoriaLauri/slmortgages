@@ -92,7 +92,6 @@ export default function Header() {
   const topNavLinks = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
-    { to: '/testimonials', label: 'Testimonials' },
     { to: '/appointment', label: 'Book Appointment' },
     { to: '/contact', label: 'Contact' },
   ]
