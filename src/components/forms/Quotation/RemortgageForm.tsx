@@ -142,6 +142,7 @@ export default function RemortgageForm() {
             { value: 'Ms', label: 'Ms' },
             { value: 'Miss', label: 'Miss' },
             { value: 'Dr', label: 'Dr' },
+            { value: 'Other', label: 'Other...' },
           ]}
           error={errors.title}
         />
@@ -232,14 +233,21 @@ export default function RemortgageForm() {
       />
 
       {/* Mortgage count */}
+      <Input
+        id='lender'
+        name='lender'
+        label='Mortgage lender (optional)'
+        placeholder='Enter lender name if known'
+      />
+
       <Select
         id='mortgageCount'
         name='mortgageCount'
-        label='Current mortgages / secured charges'
+        label='Outstanding mortgages (including loans & 2nd charges)'
         required
         options={[
           { value: '', label: 'Select' },
-          { value: '0', label: '0' },
+          { value: 'None', label: 'None' },
           { value: '1', label: '1' },
           { value: '2', label: '2' },
           { value: '3', label: '3' },
@@ -247,6 +255,14 @@ export default function RemortgageForm() {
           { value: '5+', label: '5+' },
         ]}
         error={errors.mortgageCount}
+      />
+
+<Input
+        id='loanAmount'
+        name='loanAmount'
+        type='number'
+        label='Loan amount (£)'
+        placeholder='Enter loan amount if known'
       />
 
       {/* Considerations */}

@@ -1,5 +1,13 @@
 import { useRef, useState } from 'react'
-import { Alert, Button, Checkbox, Input, Radio, Select, Textarea } from '../../ui/index'
+import {
+  Alert,
+  Button,
+  Checkbox,
+  Input,
+  Radio,
+  Select,
+  Textarea,
+} from '../../ui/index'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -137,6 +145,7 @@ export default function PurchaseForm() {
             { value: 'Ms', label: 'Ms' },
             { value: 'Miss', label: 'Miss' },
             { value: 'Dr', label: 'Dr' },
+            { value: 'Other', label: 'Other...' },
           ]}
           error={errors.title}
         />
@@ -261,8 +270,8 @@ export default function PurchaseForm() {
             value: 'High Rise',
             label: 'High Rise Building (over 11m/4+ storeys)',
           },
-          { value: 'HMO', label: 'House of Multiple Occupancy' },
-          { value: 'LISA', label: 'HTB ISA / Lifetime ISA' },
+          { value: 'HMO', label: 'House of Multiple Occupancy (HMO)' },
+          { value: 'HTBISA/LISA', label: 'HTB ISA / Lifetime ISA' },
           { value: 'JBSP', label: 'Joint Borrower, Sole Proprietor' },
           { value: 'Ltd BTL', label: 'Limited Company BTL' },
           { value: 'Multi-unit', label: 'Multi-unit Block' },

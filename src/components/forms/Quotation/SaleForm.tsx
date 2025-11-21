@@ -27,8 +27,7 @@ export default function SaleForm() {
     if (!formData.get('title')) newErrors.title = 'Please select your title.'
     if (!formData.get('firstName'))
       newErrors.firstName = 'First name is required.'
-    if (!formData.get('lastName'))
-      newErrors.lastName = 'Last name is required.'
+    if (!formData.get('lastName')) newErrors.lastName = 'Last name is required.'
 
     const email = String(formData.get('email') || '')
     if (!email) newErrors.email = 'Email is required.'
@@ -42,15 +41,13 @@ export default function SaleForm() {
     if (phone && !/^[+0-9\s-]{6,}$/.test(phone))
       newErrors.phone = 'Please enter a valid phone number.'
 
-    if (!formData.get('country'))
-      newErrors.country = 'Country is required.'
+    if (!formData.get('country')) newErrors.country = 'Country is required.'
 
     const price = Number(formData.get('salePrice'))
     if (!price || price <= 0)
       newErrors.salePrice = 'Sale price must be a positive number.'
 
-    if (!formData.get('tenure'))
-      newErrors.tenure = 'Please select the tenure.'
+    if (!formData.get('tenure')) newErrors.tenure = 'Please select the tenure.'
 
     if (!formData.get('mortgageCount'))
       newErrors.mortgageCount = 'Please specify outstanding mortgages.'
@@ -107,20 +104,20 @@ export default function SaleForm() {
   return (
     <form
       ref={formRef}
-      method="POST"
-      data-netlify="true"
-      name="sale-quote"
+      method='POST'
+      data-netlify='true'
+      name='sale-quote'
       onSubmit={handleSubmit}
       noValidate
-      className="space-y-6"
+      className='space-y-6'
     >
-      <input type="hidden" name="form-name" value="sale-quote" />
+      <input type='hidden' name='form-name' value='sale-quote' />
 
       {/* Applicants */}
       <Select
-        id="applicants"
-        name="applicants"
-        label="Number of applicants"
+        id='applicants'
+        name='applicants'
+        label='Number of applicants'
         required
         options={[
           { value: '', label: 'Select' },
@@ -132,11 +129,11 @@ export default function SaleForm() {
       />
 
       {/* Personal details */}
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className='grid md:grid-cols-3 gap-4'>
         <Select
-          id="title"
-          name="title"
-          label="Title"
+          id='title'
+          name='title'
+          label='Title'
           required
           options={[
             { value: '', label: 'Select' },
@@ -145,52 +142,53 @@ export default function SaleForm() {
             { value: 'Ms', label: 'Ms' },
             { value: 'Miss', label: 'Miss' },
             { value: 'Dr', label: 'Dr' },
+            { value: 'Other', label: 'Other...' },
           ]}
           error={errors.title}
         />
 
         <Input
-          id="firstName"
-          name="firstName"
-          label="First name"
+          id='firstName'
+          name='firstName'
+          label='First name'
           required
           error={errors.firstName}
         />
 
         <Input
-          id="lastName"
-          name="lastName"
-          label="Last name"
+          id='lastName'
+          name='lastName'
+          label='Last name'
           required
           error={errors.lastName}
         />
       </div>
 
       {/* Contact */}
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className='grid md:grid-cols-2 gap-4'>
         <Input
-          id="email"
-          name="email"
-          type="email"
-          label="Email"
+          id='email'
+          name='email'
+          type='email'
+          label='Email'
           required
           error={errors.email}
         />
 
         <Input
-          id="phone"
-          name="phone"
-          type="tel"
-          label="Phone (optional)"
+          id='phone'
+          name='phone'
+          type='tel'
+          label='Phone (optional)'
           error={errors.phone}
         />
       </div>
 
       {/* Sale property */}
       <Select
-        id="country"
-        name="country"
-        label="Country"
+        id='country'
+        name='country'
+        label='Country'
         required
         options={[
           { value: '', label: 'Select' },
@@ -203,18 +201,18 @@ export default function SaleForm() {
       />
 
       <Input
-        id="salePrice"
-        name="salePrice"
-        type="number"
-        label="Sale price (£)"
+        id='salePrice'
+        name='salePrice'
+        type='number'
+        label='Sale price (£)'
         required
         error={errors.salePrice}
       />
 
       <Select
-        id="tenure"
-        name="tenure"
-        label="Tenure"
+        id='tenure'
+        name='tenure'
+        label='Tenure'
         required
         options={[
           { value: '', label: 'Select' },
@@ -226,9 +224,9 @@ export default function SaleForm() {
       />
 
       <Textarea
-        id="address"
-        name="address"
-        label="Sale property address"
+        id='address'
+        name='address'
+        label='Sale property address'
         rows={3}
         required
         error={errors.address}
@@ -236,13 +234,13 @@ export default function SaleForm() {
 
       {/* Mortgage details */}
       <Select
-        id="mortgageCount"
-        name="mortgageCount"
-        label="Outstanding mortgages (including loans & 2nd charges)"
+        id='mortgageCount'
+        name='mortgageCount'
+        label='Outstanding mortgages (including loans & 2nd charges)'
         required
         options={[
           { value: '', label: 'Select' },
-          { value: '0', label: '0' },
+          { value: 'None', label: 'None' },
           { value: '1', label: '1' },
           { value: '2', label: '2' },
           { value: '3', label: '3' },
@@ -254,14 +252,14 @@ export default function SaleForm() {
 
       {/* Considerations */}
       <Checkbox
-        label="Additional considerations (optional)"
+        label='Additional considerations (optional)'
         options={[
           { value: 'Help to Buy', label: 'Help to Buy - Equity Loan' },
           {
             value: 'High Rise',
             label: 'High Rise Building (over 11m/4+ storeys)',
           },
-          { value: 'HMO', label: 'House of Multiple Occupancy' },
+          { value: 'HMO', label: 'House of Multiple Occupancy (HMO)' },
           { value: 'Multi-unit', label: 'Multi-unit Block' },
           { value: 'Shared Ownership', label: 'Shared Ownership' },
           { value: 'Unregistered Land', label: 'Unregistered Land' },
@@ -269,44 +267,48 @@ export default function SaleForm() {
       />
 
       <Textarea
-        id="notes"
-        name="notes"
-        label="Additional information (optional)"
+        id='notes'
+        name='notes'
+        label='Additional information (optional)'
         rows={3}
       />
 
       {/* Consent */}
       <Checkbox
-        id="consentContact"
-        name="consentContact"
-        label="I agree to be contacted regarding my quotation request."
+        id='consentContact'
+        name='consentContact'
+        label='I agree to be contacted regarding my quotation request.'
         required
         error={errors.consentContact}
       />
 
       <Checkbox
-        id="consentUpdates"
-        name="consentUpdates"
-        label="I would like to receive occasional updates and mortgage tips."
+        id='consentUpdates'
+        name='consentUpdates'
+        label='I would like to receive occasional updates and mortgage tips.'
       />
 
       {/* Submit */}
-      <Button variant="primary" type="submit" disabled={status === 'submitting'}>
+      <Button
+        variant='primary'
+        type='submit'
+        disabled={status === 'submitting'}
+      >
         {status === 'submitting' ? 'Submitting…' : 'Submit Request'}
       </Button>
 
       {status === 'success' && (
         <Alert
-          type="success"
-          message="Thank you! Your sale quotation request has been submitted and you will be contacted within 24 hours."
+          type='success'
+          message='Thank you! Your sale quotation request has been submitted and you will be contacted within 24 hours.'
           dismissible
         />
       )}
 
       {status === 'error' && (
         <Alert
-          type="error"
-          message="Something went wrong. Please try again later."
+          type='error'
+          message='Something went wrong. Please try again later.'
           dismissible
         />
       )}

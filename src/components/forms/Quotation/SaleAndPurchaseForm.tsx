@@ -4,7 +4,6 @@ import {
   Button,
   Checkbox,
   Input,
-  Radio,
   Select,
   Textarea,
 } from '../../ui/index'
@@ -172,6 +171,7 @@ export default function SaleAndPurchaseForm() {
               { value: 'Ms', label: 'Ms' },
               { value: 'Miss', label: 'Miss' },
               { value: 'Dr', label: 'Dr' },
+              { value: 'Other', label: 'Other...' },
             ]}
             error={errors.title}
           />
@@ -271,11 +271,11 @@ export default function SaleAndPurchaseForm() {
         <Select
           id='saleMortgages'
           name='saleMortgages'
-          label='Outstanding mortgages / 2nd charges'
+          label='Outstanding mortgages (including loans & 2nd charges)'
           required
           options={[
             { value: '', label: 'Select' },
-            { value: '0', label: '0' },
+            { value: 'None', label: 'None' },
             { value: '1', label: '1' },
             { value: '2', label: '2' },
             { value: '3', label: '3' },
@@ -366,17 +366,6 @@ export default function SaleAndPurchaseForm() {
           error={errors.purchaseAddress}
         />
 
-        <Radio
-          name='firstTimeBuyer'
-          label='Are you a first-time buyer?'
-          required
-          options={[
-            { value: 'Yes', label: 'Yes' },
-            { value: 'No', label: 'No' },
-          ]}
-          error={errors.firstTimeBuyer}
-        />
-
         <Input
           id='lender'
           name='lender'
@@ -385,7 +374,7 @@ export default function SaleAndPurchaseForm() {
         />
 
         <Checkbox
-          label='Purchase considerations (optional)'
+          label='Additional considerations (optional)'
           options={[
             { value: 'Auction', label: 'Auction' },
             { value: 'Buy to Let', label: 'Buy to Let' },
@@ -394,20 +383,14 @@ export default function SaleAndPurchaseForm() {
               label: 'Freehold with Management Company',
             },
             { value: 'Gifted Deposit', label: 'Gifted Deposit' },
-            {
-              value: 'Help to Buy - Equity Loan',
-              label: 'Help to Buy - Equity Loan',
-            },
+            { value: 'Help to Buy', label: 'Help to Buy - Equity Loan' },
             {
               value: 'High Rise',
               label: 'High Rise Building (over 11m/4+ storeys)',
             },
-            { value: 'HMO', label: 'House of Multiple Occupancy' },
-            { value: 'LISA', label: 'HTB ISA / Lifetime ISA' },
-            {
-              value: 'JBSP',
-              label: 'Joint Borrower, Sole Proprietor',
-            },
+            { value: 'HMO', label: 'House of Multiple Occupancy (HMO)' },
+            { value: 'HTBISA/LISA', label: 'HTB ISA / Lifetime ISA' },
+            { value: 'JBSP', label: 'Joint Borrower, Sole Proprietor' },
             { value: 'Ltd BTL', label: 'Limited Company BTL' },
             { value: 'Multi-unit', label: 'Multi-unit Block' },
             { value: 'New Build', label: 'New Build (never occupied)' },

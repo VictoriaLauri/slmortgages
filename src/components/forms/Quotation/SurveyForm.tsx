@@ -7,6 +7,7 @@ import {
   Radio,
   Select,
   Textarea,
+  Tooltip,
 } from '../../ui/index'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
@@ -122,6 +123,7 @@ export default function SurveyForm() {
             { value: 'Ms', label: 'Ms' },
             { value: 'Miss', label: 'Miss' },
             { value: 'Dr', label: 'Dr' },
+            { value: 'Other', label: 'Other...' },
           ]}
           error={errors.title}
         />
@@ -179,37 +181,27 @@ export default function SurveyForm() {
         error={errors.country}
       />
 
-      {/* Survey Type */}
-      <Select
-        id='surveyType'
-        name='surveyType'
-        label='Survey Type'
-        required
-        options={[
-          { value: '', label: 'Select' },
-          {
-            value: 'RICS Level 2',
-            label: 'RICS Level 2 (Homebuyers Report)',
-          },
-          {
-            value: 'RICS Level 3',
-            label: 'RICS Level 3 (Building Survey)',
-          },
-        ]}
-        error={errors.surveyType}
-      />
-
       {/* Age of property */}
-      <Radio
-        name='propertyAge'
-        label='Age of property'
-        required
-        options={[
-          { value: 'Under 100', label: 'Under 100 years' },
-          { value: '100+', label: '100 years and over' },
-        ]}
-        error={errors.propertyAge}
-      />
+      <div>
+        <label className='block text-sm font-medium text-gray-700 mb-1'>
+          <span className='flex items-center gap-1'>
+            Age of property
+            <span className='text-error'>*</span>
+            <Tooltip text='RICS Level 2 Survey (Prev Homebuyers Report) is most commonly used for properties less than 100 years old, while RICS Level 3 Survey and Valuation (Prev Building Survey) offers a more comprehensive inspection, suitable for properties exceeding 100 years.' />
+          </span>
+        </label>
+
+        <Radio
+          name='propertyAge'
+          label='' // keep empty or remove if optional
+          required
+          options={[
+            { value: 'Under 100', label: 'Under 100 years' },
+            { value: '100+', label: '100 years and over' },
+          ]}
+          error={errors.propertyAge}
+        />
+      </div>
 
       {/* Property Address */}
       <Textarea

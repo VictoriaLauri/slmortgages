@@ -4,7 +4,7 @@ import RemortgageForm from '../../components/forms/Quotation/RemortgageForm'
 
 export default function Remortgage() {
   return (
-    <main className='bg-teal/5'>
+    <main className='bg-gradient-to-b from-blue-light/40 to-white'>
       <section className='py-8 md:py-12'>
         <div className='max-w-3xl mx-auto px-4'>
           {/* BACK BUTTON */}

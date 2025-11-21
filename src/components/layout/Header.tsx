@@ -4,28 +4,63 @@ import { Link, useLocation } from 'react-router-dom'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false) // desktop default = closed
+  // Initialize with actual window size if available (client-side), default to false for SSR
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  )
   const location = useLocation()
 
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const servicesButtonRef = useRef<HTMLButtonElement>(null)
+  const servicesDropdownRef = useRef<HTMLDivElement>(null)
 
-  // Detect mobile screen to force Services open on mobile only
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-
+  // Detect mobile screen reactively
   useEffect(() => {
-    if (isMobile) {
-      setIsServicesOpen(true) // mobile default = open
-    } else {
-      setIsServicesOpen(false) // desktop default = closed
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+
+      // Close mobile menu when switching to desktop
+      if (!mobile && isMenuOpen) {
+        setIsMenuOpen(false)
+      }
     }
+
+    checkMobile() // Initial check
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [isMenuOpen])
+
+  // Update Services state when mobile state changes
+  useEffect(() => {
+    setIsServicesOpen(isMobile) // mobile = open, desktop = closed
   }, [isMobile])
+
+  // Close Services dropdown on outside click (desktop only)
+  useEffect(() => {
+    if (!isServicesOpen || isMobile) return
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (
+        servicesButtonRef.current?.contains(target) ||
+        servicesDropdownRef.current?.contains(target)
+      ) {
+        return
+      }
+      setIsServicesOpen(false)
+    }
+
+    document.addEventListener('click', handleClickOutside, true)
+    return () => document.removeEventListener('click', handleClickOutside, true)
+  }, [isServicesOpen, isMobile])
 
   // Close menus on Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsMenuOpen(false)
-        setIsServicesOpen(isMobile ? true : false)
+        setIsServicesOpen(isMobile)
       }
     }
     document.addEventListener('keydown', handleEscape)
@@ -42,7 +77,7 @@ export default function Header() {
 
   const closeAllMenus = () => {
     setIsMenuOpen(false)
-    setIsServicesOpen(isMobile ? true : false)
+    setIsServicesOpen(isMobile)
   }
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
@@ -65,7 +100,7 @@ export default function Header() {
   // Services dropdown links
   const serviceLinks = [
     { to: '/quotation', label: 'Conveyancing Quote' },
-    { to: '/refer-a-friend', label: 'Refer a Friend' },
+    { to: '/referral', label: 'Refer a Friend' },
     { to: '/careers', label: 'Careers' },
     { to: '/partners', label: 'Partners' },
   ]
@@ -110,7 +145,7 @@ export default function Header() {
               })}
 
               {/* SERVICES DROPDOWN */}
-              <div className='relative'>
+              <div className='relative' ref={servicesDropdownRef}>
                 <button
                   ref={servicesButtonRef}
                   onClick={() => setIsServicesOpen((prev) => !prev)}
@@ -219,7 +254,7 @@ export default function Header() {
       </header>
 
       {/* MOBILE OVERLAY */}
-      {isMenuOpen && (
+      {isMenuOpen && isMobile && (
         <div
           className='fixed inset-0 bg-black/50 backdrop-blur-sm z-[70] md:hidden'
           onClick={closeAllMenus}
@@ -227,74 +262,78 @@ export default function Header() {
       )}
 
       {/* MOBILE MENU PANEL */}
-      <aside
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl z-[80] md:hidden transition-transform duration-300 ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className='flex flex-col h-full'>
-          <div className='flex justify-between items-center p-4 border-b'>
-            <span className='text-xl font-bold text-primary-orange'>Menu</span>
-            <button
-              onClick={closeAllMenus}
-              className='px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2'
-            >
-              Close
-            </button>
+      {isMobile && (
+        <aside
+          className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl z-[80] md:hidden transition-transform duration-300 ${
+            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <div className='flex flex-col h-full'>
+            <div className='flex justify-between items-center p-4 border-b'>
+              <span className='text-xl font-bold text-primary-orange'>
+                Menu
+              </span>
+              <button
+                onClick={closeAllMenus}
+                className='px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2'
+              >
+                Close
+              </button>
+            </div>
+
+            <nav className='flex-1 overflow-y-auto p-4'>
+              <ul className='space-y-4'>
+                {/* HOME + ABOUT */}
+                {topNavLinks.slice(0, 2).map((link) => (
+                  <li key={link.to}>
+                    <Link
+                      to={link.to}
+                      onClick={closeAllMenus}
+                      className='block py-3 px-4 text-lg rounded hover:bg-gray-50 hover:text-primary-orange'
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+
+                {/* SERVICES (always open on mobile) */}
+                <li>
+                  <div className='py-3 px-4 text-lg font-semibold text-gray-800'>
+                    Services
+                  </div>
+
+                  <ul className='mt-2 ml-4 space-y-2'>
+                    {serviceLinks.map((s) => (
+                      <li key={s.to}>
+                        <Link
+                          to={s.to}
+                          onClick={closeAllMenus}
+                          className='block py-2 px-4 rounded text-base hover:bg-gray-50 hover:text-primary-orange'
+                        >
+                          {s.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+
+                {/* TESTIMONIALS + BOOK APPT + CONTACT */}
+                {topNavLinks.slice(2).map((link) => (
+                  <li key={link.to}>
+                    <Link
+                      to={link.to}
+                      onClick={closeAllMenus}
+                      className='block py-3 px-4 text-lg rounded hover:bg-gray-50 hover:text-primary-orange'
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
-
-          <nav className='flex-1 overflow-y-auto p-4'>
-            <ul className='space-y-4'>
-              {/* HOME + ABOUT */}
-              {topNavLinks.slice(0, 2).map((link) => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    onClick={closeAllMenus}
-                    className='block py-3 px-4 text-lg rounded hover:bg-gray-50 hover:text-primary-orange'
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-
-              {/* SERVICES (always open on mobile) */}
-              <li>
-                <div className='py-3 px-4 text-lg font-semibold text-gray-800'>
-                  Services
-                </div>
-
-                <ul className='mt-2 ml-4 space-y-2'>
-                  {serviceLinks.map((s) => (
-                    <li key={s.to}>
-                      <Link
-                        to={s.to}
-                        onClick={closeAllMenus}
-                        className='block py-2 px-4 rounded text-base hover:bg-gray-50 hover:text-primary-orange'
-                      >
-                        {s.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-
-              {/* TESTIMONIALS + BOOK APPT + CONTACT */}
-              {topNavLinks.slice(2).map((link) => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    onClick={closeAllMenus}
-                    className='block py-3 px-4 text-lg rounded hover:bg-gray-50 hover:text-primary-orange'
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </aside>
+        </aside>
+      )}
     </>
   )
 }
