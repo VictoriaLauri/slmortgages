@@ -28,13 +28,6 @@ export default function Footer() {
             REGULATED BY THE FINANCIAL CONDUCT AUTHORITY.
           </div>
 
-          <div className='border border-white/10 rounded-sm p-1.5 bg-blue-900/20 text-[9px] sm:text-[10px] leading-snug text-gray-200s'>
-            COMMERCIAL FINANCE IS NOT PART OF THE OPENWORK PARTNERSHIP AND IS
-            OFFERED IN OUR OWN RIGHT. OPENWORK LIMITED ACCEPTS NO RESPONSIBILITY
-            FOR THIS ASPECT OF OUR BUSINESS. THESE PRODUCTS AND SERVICES ARE NOT
-            REGULATED BY THE FINANCIAL CONDUCT AUTHORITY.
-          </div>
-
           <p className='text-gray-300 mt-1'>
             Supreme Financial Solutions Limited is an appointed representative
             of The Openwork Partnership, a trading style of Openwork Limited
