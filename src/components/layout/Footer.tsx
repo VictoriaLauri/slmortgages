@@ -38,16 +38,14 @@ export default function Footer() {
         <div className='border-t border-teal-dark pt-2'>
           <div className='flex flex-wrap gap-2 text-gray-300'>
             <a
-              href='https://business.yell.com/legal/terms-of-use/'
-              target='_blank'
-              rel='noopener noreferrer'
+              href='/terms-of-use'
               className='hover:underline focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 focus:ring-offset-blue-dark rounded'
             >
               Terms of Use
             </a>
             <span>|</span>
             <a
-              href='https://business.yell.com/websites-privacy-cookie-policy/'
+              href='https://www.theopenworkpartnership.com/privacy-notice/'
               target='_blank'
               rel='noopener noreferrer'
               className='hover:underline focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 focus:ring-offset-blue-dark rounded'

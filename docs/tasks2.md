@@ -6,6 +6,3 @@ Optionally, we would need to allow user to manage their cookie settings.
 Clear localStorage: `localStorage.clear()` in browser console
 
 **Partners page line 1271 tasks.md** 
-
-
-
