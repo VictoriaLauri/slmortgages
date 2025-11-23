@@ -8,18 +8,27 @@ export default function Footer() {
             IMPORTANT INFORMATION
           </p>
 
-          <div className='border border-white/10 rounded-sm p-2 bg-blue-900/20'>
+          {/* Main Warning – slightly larger */}
+          <div className='border border-white/10 rounded-sm p-1.5 bg-blue-900/20 text-[11px] sm:text-[12px] font-semibold leading-snug'>
             THINK CAREFULLY BEFORE SECURING OTHER DEBTS AGAINST YOUR PROPERTY.
             YOUR PROPERTY MAY BE REPOSSESSED IF YOU DO NOT KEEP UP REPAYMENTS ON
             YOUR MORTGAGE.
           </div>
 
-          <div className='border border-white/10 rounded-sm p-2 bg-blue-900/20'>
+          {/* Secondary Warnings – tighter + smaller text */}
+          <div className='border border-white/10 rounded-sm p-1.5 bg-blue-900/20 text-[9px] sm:text-[10px] leading-snug text-gray-200'>
             SOME BUY TO LET & LET TO BUY MORTGAGES ARE NOT REGULATED BY THE
             FINANCIAL CONDUCT AUTHORITY.
           </div>
 
-          <div className='border border-white/10 rounded-sm p-2 bg-blue-900/20'>
+          <div className='border border-white/10 rounded-sm p-1.5 bg-blue-900/20 text-[9px] sm:text-[10px] leading-snug text-gray-200'>
+            COMMERCIAL FINANCE IS NOT PART OF THE OPENWORK PARTNERSHIP AND IS
+            OFFERED IN OUR OWN RIGHT. OPENWORK LIMITED ACCEPTS NO RESPONSIBILITY
+            FOR THIS ASPECT OF OUR BUSINESS. THESE PRODUCTS AND SERVICES ARE NOT
+            REGULATED BY THE FINANCIAL CONDUCT AUTHORITY.
+          </div>
+
+          <div className='border border-white/10 rounded-sm p-1.5 bg-blue-900/20 text-[9px] sm:text-[10px] leading-snug text-gray-200s'>
             COMMERCIAL FINANCE IS NOT PART OF THE OPENWORK PARTNERSHIP AND IS
             OFFERED IN OUR OWN RIGHT. OPENWORK LIMITED ACCEPTS NO RESPONSIBILITY
             FOR THIS ASPECT OF OUR BUSINESS. THESE PRODUCTS AND SERVICES ARE NOT
@@ -50,7 +59,7 @@ export default function Footer() {
               rel='noopener noreferrer'
               className='hover:underline focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 focus:ring-offset-blue-dark rounded'
             >
-              Privacy & Cookies
+              Privacy Notice
             </a>
           </div>
         </div>
