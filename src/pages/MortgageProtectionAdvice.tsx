@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import PartnersCarousel from '../components/layout/PartnerCarousel'
 
 const partnersLogos = [
-  { src: '/public/assets/logos/partners_logo_1.jpg', alt: 'Partner 1' },
-  { src: '/public/assets/logos/partners_logo_2.jpg', alt: 'Partner 2' },
-  { src: '/public/assets/logos/partners_logo_3.jpg', alt: 'Partner 3' },
-  { src: '/public/assets/logos/partners_logo_4.jpg', alt: 'Partner 4' },
-  { src: '/public/assets/logos/partners_logo_5.jpg', alt: 'Partner 5' },
+  { src: 'assets/logos/partners_logo_1.jpg', alt: 'Partner 1' },
+  { src: 'assets/logos/partners_logo_2.jpg', alt: 'Partner 2' },
+  { src: 'assets/logos/partners_logo_3.jpg', alt: 'Partner 3' },
+  { src: 'assets/logos/partners_logo_4.jpg', alt: 'Partner 4' },
+  { src: 'assets/logos/partners_logo_5.jpg', alt: 'Partner 5' },
 ]
 
 export default function MortgageProtectionAdvice() {
