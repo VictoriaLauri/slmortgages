@@ -98,10 +98,10 @@ export default function Header() {
 
   // Services dropdown links
   const serviceLinks = [
+    { to: '/mortgage-protection-advice', label: 'Mortgage & Protection Advice' },
     { to: '/quotation', label: 'Conveyancing Quote' },
     { to: '/referral', label: 'Refer a Friend' },
     { to: '/careers', label: 'Careers' },
-    { to: '/partners', label: 'Partners' },
   ]
 
   return (

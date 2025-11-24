@@ -15,6 +15,7 @@ import Survey from './pages/quotation/Survey'
 import Referral from './pages/ReferAFriend'
 import Testimonials from './pages/Testimonials'
 import TermsOfUse from './pages/TermsOfUse'
+import MortgageProtectionAdvice from './pages/MortgageProtectionAdvice'
 
 export default function AppRoutes() {
   return (
@@ -38,6 +39,7 @@ export default function AppRoutes() {
         <Route path='/partners' element={<Partners />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/terms-of-use' element={<TermsOfUse />} />
+        <Route path='/mortgage-protection-advice' element={<MortgageProtectionAdvice />} />
       </Route>
     </Routes>
   )
