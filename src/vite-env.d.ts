@@ -1,0 +1,18 @@
+/// <reference types="vite/client" />
+
+declare module '*.css' {
+  const content: Record<string, string>;
+  export default content;
+}
+
+// Allow CSS imports from node_modules packages
+declare module 'swiper/css' {
+  const content: string;
+  export default content;
+}
+
+declare module 'swiper/css/autoplay' {
+  const content: string;
+  export default content;
+}
+
