@@ -92,12 +92,12 @@ export default function Home() {
   <ul className='list-disc list-inside text-text-light space-y-0.5 mb-3'>
     <li>Life Cover (dependants or mortgage)</li>
     <li>Critical Illness Cover (incl. upgraded cancer options)</li>
+    <li>Accident & Sickness Multi-cover from £10</li>
     <li>Income Protection (1–5 years or full-term)</li>
   </ul>
 
   <h4 className='text-md font-semibold text-text-navy mb-1'>Additional Cover</h4>
   <ul className='list-disc list-inside text-text-light space-y-0.5'>
-    <li>Accident & Sickness Multi-cover from £10</li>
     <li>Global Treatment & Second Medical Opinion from £3</li>
     <li>Home Insurance (Buildings, Contents & Landlord)</li>
     <li>Private Medical Insurance (referrals)</li>
