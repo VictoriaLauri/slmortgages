@@ -119,7 +119,7 @@ export default function Header() {
               onClick={handleTopNavClick}
               className='text-2xl font-bold text-primary-orange hover:opacity-80 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange focus-visible:ring-offset-2 rounded'
             >
-              SL Mortgages
+              Svetlana Latiseva Mortgages
             </Link>
 
             {/* DESKTOP NAV */}
