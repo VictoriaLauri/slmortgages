@@ -20,6 +20,7 @@ import {
 } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import PartnerMarquee from '../components/layout/PartnerMarquee'
+import { Button } from '../components/ui'
 import { usePartnerLogos } from '../lib/hooks/usePartnerLogos'
 
 interface CardProps {
@@ -55,13 +56,7 @@ function ExpandableCard({
       '
     >
       {/* Icon */}
-      <div className='mb-3 text-primary-orange-muted'>
-        {icon &&
-          (icon as any).type &&
-          (icon as any).type({
-            className: 'text-3xl text-primary-orange-muted',
-          })}
-      </div>
+      <div className='mb-3 text-3xl text-primary-orange-muted'>{icon}</div>
 
       {/* Title */}
       <h3 className='text-lg font-semibold text-text-navy mb-2 line-clamp-2'>
@@ -72,7 +67,7 @@ function ExpandableCard({
       <div
         id={contentId}
         className={`
-          text-sm text-text-light leading-relaxed space-y-3 mb-3
+          text-sm text-text-light leading-relaxed space-y-3 mb-3 text-left w-full
           transition-all duration-300
           ${open ? '' : 'line-clamp-2'}
         `}
@@ -116,35 +111,21 @@ export default function MortgageProtectionAdvice() {
 
   return (
     <div className='min-h-screen w-full bg-gradient-to-b from-blue-light/40 to-white pt-10 md:pt-12'>
-      {/* Back Button */}
-      <div className='max-w-5xl mx-auto mb-6 px-4'>
-        <Link
-          to='/'
-          className='
-            inline-flex items-center gap-2 text-teal-dark 
-            hover:text-teal-darker focus:outline-none 
-            focus:ring-2 focus:ring-orange focus:ring-offset-2 rounded
-          '
-        >
-          <ArrowLeft size={20} />
-          <span className='text-sm md:text-base font-medium'>Back</span>
-        </Link>
-      </div>
-
+      
       {/* Header */}
-      <div className='max-w-5xl mx-auto text-center mb-14 px-4'>
-        <h1 className='text-3xl md:text-4xl font-semibold text-orange mb-4'>
+      <div className='max-w-5xl mx-auto text-center mb-10 px-4'>
+        <h1 className='text-2xl md:text-3xl font-bold text-text-navy mb-4'>
           Mortgage & Protection Advice
         </h1>
-        <p className='text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl mx-auto'>
+        <p className='text-text-light max-w-2xl mx-auto leading-relaxed'>
           Clear, friendly and personalised guidance covering mortgages,
-          protection, insurance, and business protection — explained simply and
+          protection, insurance, and business protection explained simply and
           tailored to your circumstances.
         </p>
       </div>
 
       {/* MAIN CONTENT */}
-      <div className='max-w-5xl mx-auto px-4 space-y-20 pb-20'>
+      <div className='max-w-5xl mx-auto px-4 space-y-12 pb-12'>
         {/* ===================== MORTGAGES ===================== */}
         <section>
           <h2 className='text-2xl md:text-3xl font-semibold text-teal-dark mb-6'>
@@ -205,8 +186,8 @@ export default function MortgageProtectionAdvice() {
               setOpenCard={setOpenCard}
             >
               <p>
-                Advice for anyone wanting to invest in rental properties—
-                whether a normal rental, HMO (House of Multiply Occupancy -
+                Advice for anyone wanting to invest in rental properties,
+                whether a normal rental, HMO (House of Multiple Occupancy -
                 rented by room), or holiday let (services accommodation or
                 Airbnb)
               </p>
@@ -359,7 +340,7 @@ export default function MortgageProtectionAdvice() {
               <p>
                 A low-cost cover that pays out if you experience an accident or
                 hospitalization. Payments are made when a qualifying event
-                occurs—such as a broken bone (with hospital confirmation)—
+                occurs, such as a broken bone (with hospital confirmation),
                 providing financial support during challenging times.
               </p>
 
@@ -370,7 +351,7 @@ export default function MortgageProtectionAdvice() {
                 <li>Additional expenses</li>
               </ul>
 
-              <p>*Prices are correct as per November 2025</p>
+              <p>*Prices are correct as per November 2025, subject to change from time to time.</p>
             </ExpandableCard>
 
             <ExpandableCard
@@ -380,7 +361,7 @@ export default function MortgageProtectionAdvice() {
               openCard={openCard}
               setOpenCard={setOpenCard}
             >
-              <p>(*from £3)</p>
+              <p>(*from £3 per month)</p>
 
               <p>
                 If clients or their children were to become seriously ill, they
@@ -392,7 +373,7 @@ export default function MortgageProtectionAdvice() {
               <p>Main features:</p>
               <ul className='list-disc list-inside space-y-1'>
                 <li>
-                  Available as an add-on for £3 to Critical Illness+, Life
+                  Available as an add-on from as low as £3 per month to Critical Illness+, Life
                   Insurance+, and Income Protection
                 </li>
                 <li>
@@ -404,7 +385,7 @@ export default function MortgageProtectionAdvice() {
                 </li>
               </ul>
 
-              <p>*Prices are correct as per November 2025</p>
+              <p>*Prices are correct as per November 2025, subject to change from time to time.</p>
             </ExpandableCard>
 
             <ExpandableCard
@@ -550,20 +531,22 @@ export default function MortgageProtectionAdvice() {
         </section>
 
         {/* CTA */}
-        <div className='text-center pt-6'>
-          <Link
-            to='/book-appointment'
-            className='
-              inline-block bg-orange-600 text-white font-semibold px-8 py-4 
-              rounded-lg shadow-md hover:bg-orange-700 transition
-            '
-          >
-            Book an Appointment
-          </Link>
-          <p className='mt-4 text-gray-700 text-sm md:text-base'>
-            I'm here to help you every step of the way. Feel free to get in
-            touch.
+        <div className='text-center pt-2'>
+          <p className='mb-6 text-gray-700 text-base md:text-lg leading-relaxed max-w-2xl mx-auto'>
+            Whether you're taking your first step onto the property ladder,
+            looking to protect your family's future, or need guidance on
+            business protection, I'm here to help you every step of the way.
+            Book a free, no-obligation consultation and let's find the right
+            solution for your circumstances.
           </p>
+          <div className='flex flex-col sm:flex-row justify-center gap-3'>
+            <Link to='/book-appointment'>
+              <Button variant='primary'>Book an Appointment</Button>
+            </Link>
+            <Link to='/contact'>
+              <Button variant='secondary'>Get in Touch</Button>
+            </Link>
+          </div>
         </div>
       </div>
 

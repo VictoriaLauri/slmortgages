@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import joinUsImg from '../assets/images/slm_joinus_001.jpg'
 import CareersForm from '../components/forms/CareersForm'
 
 export default function Careers() {
@@ -24,7 +25,7 @@ export default function Careers() {
                 shadow-[0_20px_40px_rgba(0,0,0,0.3),0_10px_20px_rgba(0,0,0,0.2),inset_0_2px_4px_rgba(255,255,255,0.1)]'
             >
               <img
-                src='/assets/images/slm_image_03.jpg'
+                src={joinUsImg}
                 alt='Advisor working'
                 className='w-full h-full object-cover -rotate-45 scale-170'
               />
@@ -34,7 +35,7 @@ export default function Careers() {
             <div
               className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
                   w-[50%] h-[50%] md:w-44 md:h-44 bg-gradient-to-br from-primary-orange-muted to-orange-600 text-white 
-                  flex items-center justify-center text-base md:text-2xl font-bold
+                  flex items-center justify-center text-base md:text-3xl font-bold
                   rotate-45 rounded-xl z-10
                   shadow-[0_15px_30px_rgba(0,0,0,0.4),0_5px_15px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.2)]'
             >

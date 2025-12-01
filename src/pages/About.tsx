@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import GoogleReviews from '../components/features/GoogleReviews'
-import profileImg from '/public/assets/images/profile.jpeg'
+import profileImg from '../assets/images/profile.jpeg'
 
 export default function About() {
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function About() {
 
                 <p>
                   Today, I support clients with friendly, honest, and
-                  personalised advice — whether you're buying your first home,
+                  personalised advice, whether you're buying your first home,
                   remortgaging, or exploring protection options. My mission is
                   simple: make your mortgage journey clear, smooth, and
                   stress-free.
@@ -86,7 +86,7 @@ export default function About() {
 
           <p className='text-text-dark text-center max-w-3xl mx-auto mb-10'>
             I’m grateful for every review left by clients I’ve helped. Here’s
-            what people are saying about their experience with SL Mortgages.
+            what people are saying about their experience with Svetlana Latiseva Mortgages.
           </p>
 
           {/* REVIEW WIDGET WRAPPER */}
@@ -106,14 +106,14 @@ export default function About() {
           </h2>
           <p className='text-base text-text-dark mb-6 leading-relaxed'>
             Looking for clear, friendly mortgage or protection advice? Get in
-            touch today — I’ll help you take the next step with confidence.
+            touch today and I’ll help you take the next step with confidence.
           </p>
 
           <a
             href='/appointment'
             className='inline-block bg-primary-orange text-white font-semibold px-6 py-3 rounded-md hover:bg-orange-500 transition-colors'
           >
-            Book an Appointment
+            Book a Free Virtual Appointment
           </a>
         </div>
       </section>

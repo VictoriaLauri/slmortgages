@@ -389,7 +389,6 @@ export default function SaleAndPurchaseForm() {
               label: 'High Rise Building (over 11m/4+ storeys)',
             },
             { value: 'HMO', label: 'House of Multiple Occupancy (HMO)' },
-            { value: 'HTBISA/LISA', label: 'HTB ISA / Lifetime ISA' },
             { value: 'JBSP', label: 'Joint Borrower, Sole Proprietor' },
             { value: 'Ltd BTL', label: 'Limited Company BTL' },
             { value: 'Multi-unit', label: 'Multi-unit Block' },

@@ -1,30 +1,19 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import calendarImg from '../assets/images/calendar_img_02.jpg'
 import { Button } from '../components/ui'
 
+// Calendly URL with styling params
+const CALENDLY_URL =
+  'https://calendly.com/s-latiseva-slmortgages/30min?hide_event_type_details=1&hide_gdpr_banner=1&text_color=14213e&primary_color=c4490f'
+
 export default function BookAppointment() {
-  useEffect(() => {
-    const scriptId = 'calendly-widget-script'
-
-    // Prevent duplicate script injection (React Strict Mode double-mounts)
-    if (document.getElementById(scriptId)) return
-
-    const script = document.createElement('script')
-    script.id = scriptId
-    script.src = 'https://assets.calendly.com/assets/external/widget.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    // Don't remove on unmount — Calendly manages its own cleanup
-  }, [])
-
   return (
-    <div className='min-h-screen bg-gradient-to-b from-blue-light/40 to-white'>
+    <div className='min-h-screen bg-linear-to-b from-blue-light/40 to-white'>
       <div className='max-w-4xl mx-auto px-4 py-12'>
         {/* ---------------- HERO SECTION ---------------- */}
         <div className='text-center mb-12'>
           <img
-            src='/assets/images/calendar_img_02.jpg'
+            src={calendarImg}
             alt='Calendar and stationery on a desk'
             className='w-full max-h-56 md:max-h-72 object-cover object-[center_60%] rounded-xl shadow-lg mb-6'
           />
@@ -76,12 +65,13 @@ export default function BookAppointment() {
         ></div>
 
         {/* ---------------- CALENDLY WIDGET ---------------- */}
-        <div className='bg-white rounded-xl shadow-xl overflow-hidden p-4 md:p-6'>
-          <div
-            className='calendly-inline-widget h-[520px] md:h-[700px]'
-            data-url='https://calendly.com/s-latiseva-slmortgages/30min?hide_event_type_details=1&hide_gdpr_banner=1&text_color=14213e&primary_color=c4490f'
-            style={{ minWidth: '280px' }}
-          ></div>
+        <div className='bg-white rounded-2xl shadow-xl overflow-hidden'>
+          <iframe
+            src={CALENDLY_URL}
+            title='Schedule a virtual appointment with Svetlana Latiseva'
+            className='w-full h-[630px] md:h-[750px]'
+            frameBorder='0'
+          />
         </div>
       </div>
 

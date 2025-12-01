@@ -122,7 +122,7 @@ export default function Home() {
           </p>
           <div className='flex flex-col sm:flex-row gap-3 justify-center'>
             <Link to='/mortgage-protection-advice'>
-              <Button variant='primary'>Explore My Services</Button>
+              <Button variant='primary'>Learn More About My Services</Button>
             </Link>
             <Link to='/contact'>
               <Button variant='secondary'>Get in Touch</Button>

@@ -10,7 +10,7 @@
 /* Custom Color Palette - Matching Leaflet Colors with WCAG 2.2 AA Compliance */
 @theme {
   /* Primary Orange Colors - From Leaflet */
-  --color-primary-orange: #eb5813; /* Original leaflet orange */
+  --color-primary-orange: #c4490f; /* Original leaflet orange */
   /* ⚠️ WARNING: White text on primary-orange (#eb5813) has contrast ratio ~3.0:1 */
   /* This only meets WCAG AA for LARGE text (18pt+ or 14pt bold+) */
   /* For normal text with white, use primary-orange-muted instead */

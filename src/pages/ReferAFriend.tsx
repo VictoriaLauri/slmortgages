@@ -14,7 +14,7 @@ export default function ReferAFriend() {
         </Link>
 
         {/* Heading */}
-        <h1 className='text-3xl md:text-4xl font-bold text-primary-orange-muted mb-4'>
+        <h1 className='text-2xl md:text-3xl font-bold text-text-navy mb-4'>
           Refer a Friend
         </h1>
 
