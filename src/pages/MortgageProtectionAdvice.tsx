@@ -1,5 +1,5 @@
 import { ArrowLeft } from 'lucide-react'
-import { ReactNode, useId, useState } from 'react'
+import { useId, useState, type ReactNode } from 'react'
 import {
   FaBriefcase,
   FaBuilding,
