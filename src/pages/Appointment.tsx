@@ -4,7 +4,7 @@ import { Button } from '../components/ui'
 
 // Calendly URL with styling params
 const CALENDLY_URL =
-  'https://calendly.com/s-latiseva-slmortgages/30min?hide_event_type_details=1&hide_gdpr_banner=1&text_color=14213e&primary_color=c4490f'
+  'https://calendly.com/s-latiseva-slmortgages/30min?hide_event_type_details=1&hide_gdpr_banner=1'
 
 export default function BookAppointment() {
   return (

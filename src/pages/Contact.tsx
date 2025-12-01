@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import ContactForm from '../components/forms/ContactForm'
 
 export default function Contact() {
