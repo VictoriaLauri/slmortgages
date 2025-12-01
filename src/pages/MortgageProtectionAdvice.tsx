@@ -25,7 +25,7 @@ import { usePartnerLogos } from '../lib/hooks/usePartnerLogos'
 interface CardProps {
   id: number
   title: string
-  icon: JSX.Element
+  icon: React.ReactNode
   children: ReactNode
   openCard: number | null
   setOpenCard: (id: number | null) => void
