@@ -1,8 +1,18 @@
 # 🏠 SL Mortgages Website
 
-A professional, responsive mortgage and protection advisory website built for **SL Mortgages**, providing clear information, lead-generation tools, and full FCA compliance.
+A professional, responsive mortgage and protection advisory website built for **Svetlana Latiseva Mortgages**, providing clear information, lead-generation tools, and full FCA compliance.
 
 This project delivers a modern digital presence aligned with business goals: credibility, accessibility, automation, and scalability.
+
+> 🔗 **Live Website (Work in Progress):** [https://sl-mortgages.netlify.app/](https://sl-mortgages.netlify.app/)
+
+---
+
+## 📸 Screenshots
+
+| Home Page                                                                    | Services Page                                                              |
+| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| ![Home Page - Hero section with services overview](assets/screenshot_01.jpg) | ![Services - Mortgage & Protection Advice cards](assets/screenshot_02.jpg) |
 
 ---
 
@@ -20,15 +30,62 @@ The SL Mortgages website offers:
 
 ## 🧭 Core Features
 
-| Category          | Feature                      | Description                                                                                                                            |
-| ----------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **Pages**         | 9 Core Pages                 | Home, About Me, Conveyancer & Survey Quotation, Book Appointment, Career Opportunities, Refer a Friend, Testimonials, Partners, Footer |
-| **Forms**         | Quotation, Referral, Careers | Integrated via Formspree / EmailJS                                                                                                     |
-| **Integrations**  | Google Calendar / Calendly   | Appointment booking via embed                                                                                                          |
-|                   | Google Reviews               | Live testimonial widget (fallback static reviews)                                                                                      |
-| **SEO**           | React Helmet                 | Dynamic meta tags and structured data                                                                                                  |
-| **Legal**         | FCA & Openwork disclaimers   | Present globally in footer                                                                                                             |
-| **Accessibility** | WCAG 2.2 AA                  | Keyboard navigation, focus states, contrast verified                                                                                   |
+### Pages & Navigation
+
+| Page                             | Description                                                                                       |
+| -------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Home**                         | Hero section with value proposition, services overview (Mortgages & Protection Products), and CTA |
+| **About**                        | Professional background and personal approach of the mortgage advisor                             |
+| **Mortgage & Protection Advice** | Comprehensive service cards with expandable details for all offerings                             |
+| **Quotation Portal**             | Multi-form quotation system (Purchase, Sale, Remortgage, Sale & Purchase, Survey)                 |
+| **Book Appointment**             | Calendly integration for scheduling free virtual consultations                                    |
+| **Testimonials**                 | Google Reviews integration with static fallback                                                   |
+| **Partners**                     | Trusted lender partner showcase with animated marquee                                             |
+| **Careers**                      | Career opportunities and application form                                                         |
+| **Refer a Friend**               | Referral submission form for client recommendations                                               |
+| **Contact**                      | Contact form and business information                                                             |
+| **Terms of Use**                 | Legal terms and conditions                                                                        |
+
+### Mortgage Services
+
+| Category               | Services                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| **Residential**        | First-time buyers, Home movers, Second residential properties                  |
+| **Government Schemes** | Shared Ownership, Staircasing, Right to Buy/Acquire, First Homes, Lifetime ISA |
+| **Remortgages**        | Standard remortgages, Equity release                                           |
+| **Buy-to-Let**         | Personal or Limited Company, HMO, Holiday Lets                                 |
+| **Specialist**         | Debt consolidation, Commercial & unregulated mortgages (referrals)             |
+
+### Protection Products
+
+| Category                | Products                                                                                                                          |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **Core Protection**     | Life Cover, Critical Illness Cover, Income Protection, Accident & Sickness Multicover                                             |
+| **Additional Cover**    | Global Treatment, Home Insurance, Private Medical Insurance (referrals), Commercial Insurance (referrals)                         |
+| **Business Protection** | Relevant Life Plans, Key Person Cover, Shareholder & Partnership Protection, Business Loan Protection, Business Income Protection |
+
+### Forms & Integrations
+
+| Feature                | Description                                                                      |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| **Quotation Forms**    | Purchase, Sale, Remortgage, Sale & Purchase, Survey quotations via Netlify Forms |
+| **Referral Form**      | Client referral submission                                                       |
+| **Career Application** | Job application form                                                             |
+| **Contact Form**       | General enquiry form                                                             |
+| **Calendly Embed**     | Appointment booking with preloading optimisation                                 |
+| **Google Reviews**     | Live testimonial widget with static fallback                                     |
+| **Partner Marquee**    | Animated lender logo carousel                                                    |
+
+### UX & Accessibility
+
+| Feature                    | Description                                              |
+| -------------------------- | -------------------------------------------------------- |
+| **WCAG 2.2 AA Compliance** | Semantic HTML, keyboard navigation, visible focus states |
+| **Responsive Design**      | Mobile-first layout, optimised for all screen sizes      |
+| **Cookie Consent**         | Non-intrusive banner with localStorage persistence       |
+| **Scroll to Top**          | Smooth scroll navigation enhancement                     |
+| **SEO Optimisation**       | Dynamic meta tags and structured data via React Helmet   |
+| **FCA Compliance**         | Regulatory disclaimers and Openwork statements in footer |
 
 ---
 
@@ -49,30 +106,35 @@ The SL Mortgages website offers:
 
 ## 📂 Project Structure
 
-```
+```text
 sl-mortgages/
+├── assets/                    # Screenshots and documentation assets
 ├── src/
 │   ├── components/
-│   │   ├── layout/ (Header, Footer, Navigation, CookieBanner)
-│   │   ├── forms/ (QuotationForm, ReferralForm, CareerForm)
-│   │   ├── features/ (GoogleReviews, CalendarEmbed)
-│   │   └── ui/ (Button, Input, Checkbox, etc.)
+│   │   ├── layout/            # Header, Footer, Layout, CookieBanner, PartnerMarquee, ScrollToTop
+│   │   ├── forms/             # CareersForm, ContactForm, ReferAFriendForm
+│   │   │   └── Quotation/     # PurchaseForm, SaleForm, RemortgageForm, SaleAndPurchaseForm, SurveyForm
+│   │   ├── features/          # GoogleReviews
+│   │   └── ui/                # Button, Input, Checkbox, Select, Radio, Textarea, Alert, Tooltip
 │   ├── pages/
 │   │   ├── Home.tsx
 │   │   ├── About.tsx
-│   │   ├── Quotation.tsx
+│   │   ├── MortgageProtectionAdvice.tsx
 │   │   ├── Appointment.tsx
-│   │   ├── Careers.tsx
-│   │   ├── Referral.tsx
 │   │   ├── Testimonials.tsx
-│   │   └── Partners.tsx
+│   │   ├── Partners.tsx
+│   │   ├── Careers.tsx
+│   │   ├── ReferAFriend.tsx
+│   │   ├── Contact.tsx
+│   │   ├── TermsOfUse.tsx
+│   │   └── quotation/         # Index, Purchase, Sale, Remortgage, SaleAndPurchase, Survey
+│   ├── lib/                   # Utilities and hooks
 │   ├── styles/
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── routes.tsx
 ├── public/
-│   ├── favicon.ico
-│   └── assets/
+│   └── assets/                # Favicon, images, partner logos
 ├── docs/
 │   ├── prd.md
 │   └── client-brief.md
@@ -165,17 +227,6 @@ Ensure:
 
 - **Svetlana Latiseva** — Client / Mortgage Advisor
 - **Victoria Lauri** — Developer / Project Lead
-
----
-
-## 🛡️ Legal & Compliance
-
-- FCA disclaimers and Openwork statements included on every page
-- External links:
-  - [Terms of Use](https://business.yell.com/legal/terms-of-use/)
-  - [Privacy & Cookies](https://business.yell.com/websites-privacy-cookie-policy/)
-  - [Trading Terms](https://business.yell.com/legal/trading-terms/)
-- Cookie consent stored in localStorage (non-intrusive banner)
 
 ---
 
