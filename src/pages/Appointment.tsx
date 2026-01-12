@@ -28,6 +28,15 @@ export default function BookAppointment() {
             exploring protection options, I'm here to help you every step of the
             way.
           </p>
+          <p className='text-text-light max-w-2xl mx-auto'>
+            Our initial consultation is completely fee free and includes
+            my services presentation, data protection overview, affordability
+            assessment, and a discussion of your personal circumstances and
+            goals. Protection consultations, as well as conveyancing and survey quotations, are provided fee free for clients.
+          </p>
+          <p className='text-text-light max-w-2xl mx-auto'>
+          Broker fees may apply if you proceed with a mortgage or remortgage application and will be fully discussed during your first consultation. Fees range from £0 to £1,250 depending on your circumstances and the services required. Most product transfers are fee-free.
+          </p>
         </div>
 
         {/* ---------------- WHAT TO EXPECT ---------------- */}

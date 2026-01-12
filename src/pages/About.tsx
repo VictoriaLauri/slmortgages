@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
-import GoogleReviews from '../components/features/GoogleReviews'
+import { Link } from 'react-router-dom'
 import profileImg from '../assets/images/profile.jpeg'
+import GoogleReviews from '../components/features/GoogleReviews'
+import { Button } from '../components/ui'
 
 export default function About() {
   useEffect(() => {
@@ -86,7 +88,8 @@ export default function About() {
 
           <p className='text-text-dark text-center max-w-3xl mx-auto mb-10'>
             I’m grateful for every review left by clients I’ve helped. Here’s
-            what people are saying about their experience with Svetlana Latiseva Mortgages.
+            what people are saying about their experience with Svetlana Latiseva
+            Mortgages.
           </p>
 
           {/* REVIEW WIDGET WRAPPER */}
@@ -109,12 +112,17 @@ export default function About() {
             touch today and I’ll help you take the next step with confidence.
           </p>
 
-          <a
-            href='/appointment'
-            className='inline-block bg-primary-orange text-white font-semibold px-6 py-3 rounded-md hover:bg-orange-500 transition-colors'
-          >
-            Book a Free Virtual Appointment
-          </a>
+          <div className='inline-flex flex-col items-center'>
+            <Link to='/appointment'>
+              <Button variant='primary' size='md'>
+                Book First Consultation Fee-Free*
+              </Button>
+            </Link>
+            <p className='text-xs md:text-sm mt-4 text-blue-dark text-center w-0 min-w-full'>
+              *Broker fees may apply if you proceed with a mortgage or
+              remortgage application
+            </p>
+          </div>
         </div>
       </section>
     </main>

@@ -37,15 +37,21 @@ export default function Home() {
           </p>
           <p className='text-sm md:text-base mb-4 text-blue-light max-w-4xl mx-auto leading-relaxed'>
             Whether you're a first-time buyer, remortgaging, or looking for
-            protection solutions, I’ll find the most competitive products
-            tailored to your circumstances. Get in touch today for fast,
-            friendly, and no-obligation advice.
+            protection solutions, I’ll find some of the most competitive
+            products tailored to your circumstances. Get in touch today for
+            fast, friendly, and no-obligation advice.
           </p>
-          <Link to='/appointment'>
-            <Button variant='primary' size='md'>
-              Book Free Virtual Consultation
-            </Button>
-          </Link>
+          <div className='inline-flex flex-col items-center'>
+            <Link to='/appointment'>
+              <Button variant='primary' size='md'>
+                Book First Consultation Fee-Free*
+              </Button>
+            </Link>
+            <p className='text-xs md:text-sm mt-4 text-blue-light/80 text-center w-0 min-w-full'>
+              *Broker fees may apply if you proceed with a mortgage or
+              remortgage application
+            </p>
+          </div>
         </div>
       </section>
 
@@ -63,47 +69,61 @@ export default function Home() {
           </h2>
 
           <div className='grid md:grid-cols-2 gap-6'>
-          <article className='p-5 rounded-lg shadow-sm border border-gray-100'>
-  <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
-    Mortgages
-  </h3>
+            <article className='p-5 rounded-lg shadow-sm border border-gray-100'>
+              <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
+                Mortgages
+              </h3>
 
-  <h4 className='text-md font-semibold text-text-navy mb-1'>Residential</h4>
-  <ul className='list-disc list-inside text-text-light space-y-0.5 mb-3'>
-    <li>First-time buyers, Home movers & Second residential</li>
-    <li>Government schemes incl. Shared Ownership (purchase/staircasing) & Right to Buy/Acquire</li>
-    <li>Remortgages</li>
-  </ul>
+              <h4 className='text-md font-semibold text-text-navy mb-1'>
+                Residential
+              </h4>
+              <ul className='list-disc list-inside text-text-light space-y-0.5 mb-3'>
+                <li>First-time buyers, Home movers & Second residential</li>
+                <li>
+                  Government schemes incl. Shared Ownership
+                  (purchase/staircasing) & Right to Buy/Acquire
+                </li>
+                <li>Remortgages</li>
+              </ul>
 
-  <h4 className='text-md font-semibold text-text-navy mb-1'>Buy to Let & Specialist</h4>
-  <ul className='list-disc list-inside text-text-light space-y-0.5'>
-    <li>Buy to Let (Personal or Limited Company incl. residential BTL, HMO, Holiday Lets)</li>
-    <li>Debt consolidation</li>
-    <li>Commercial & unregulated mortgages (referrals)</li>
-  </ul>
-</article>
+              <h4 className='text-md font-semibold text-text-navy mb-1'>
+                Buy to Let & Specialist
+              </h4>
+              <ul className='list-disc list-inside text-text-light space-y-0.5'>
+                <li>
+                  Buy to Let (Personal or Limited Company incl. residential
+                  Buy-to-Let, Houses in multiple occupation, Holiday Lets)
+                </li>
+                <li>Debt consolidation</li>
+                <li>Commercial & unregulated mortgages (referrals)</li>
+              </ul>
+            </article>
 
-<article className='p-5 rounded-lg shadow-sm border border-gray-100'>
-  <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
-    Protection Products
-  </h3>
+            <article className='p-5 rounded-lg shadow-sm border border-gray-100'>
+              <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
+                Protection Products
+              </h3>
 
-  <h4 className='text-md font-semibold text-text-navy mb-1'>Core Protection</h4>
-  <ul className='list-disc list-inside text-text-light space-y-0.5 mb-3'>
-    <li>Life Cover (dependants or mortgage)</li>
-    <li>Critical Illness Cover (incl. upgraded cancer options)</li>
-    <li>Accident & Sickness Multi-cover from £10</li>
-    <li>Income Protection (1–5 years or full-term)</li>
-  </ul>
+              <h4 className='text-md font-semibold text-text-navy mb-1'>
+                Core Protection
+              </h4>
+              <ul className='list-disc list-inside text-text-light space-y-0.5 mb-3'>
+                <li>Life Cover (dependants or mortgage)</li>
+                <li>Critical Illness Cover (incl. upgraded cancer options)</li>
+                <li>Accident & Sickness Multi-cover from £10</li>
+                <li>Income Protection (1–5 years or full-term)</li>
+              </ul>
 
-  <h4 className='text-md font-semibold text-text-navy mb-1'>Additional Cover</h4>
-  <ul className='list-disc list-inside text-text-light space-y-0.5'>
-    <li>Global Treatment & Second Medical Opinion from £3</li>
-    <li>Home Insurance (Buildings, Contents & Landlord)</li>
-    <li>Private Medical Insurance (referrals)</li>
-    <li>Commercial Insurance (referrals)</li>
-  </ul>
-</article>
+              <h4 className='text-md font-semibold text-text-navy mb-1'>
+                Additional Cover
+              </h4>
+              <ul className='list-disc list-inside text-text-light space-y-0.5'>
+                <li>Global Treatment & Second Medical Opinion from £3</li>
+                <li>Home Insurance (Buildings, Contents & Landlord)</li>
+                <li>Private Medical Insurance (referrals)</li>
+                <li>Commercial Insurance (referrals)</li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
@@ -118,11 +138,13 @@ export default function Home() {
             Ready to Get Started?
           </h2>
           <p className='text-base text-text-dark mb-5'>
-            Whether you’re a first-time buyer, a buy-to-let investor or simply remortgaging, I’ll help you secure the right deal for you and protection for your future.
+            Whether you’re a first-time buyer, a buy-to-let investor or simply
+            remortgaging, I’ll help you secure the right deal for you and
+            protection for your future.
           </p>
           <div className='flex flex-col sm:flex-row gap-3 justify-center'>
             <Link to='/mortgage-protection-advice'>
-              <Button variant='primary'>Learn More About My Services</Button>
+              <Button variant='primary'>Explore My Services</Button>
             </Link>
             <Link to='/contact'>
               <Button variant='secondary'>Get in Touch</Button>

@@ -35,7 +35,7 @@ export default function QuotationLanding() {
       icon: <FaRedoAlt className='text-3xl text-primary-orange-muted' />,
     },
     {
-      title: 'Survey',
+      title: 'Homebuyer Survey',
       desc: 'Request a quote for RICS Level 2 or Level 3 survey.',
       path: '/quotation/survey',
       icon: <FaClipboardList className='text-3xl text-primary-orange-muted' />,
@@ -48,7 +48,7 @@ export default function QuotationLanding() {
       <section className='py-8 md:py-10'>
         <div className='max-w-4xl mx-auto px-4 text-center'>
           <h1 className='text-2xl md:text-3xl font-bold text-text-navy mb-4'>
-            Get a Conveyancing or Survey Quote
+            Get a Conveyancing or Homebuyer Survey Quote
           </h1>
           <p className='text-text-light max-w-2xl mx-auto leading-relaxed'>
             Choose the option that best matches your situation. Each form is
@@ -60,23 +60,23 @@ export default function QuotationLanding() {
 
       {/* OPTIONS */}
       <section className='py-8 md:py-10'>
-        <div className='max-w-5xl mx-auto px-4'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6'>
+        <div className='max-w-6xl mx-auto px-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4'>
             {options.map((opt) => (
               <Link
                 key={opt.title}
                 to={opt.path}
                 className='
-                  border border-gray-100 rounded-lg shadow-sm p-5
+                  border border-gray-100 rounded-lg shadow-sm p-4
                   hover:shadow-md hover:border-primary-orange-muted
                   transition-all bg-white
-                  aspect-auto xl:aspect-square
-                  flex flex-col justify-center items-center text-center
+                  h-full
+                  flex flex-col justify-start items-center text-center
                 '
               >
                 <div className='mb-3'>{opt.icon}</div>
 
-                <h3 className='text-lg font-semibold text-text-navy mb-2'>
+                <h3 className='text-lg font-semibold text-text-navy mb-2 whitespace-nowrap'>
                   {opt.title}
                 </h3>
                 <p className='text-sm text-text-light leading-snug'>

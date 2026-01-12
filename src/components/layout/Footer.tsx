@@ -17,7 +17,7 @@ export default function Footer() {
 
           {/* Secondary Warnings – tighter + smaller text */}
           <div className='border border-white/10 rounded-sm p-1.5 bg-blue-900/20 text-[9px] sm:text-[10px] leading-snug text-gray-200'>
-            SOME BUY TO LET & LET TO BUY MORTGAGES ARE NOT REGULATED BY THE
+            MOST BUY TO LET & LET TO BUY MORTGAGES ARE NOT REGULATED BY THE
             FINANCIAL CONDUCT AUTHORITY.
           </div>
 
@@ -33,6 +33,12 @@ export default function Footer() {
             of The Openwork Partnership, a trading style of Openwork Limited
             which is authorised and regulated by the Financial Conduct
             Authority.
+          </p>
+          <p className='text-gray-300 mt-1'>
+            The information on this website is for use of residents of the
+            United Kingdom only. No representations are made as to whether the
+            information is applicable or available in any other country which
+            may have access to it.
           </p>
         </div>
 
@@ -61,6 +67,7 @@ export default function Footer() {
         <div className='mt-2 text-gray-400'>
           <p>
             &copy; {new Date().getFullYear()} SL Mortgages. All rights reserved.
+            Approved by The Openwork Partnership on xx/xx/2026.
           </p>
         </div>
       </div>

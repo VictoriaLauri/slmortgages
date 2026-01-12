@@ -18,9 +18,9 @@ import {
   FaUserTie,
 } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import PartnerMarquee from '../components/layout/PartnerMarquee'
+// import PartnerMarquee from '../components/layout/PartnerMarquee'
 import { Button } from '../components/ui'
-import { usePartnerLogos } from '../lib/hooks/usePartnerLogos'
+// import { usePartnerLogos } from '../lib/hooks/usePartnerLogos'
 
 interface CardProps {
   id: number
@@ -103,14 +103,13 @@ function ExpandableCard({
 }
 
 export default function MortgageProtectionAdvice() {
-  const logos = usePartnerLogos()
+  // const logos = usePartnerLogos()
 
   // ⭐ Global accordion state (only ONE open across ENTIRE PAGE)
   const [openCard, setOpenCard] = useState<number | null>(null)
 
   return (
     <div className='min-h-screen w-full bg-gradient-to-b from-blue-light/40 to-white pt-10 md:pt-12'>
-      
       {/* Header */}
       <div className='max-w-5xl mx-auto text-center mb-10 px-4'>
         <h1 className='text-2xl md:text-3xl font-bold text-text-navy mb-4'>
@@ -350,7 +349,10 @@ export default function MortgageProtectionAdvice() {
                 <li>Additional expenses</li>
               </ul>
 
-              <p>*Prices are correct as per November 2025, subject to change from time to time.</p>
+              <p>
+                *Prices are correct as per November 2025, subject to change from
+                time to time.
+              </p>
             </ExpandableCard>
 
             <ExpandableCard
@@ -372,8 +374,8 @@ export default function MortgageProtectionAdvice() {
               <p>Main features:</p>
               <ul className='list-disc list-inside space-y-1'>
                 <li>
-                  Available as an add-on from as low as £3 per month to Critical Illness+, Life
-                  Insurance+, and Income Protection
+                  Available as an add-on from as low as £3 per month to Critical
+                  Illness+, Life Insurance+, and Income Protection
                 </li>
                 <li>
                   Access to worldwide treatment options alongside UK-based care
@@ -384,7 +386,10 @@ export default function MortgageProtectionAdvice() {
                 </li>
               </ul>
 
-              <p>*Prices are correct as per November 2025, subject to change from time to time.</p>
+              <p>
+                *Prices are correct as per November 2025, subject to change from
+                time to time.
+              </p>
             </ExpandableCard>
 
             <ExpandableCard
@@ -468,7 +473,9 @@ export default function MortgageProtectionAdvice() {
             >
               <p>
                 A tax-efficient way for a business to provide life cover for
-                directors or employees.
+                directors or employees. HM Revenue and Customs practice and the
+                law relating to taxation are complex and subject to individual
+                circumstances and changes which cannot be foreseen.
               </p>
             </ExpandableCard>
 
@@ -535,8 +542,8 @@ export default function MortgageProtectionAdvice() {
             Whether you're taking your first step onto the property ladder,
             looking to protect your family's future, or need guidance on
             business protection, I'm here to help you every step of the way.
-            Book a free, no-obligation consultation and let's find the right
-            solution for your circumstances.
+            Book your no-obligation initial consultation and let's find the
+            right solution for your circumstances.
           </p>
           <div className='flex flex-col sm:flex-row justify-center gap-3'>
             <Link to='/book-appointment'>
@@ -549,19 +556,22 @@ export default function MortgageProtectionAdvice() {
         </div>
       </div>
 
-      {/* PARTNER LOGOS */}
-      <section className='bg-blue-light py-8 md:py-10 border-t border-gray-200'>
+      {/* PARTNER LOGOS - Hidden pending approval */}
+      {/* <section className='bg-blue-light py-8 md:py-10 border-t border-gray-200'>
         <div className='max-w-5xl mx-auto px-4 text-center'>
           <h2 className='text-2xl md:text-3xl font-bold mb-3 text-blue-dark'>
-            Trusted Lender Partners
+            Trusted Lender Partners and Leading Protection Advisers
           </h2>
           <p className='text-base text-text-dark mb-6 max-w-3xl mx-auto'>
-            I have access to a wide panel of lenders, helping me find the right
-            mortgage solution tailored to your individual circumstances.
+            I work with a wide panel of Trusted Lender Partners and leading
+            protection providers, giving you access to a comprehensive range of
+            mortgage and protection solutions. This allows me to tailor advice
+            and find the most suitable options to match your individual needs
+            and circumstances.
           </p>
           <PartnerMarquee logos={logos} speed={150} />
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }
