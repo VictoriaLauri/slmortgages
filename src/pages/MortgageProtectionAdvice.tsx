@@ -545,14 +545,18 @@ export default function MortgageProtectionAdvice() {
             Book your no-obligation initial consultation and let's find the
             right solution for your circumstances.
           </p>
-          <div className='flex flex-col sm:flex-row justify-center gap-3'>
-            <Link to='/book-appointment'>
-              <Button variant='primary'>Book an Appointment</Button>
+          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
+            <Link to='/appointment'>
+              <Button variant='primary'>Book First Consultation Fee-Free*</Button>
             </Link>
             <Link to='/contact'>
               <Button variant='secondary'>Get in Touch</Button>
             </Link>
           </div>
+          <p className='text-xs md:text-sm mt-4 text-text-dark text-center w-0 min-w-full'>
+              *Broker fees may apply if you proceed with a mortgage or
+              remortgage application
+            </p>
         </div>
       </div>
 

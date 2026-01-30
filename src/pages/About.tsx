@@ -112,17 +112,18 @@ export default function About() {
             touch today and I’ll help you take the next step with confidence.
           </p>
 
-          <div className='inline-flex flex-col items-center'>
+          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
             <Link to='/appointment'>
-              <Button variant='primary' size='md'>
-                Book First Consultation Fee-Free*
-              </Button>
+              <Button variant='primary'>Book First Consultation Fee-Free*</Button>
             </Link>
-            <p className='text-xs md:text-sm mt-4 text-blue-dark text-center w-0 min-w-full'>
+            <Link to='/contact'>
+              <Button variant='secondary'>Get in Touch</Button>
+            </Link>
+          </div>
+          <p className='text-xs md:text-sm mt-4 text-text-dark text-center w-0 min-w-full'>
               *Broker fees may apply if you proceed with a mortgage or
               remortgage application
             </p>
-          </div>
         </div>
       </section>
     </main>

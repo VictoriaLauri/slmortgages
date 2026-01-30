@@ -41,16 +41,13 @@ export default function Home() {
             products tailored to your circumstances. Get in touch today for
             fast, friendly, and no-obligation advice.
           </p>
-          <div className='inline-flex flex-col items-center'>
-            <Link to='/appointment'>
-              <Button variant='primary' size='md'>
-                Book First Consultation Fee-Free*
-              </Button>
+          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
+            <Link to='/mortgage-protection-advice'>
+              <Button variant='primary'>Explore My Services</Button>
             </Link>
-            <p className='text-xs md:text-sm mt-4 text-blue-light/80 text-center w-0 min-w-full'>
-              *Broker fees may apply if you proceed with a mortgage or
-              remortgage application
-            </p>
+            <Link to='/appointment'>
+              <Button variant='secondary'>Go to Calendar</Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -143,13 +140,17 @@ export default function Home() {
             protection for your future.
           </p>
           <div className='flex flex-col sm:flex-row gap-3 justify-center'>
-            <Link to='/mortgage-protection-advice'>
-              <Button variant='primary'>Explore My Services</Button>
+            <Link to='/appointment'>
+              <Button variant='primary'>Book First Consultation Fee-Free*</Button>
             </Link>
             <Link to='/contact'>
               <Button variant='secondary'>Get in Touch</Button>
             </Link>
           </div>
+          <p className='text-xs md:text-sm mt-4 text-text-dark text-center w-0 min-w-full'>
+              *Broker fees may apply if you proceed with a mortgage or
+              remortgage application
+            </p>
         </div>
       </section>
     </main>
