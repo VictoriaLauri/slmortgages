@@ -49,13 +49,13 @@ function ExpandableCard({
   return (
     <div
       className='
-        border border-gray-100 rounded-lg shadow-sm p-5 bg-white
+        border border-gray-100 rounded-lg shadow-sm p-4 bg-white
         hover:shadow-md hover:border-primary-orange-muted
         transition-all text-center flex flex-col items-center
       '
     >
       {/* Icon */}
-      <div className='mb-3 text-3xl text-primary-orange-muted'>{icon}</div>
+      <div className='mb-2 text-3xl text-primary-orange-muted'>{icon}</div>
 
       {/* Title */}
       <h3 className='text-lg font-semibold text-text-navy mb-2 line-clamp-2'>
@@ -66,7 +66,7 @@ function ExpandableCard({
       <div
         id={contentId}
         className={`
-          text-sm text-text-light leading-relaxed space-y-3 mb-3 text-left w-full
+          text-sm text-text-light leading-relaxed space-y-2 mb-2 text-left w-full
           transition-all duration-300
           ${open ? '' : 'line-clamp-2'}
         `}
@@ -109,10 +109,10 @@ export default function MortgageProtectionAdvice() {
   const [openCard, setOpenCard] = useState<number | null>(null)
 
   return (
-    <div className='min-h-screen w-full bg-gradient-to-b from-blue-light/40 to-white pt-10 md:pt-12'>
+    <div className='min-h-screen w-full bg-linear-to-b from-blue-light/40 to-white pt-8 md:pt-10'>
       {/* Header */}
-      <div className='max-w-5xl mx-auto text-center mb-10 px-4'>
-        <h1 className='text-2xl md:text-3xl font-bold text-text-navy mb-4'>
+      <div className='max-w-5xl mx-auto text-center mb-6 px-4'>
+        <h1 className='text-2xl md:text-3xl font-bold text-text-navy mb-3'>
           Mortgage & Protection Advice
         </h1>
         <p className='text-text-light max-w-2xl mx-auto leading-relaxed'>
@@ -123,14 +123,14 @@ export default function MortgageProtectionAdvice() {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className='max-w-5xl mx-auto px-4 space-y-12 pb-12'>
+      <div className='max-w-5xl mx-auto px-4 space-y-8 pb-8'>
         {/* ===================== MORTGAGES ===================== */}
         <section>
-          <h2 className='text-2xl md:text-3xl font-semibold text-teal-dark mb-6'>
+          <h2 className='text-2xl md:text-3xl font-semibold text-teal-dark mb-4'>
             Mortgages
           </h2>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             <ExpandableCard
               id={1}
               icon={<FaHome />}
@@ -225,11 +225,11 @@ export default function MortgageProtectionAdvice() {
         {/* ===================== PROTECTION ===================== */}
 
         <section>
-          <h2 className='text-2xl md:text-3xl font-semibold text-teal-dark mb-6'>
+          <h2 className='text-2xl md:text-3xl font-semibold text-teal-dark mb-4'>
             Protection Products
           </h2>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             <ExpandableCard
               id={7}
               icon={<FaShieldAlt />}
@@ -444,11 +444,11 @@ export default function MortgageProtectionAdvice() {
 
         {/* ===================== BUSINESS PROTECTION ===================== */}
         <section>
-          <h2 className='text-2xl md:text-3xl font-semibold text-teal-dark mb-6'>
+          <h2 className='text-2xl md:text-3xl font-semibold text-teal-dark mb-4'>
             Business Protection
           </h2>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
             <ExpandableCard
               id={15}
               icon={<FaBriefcase />}
@@ -537,15 +537,15 @@ export default function MortgageProtectionAdvice() {
         </section>
 
         {/* CTA */}
-        <div className='text-center pt-2'>
-          <p className='mb-6 text-gray-700 text-base md:text-lg leading-relaxed max-w-2xl mx-auto'>
+        <div className='text-center pt-1'>
+          <p className='mb-4 text-gray-700 text-base md:text-lg leading-relaxed max-w-2xl mx-auto'>
             Whether you're taking your first step onto the property ladder,
             looking to protect your family's future, or need guidance on
             business protection, I'm here to help you every step of the way.
             Book your no-obligation initial consultation and let's find the
             right solution for your circumstances.
           </p>
-          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
+          <div className='flex flex-col sm:flex-row gap-2 justify-center'>
             <Link to='/appointment'>
               <Button variant='primary'>Book First Consultation Fee-Free*</Button>
             </Link>
@@ -553,10 +553,10 @@ export default function MortgageProtectionAdvice() {
               <Button variant='secondary'>Get in Touch</Button>
             </Link>
           </div>
-          <p className='text-xs md:text-sm mt-4 text-text-dark text-center w-0 min-w-full'>
-              *Broker fees may apply if you proceed with a mortgage or
-              remortgage application
-            </p>
+          <p className='text-xs md:text-sm mt-3 text-text-dark text-center w-0 min-w-full'>
+            *Broker fees may apply if you proceed with a mortgage or remortgage
+            application
+          </p>
         </div>
       </div>
 

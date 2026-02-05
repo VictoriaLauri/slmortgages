@@ -18,16 +18,16 @@ export default function Home() {
     <main>
       {/* Hero Section */}
       <section
-        className='relative hero-gradient text-white py-8 md:py-10 overflow-hidden'
+        className='relative hero-gradient text-white py-3 md:py-4 overflow-hidden'
         aria-label='Mortgage and protection hero section'
       >
-        <div className='absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-transparent pointer-events-none'></div>
+        <div className='absolute inset-0 bg-linear-to-r from-black/25 via-transparent to-transparent pointer-events-none'></div>
 
-        <div className='relative z-10 max-w-4xl mx-auto px-4 text-center'>
-          <h1 className='text-2xl md:text-4xl font-bold mb-2 leading-snug max-w-none'>
+        <div className='relative z-10 max-w-5xl mx-auto px-4 text-center'>
+          <h1 className='text-2xl md:text-4xl font-bold mb-1 leading-snug max-w-none'>
             Expert Mortgage & Protection Advice in the UK
           </h1>
-          <p className='text-sm md:text-base mb-4 text-blue-light max-w-4xl mx-auto leading-relaxed'>
+          <p className='text-sm md:text-base mb-1 text-blue-100 max-w-5xl mx-auto leading-relaxed'>
             Looking for clear, hassle-free mortgage advice? I'm here to help! As
             a dedicated Mortgage & Protection Advisor, I'm passionate about
             making the process simple and stress-free for you. From our very
@@ -35,46 +35,37 @@ export default function Home() {
             the way, explaining everything in plain, easy-to-understand
             language.
           </p>
-          <p className='text-sm md:text-base mb-4 text-blue-light max-w-4xl mx-auto leading-relaxed'>
+          <p className='text-sm md:text-base mb-1 text-blue-100 max-w-5xl mx-auto leading-relaxed'>
             Whether you're a first-time buyer, remortgaging, or looking for
             protection solutions, I’ll find some of the most competitive
-            products tailored to your circumstances. Get in touch today for
-            fast, friendly, and no-obligation advice.
+            products tailored to your circumstances.
           </p>
-          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
-            <Link to='/mortgage-protection-advice'>
-              <Button variant='primary'>Explore My Services</Button>
-            </Link>
-            <Link to='/appointment'>
-              <Button variant='secondary'>Go to Calendar</Button>
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* Services Section */}
       <section
-        className='py-8 md:py-10 bg-white'
+        className='py-4 md:py-6 bg-white'
         aria-labelledby='services-heading'
       >
         <div className='max-w-5xl mx-auto px-4'>
           <h2
             id='services-heading'
-            className='text-2xl md:text-3xl font-bold text-center mb-6 text-text-navy'
+            className='text-2xl md:text-3xl font-bold text-center mb-3 text-text-navy'
           >
             What I Can Help You With
           </h2>
 
-          <div className='grid md:grid-cols-2 gap-6'>
-            <article className='p-5 rounded-lg shadow-sm border border-gray-100'>
-              <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
+          <div className='grid md:grid-cols-2 gap-3'>
+            <article className='p-3 rounded-lg shadow-sm border border-gray-100'>
+              <h3 className='text-xl font-semibold mb-1 text-primary-orange'>
                 Mortgages
               </h3>
 
               <h4 className='text-md font-semibold text-text-navy mb-1'>
                 Residential
               </h4>
-              <ul className='list-disc list-inside text-text-light space-y-0.5 mb-3'>
+              <ul className='list-disc list-inside text-text-light space-y-0 mb-1'>
                 <li>First-time buyers, Home movers & Second residential</li>
                 <li>
                   Government schemes incl. Shared Ownership
@@ -86,7 +77,7 @@ export default function Home() {
               <h4 className='text-md font-semibold text-text-navy mb-1'>
                 Buy to Let & Specialist
               </h4>
-              <ul className='list-disc list-inside text-text-light space-y-0.5'>
+              <ul className='list-disc list-inside text-text-light space-y-0'>
                 <li>
                   Buy to Let (Personal or Limited Company incl. residential
                   Buy-to-Let, Houses in multiple occupation, Holiday Lets)
@@ -96,15 +87,15 @@ export default function Home() {
               </ul>
             </article>
 
-            <article className='p-5 rounded-lg shadow-sm border border-gray-100'>
-              <h3 className='text-xl font-semibold mb-3 text-primary-orange'>
+            <article className='p-3 rounded-lg shadow-sm border border-gray-100'>
+              <h3 className='text-xl font-semibold mb-1 text-primary-orange'>
                 Protection Products
               </h3>
 
               <h4 className='text-md font-semibold text-text-navy mb-1'>
                 Core Protection
               </h4>
-              <ul className='list-disc list-inside text-text-light space-y-0.5 mb-3'>
+              <ul className='list-disc list-inside text-text-light space-y-0 mb-1'>
                 <li>Life Cover (dependants or mortgage)</li>
                 <li>Critical Illness Cover (incl. upgraded cancer options)</li>
                 <li>Accident & Sickness Multi-cover from £10</li>
@@ -114,7 +105,7 @@ export default function Home() {
               <h4 className='text-md font-semibold text-text-navy mb-1'>
                 Additional Cover
               </h4>
-              <ul className='list-disc list-inside text-text-light space-y-0.5'>
+              <ul className='list-disc list-inside text-text-light space-y-0'>
                 <li>Global Treatment & Second Medical Opinion from £3</li>
                 <li>Home Insurance (Buildings, Contents & Landlord)</li>
                 <li>Private Medical Insurance (referrals)</li>
@@ -127,30 +118,32 @@ export default function Home() {
 
       {/* CTA */}
       <section
-        className='bg-blue-light py-8 md:py-10 border-t border-gray-200'
+        className='bg-blue-light py-3 md:py-4 border-t border-gray-200'
         aria-label='Call to action'
       >
         <div className='max-w-3xl mx-auto px-4 text-center'>
-          <h2 className='text-2xl md:text-3xl font-bold mb-3 text-blue-dark'>
+          <h2 className='text-2xl md:text-3xl font-bold mb-1 text-blue-dark'>
             Ready to Get Started?
           </h2>
-          <p className='text-base text-text-dark mb-5'>
+          <p className='text-base text-text-dark mb-2'>
             Whether you’re a first-time buyer, a buy-to-let investor or simply
             remortgaging, I’ll help you secure the right deal for you and
             protection for your future.
           </p>
-          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
+          <div className='flex flex-col sm:flex-row gap-2 justify-center'>
             <Link to='/appointment'>
-              <Button variant='primary'>Book First Consultation Fee-Free*</Button>
+              <Button variant='primary'>
+                Book First Consultation Fee-Free*
+              </Button>
             </Link>
-            <Link to='/contact'>
-              <Button variant='secondary'>Get in Touch</Button>
+            <Link to='/mortgage-protection-advice'>
+              <Button variant='secondary'>Explore My Services</Button>
             </Link>
           </div>
-          <p className='text-xs md:text-sm mt-4 text-text-dark text-center w-0 min-w-full'>
-              *Broker fees may apply if you proceed with a mortgage or
-              remortgage application
-            </p>
+          <p className='text-xs md:text-sm mt-2 text-text-dark text-center w-0 min-w-full'>
+            *Broker fees may apply if you proceed with a mortgage or remortgage
+            application
+          </p>
         </div>
       </section>
     </main>

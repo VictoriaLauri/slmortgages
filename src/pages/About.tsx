@@ -21,13 +21,13 @@ export default function About() {
     ABOUT – Split Gradient (Improved Mobile Fix)
 ============================ */}
 
-      <section className='relative pt-36 md:pt-32 pb-20 bg-gradient-to-b from-blue-light/40 to-white'>
+      <section className='relative pt-28 md:pt-24 pb-12 bg-linear-to-b from-blue-light/40 to-white'>
         <div className='max-w-5xl mx-auto px-4 md:px-8'>
           {/* Floating Card */}
-          <div className='relative bg-white rounded-xl shadow-lg p-8 md:p-12 border border-gray-100'>
+          <div className='relative bg-white rounded-xl shadow-lg p-6 md:p-8 border border-gray-100'>
             {/* Floating Image Card */}
-            <div className='absolute -top-24 left-1/2 -translate-x-1/2 md:-top-20 md:left-12 md:translate-x-0'>
-              <div className='w-48 h-48 md:w-48 md:h-48 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden'>
+            <div className='absolute -top-20 left-1/2 -translate-x-1/2 md:-top-16 md:left-10 md:translate-x-0'>
+              <div className='w-40 h-40 md:w-44 md:h-44 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden'>
                 <img
                   src={profileImg}
                   alt='Svetlana Latiseva – Mortgage & Protection Advisor'
@@ -37,12 +37,12 @@ export default function About() {
             </div>
 
             {/* Text wrapper */}
-            <div className='mt-20 md:ml-56 md:mt-0'>
-              <h1 className='text-3xl md:text-4xl font-bold text-primary-orange mb-5 text-center md:text-left'>
+            <div className='mt-16 md:ml-52 md:mt-0'>
+              <h1 className='text-3xl md:text-4xl font-bold text-primary-orange mb-3 text-center md:text-left'>
                 About Me
               </h1>
 
-              <div className='text-text-light leading-relaxed space-y-4'>
+              <div className='text-text-light leading-relaxed space-y-3'>
                 <p>
                   My journey into the world of mortgages and protection began
                   with a deep passion for helping people achieve financial
@@ -80,13 +80,13 @@ export default function About() {
       {/* ===========================
           GOOGLE REVIEWS SECTION
       ============================ */}
-      <section className='bg-blue-light/30 py-14 border-t border-gray-200'>
+      <section className='bg-blue-light/30 py-10 border-t border-gray-200'>
         <div className='max-w-5xl mx-auto px-4 md:px-8'>
-          <h2 className='text-2xl md:text-3xl font-bold text-blue-dark text-center mb-6'>
+          <h2 className='text-2xl md:text-3xl font-bold text-blue-dark text-center mb-4'>
             What My Clients Say
           </h2>
 
-          <p className='text-text-dark text-center max-w-3xl mx-auto mb-10'>
+          <p className='text-text-dark text-center max-w-3xl mx-auto mb-6'>
             I’m grateful for every review left by clients I’ve helped. Here’s
             what people are saying about their experience with Svetlana Latiseva
             Mortgages.
@@ -102,17 +102,17 @@ export default function About() {
       {/* ===========================
           CTA SECTION
       ============================ */}
-      <section className='bg-blue-light py-10 border-t border-gray-200 text-center'>
+      <section className='bg-blue-light py-6 border-t border-gray-200 text-center'>
         <div className='max-w-3xl mx-auto px-4'>
-          <h2 className='text-2xl md:text-3xl font-bold mb-3 text-blue-dark'>
+          <h2 className='text-2xl md:text-3xl font-bold mb-2 text-blue-dark'>
             Let’s Connect
           </h2>
-          <p className='text-base text-text-dark mb-6 leading-relaxed'>
+          <p className='text-base text-text-dark mb-4 leading-relaxed'>
             Looking for clear, friendly mortgage or protection advice? Get in
             touch today and I’ll help you take the next step with confidence.
           </p>
 
-          <div className='flex flex-col sm:flex-row gap-3 justify-center'>
+          <div className='flex flex-col sm:flex-row gap-2 justify-center'>
             <Link to='/appointment'>
               <Button variant='primary'>Book First Consultation Fee-Free*</Button>
             </Link>
@@ -120,10 +120,10 @@ export default function About() {
               <Button variant='secondary'>Get in Touch</Button>
             </Link>
           </div>
-          <p className='text-xs md:text-sm mt-4 text-text-dark text-center w-0 min-w-full'>
-              *Broker fees may apply if you proceed with a mortgage or
-              remortgage application
-            </p>
+          <p className='text-xs md:text-sm mt-3 text-text-dark text-center w-0 min-w-full'>
+            *Broker fees may apply if you proceed with a mortgage or remortgage
+            application
+          </p>
         </div>
       </section>
     </main>

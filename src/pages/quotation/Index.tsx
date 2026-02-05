@@ -43,7 +43,7 @@ export default function QuotationLanding() {
   ]
 
   return (
-    <main className='bg-white'>
+    <main className='bg-linear-to-b from-blue-light/40 to-white'>
       {/* HEADER */}
       <section className='py-8 md:py-10'>
         <div className='max-w-4xl mx-auto px-4 text-center'>
