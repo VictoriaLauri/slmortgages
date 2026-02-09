@@ -29,13 +29,23 @@ export default function BookAppointment() {
             way.
           </p>
           <p className='text-text-light mb-2'>
-            Our initial consultation is completely fee free and includes
-            my services presentation, data protection overview, affordability
+            Our initial consultation is without obligation and includes my
+            services presentation, data protection overview, affordability
             assessment, and a discussion of your personal circumstances and
-            goals. Protection consultations, as well as conveyancing and survey quotations, are provided fee free for clients.
+            goals. Protection consultations, as well as conveyancing and survey
+            quotations, are provided fee free for clients.
           </p>
           <p className='text-text-light'>
-          Broker fees may apply if you proceed with a mortgage or remortgage application and will be fully discussed during your first consultation. Fees range from £0 to £1,250 depending on your circumstances and the services required. Most product transfers are fee-free.
+            Broker fees may apply if you proceed with a mortgage or remortgage
+            application and will be fully discussed during your first
+            consultation. Fees range from £0 to £1,250 depending on your
+            circumstances and the services required. Most product transfers are
+            fee-free.
+          </p>
+          <p className='text-text-light'>
+            THINK CAREFULLY BEFORE SECURING OTHER DEBTS AGAINST YOUR PROPERTY.
+            YOUR PROPERTY MAY BE REPOSSESSED IF YOU DO NOT KEEP UP REPAYMENTS ON
+            YOUR MORTGAGE.
           </p>
         </div>
 
@@ -72,8 +82,6 @@ export default function BookAppointment() {
           className='w-full h-px bg-blue-light/30 mb-4'
           aria-hidden='true'
         ></div>
-
-        
 
         {/* ---------------- CALENDLY WIDGET ---------------- */}
         <div
