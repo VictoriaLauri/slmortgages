@@ -42,7 +42,7 @@ export default function BookAppointment() {
             circumstances and the services required. Most product transfers are
             fee-free.
           </p>
-          <p className='text-text-light'>
+          <p className='mt-4 text-text-light text-sm md:text-base border border-blue-light/40 bg-blue-light/15 rounded-md px-4 py-3 leading-relaxed'>
             THINK CAREFULLY BEFORE SECURING OTHER DEBTS AGAINST YOUR PROPERTY.
             YOUR PROPERTY MAY BE REPOSSESSED IF YOU DO NOT KEEP UP REPAYMENTS ON
             YOUR MORTGAGE.
