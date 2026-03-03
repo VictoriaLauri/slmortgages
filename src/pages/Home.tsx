@@ -4,7 +4,7 @@ import { Button } from '../components/ui'
 
 export default function Home() {
   useEffect(() => {
-    document.title = 'Svetlana Latiseva Mortgages'
+    document.title = 'Svetlana Latiseva - Mortgages'
     const meta =
       document.querySelector('meta[name="description"]') ||
       document.createElement('meta')

@@ -1,6 +1,6 @@
 # 🏠 SL Mortgages Website
 
-A professional, responsive mortgage and protection advisory website built for **Svetlana Latiseva Mortgages**, providing clear information, lead-generation tools, and full FCA compliance.
+A professional, responsive mortgage and protection advisory website built for **Svetlana Latiseva - Mortgages**, providing clear information, lead-generation tools, and full FCA compliance.
 
 This project delivers a modern digital presence aligned with business goals: credibility, accessibility, automation, and scalability.
 

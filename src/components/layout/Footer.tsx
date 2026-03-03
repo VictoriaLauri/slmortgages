@@ -35,6 +35,11 @@ export default function Footer() {
             Authority.
           </p>
           <p className='text-gray-300 mt-1'>
+            SUPREME FINANCIAL SOLUTIONS LTD, Lumaneri House Blythe Gate, Blythe
+            Valley Park, Solihull, West Midlands, United Kingdom, B90 8AH,
+            13181682
+          </p>
+          <p className='text-gray-300 mt-1'>
             The information on this website is for use of residents of the
             United Kingdom only. No representations are made as to whether the
             information is applicable or available in any other country which
@@ -66,8 +71,8 @@ export default function Footer() {
         {/* Copyright */}
         <div className='mt-2 text-gray-400'>
           <p>
-            &copy; {new Date().getFullYear()} SL Mortgages. All rights reserved.
-            Approved by The Openwork Partnership on xx/xx/2026.
+            &copy; {new Date().getFullYear()} Svetlana Latiseva - Mortgages. All
+            rights reserved. Approved by The Openwork Partnership on xx/xx/2026.
           </p>
         </div>
       </div>

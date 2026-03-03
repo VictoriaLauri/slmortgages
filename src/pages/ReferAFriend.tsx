@@ -19,8 +19,8 @@ export default function ReferAFriend() {
         </h1>
 
         <p className='text-text-dark leading-relaxed mb-8'>
-          We greatly appreciate your support of Svetlana Latiseva Mortgages! As
-          a valued customer, we invite you to share your positive experience
+          We greatly appreciate your support of Svetlana Latiseva - Mortgages!
+          As a valued customer, we invite you to share your positive experience
           with your friends and family. And as a token of our gratitude,
           <span className='font-semibold'>
             {' '}

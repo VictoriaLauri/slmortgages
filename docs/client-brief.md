@@ -2,7 +2,7 @@
 
 ## 🧭 Project Overview
 
-**Client:** Svetlana Latiseva Mortgages (SL Mortgages)  
+**Client:** Svetlana Latiseva - Mortgages (SL Mortgages)  
 **Tone:** Professional but friendly  
 **Deployment:** Hostable on any platform (React + Vite preferred, not Next.js)
 
