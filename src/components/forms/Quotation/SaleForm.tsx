@@ -131,6 +131,7 @@ export default function SaleForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='sale-quote' />
+      <input type='hidden' name='Form type' value='Sale quotation' />
       <input type='hidden' name='formType' value='Sale quotation' />
 
       {/* Applicants */}

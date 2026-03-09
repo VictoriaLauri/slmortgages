@@ -134,6 +134,7 @@ export default function PurchaseForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='purchase-quote' />
+      <input type='hidden' name='Form type' value='Purchase quotation' />
       <input type='hidden' name='formType' value='Purchase quotation' />
 
       {/* Applicants */}
