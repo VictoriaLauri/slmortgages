@@ -33,13 +33,29 @@ export default function ContactForm() {
     }))
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    alert('Thank you! Your message has been sent.')
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    formData.set('form-name', 'contact')
+    try {
+      await fetch('/', { method: 'POST', body: formData })
+      alert('Thank you! Your message has been sent.')
+      setFormData({ fullName: '', email: '', phone: '', message: '', consent: false })
+    } catch {
+      alert('Something went wrong. Please try again later.')
+    }
   }
 
   return (
-    <form className='space-y-5' onSubmit={handleSubmit}>
+    <form
+      className='space-y-5'
+      onSubmit={handleSubmit}
+      method='POST'
+      data-netlify='true'
+      name='contact'
+    >
+      <input type='hidden' name='form-name' value='contact' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>
           <label className='block font-medium mb-1 text-text-dark'>

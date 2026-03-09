@@ -39,7 +39,7 @@ export default function CareersForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
 
     if (formData.cv && formData.cv.size > 5 * 1024 * 1024) {
@@ -47,11 +47,35 @@ export default function CareersForm() {
       return
     }
 
-    alert('Thank you! Your application has been submitted.')
+    const form = e.currentTarget
+    const submitData = new FormData(form)
+    submitData.set('form-name', 'careers')
+    try {
+      await fetch('/', { method: 'POST', body: submitData })
+      form.reset()
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        message: '',
+        cv: null,
+        consent: false,
+      })
+      alert('Thank you! Your application has been submitted.')
+    } catch {
+      alert('Something went wrong. Please try again later.')
+    }
   }
 
   return (
-    <form className='space-y-5' onSubmit={handleSubmit}>
+    <form
+      className='space-y-5'
+      onSubmit={handleSubmit}
+      method='POST'
+      data-netlify='true'
+      name='careers'
+    >
+      <input type='hidden' name='form-name' value='careers' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>
           <label className='block font-medium mb-1 text-text-dark'>

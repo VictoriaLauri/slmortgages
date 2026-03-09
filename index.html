@@ -9,36 +9,140 @@
   <body>
     <div id="root"></div>
 
-    <!-- Hidden Netlify Forms for React -->
+    <!-- Hidden Netlify Forms: all forms and every field declared so email notifications show full submission data -->
     <div hidden aria-hidden="true">
-      <!-- Purchase -->
+      <!-- Contact -->
+      <form name="contact" netlify>
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="text" name="fullName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <textarea name="message"></textarea>
+        <input type="checkbox" name="consent" />
+      </form>
+
+      <!-- Careers -->
+      <form name="careers" netlify>
+        <input type="hidden" name="form-name" value="careers" />
+        <input type="text" name="fullName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <textarea name="message"></textarea>
+        <input type="file" name="cv" />
+        <input type="checkbox" name="consent" />
+      </form>
+
+      <!-- Refer a friend -->
+      <form name="refer-a-friend" netlify>
+        <input type="hidden" name="form-name" value="refer-a-friend" />
+        <input type="text" name="yourName" />
+        <input type="email" name="yourEmail" />
+        <input type="text" name="friendName" />
+        <input type="email" name="friendEmail" />
+        <textarea name="message"></textarea>
+        <input type="checkbox" name="consent" />
+      </form>
+
+      <!-- Purchase quotation -->
       <form name="purchase-quote" netlify>
         <input type="hidden" name="form-name" value="purchase-quote" />
+        <input type="text" name="applicants" />
+        <input type="text" name="title" />
         <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="country" />
+        <input type="number" name="purchasePrice" />
+        <input type="text" name="tenure" />
+        <textarea name="address"></textarea>
+        <input type="text" name="firstTimeBuyer" />
+        <input type="text" name="lender" />
+        <textarea name="notes"></textarea>
+        <input type="checkbox" name="consentContact" />
+        <input type="checkbox" name="consentUpdates" />
       </form>
 
-      <!-- Sale -->
+      <!-- Sale quotation -->
       <form name="sale-quote" netlify>
         <input type="hidden" name="form-name" value="sale-quote" />
+        <input type="text" name="applicants" />
+        <input type="text" name="title" />
         <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="country" />
+        <input type="number" name="salePrice" />
+        <input type="text" name="tenure" />
+        <textarea name="address"></textarea>
+        <input type="text" name="mortgageCount" />
+        <textarea name="notes"></textarea>
+        <input type="checkbox" name="consentContact" />
+        <input type="checkbox" name="consentUpdates" />
       </form>
 
-      <!-- Sale & Purchase -->
-      <form name="sale-purchase-quote" netlify>
-        <input type="hidden" name="form-name" value="sale-purchase-quote" />
+      <!-- Sale & Purchase quotation (name must match React: sale-and-purchase-quote) -->
+      <form name="sale-and-purchase-quote" netlify>
+        <input type="hidden" name="form-name" value="sale-and-purchase-quote" />
+        <input type="text" name="applicants" />
+        <input type="text" name="title" />
         <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="saleCountry" />
+        <input type="number" name="salePrice" />
+        <input type="text" name="saleTenure" />
+        <textarea name="saleAddress"></textarea>
+        <input type="text" name="saleMortgages" />
+        <textarea name="saleNotes"></textarea>
+        <input type="text" name="purchaseCountry" />
+        <input type="number" name="purchasePrice" />
+        <input type="text" name="purchaseTenure" />
+        <textarea name="purchaseAddress"></textarea>
+        <input type="text" name="firstTimeBuyer" />
+        <input type="text" name="lender" />
+        <textarea name="purchaseNotes"></textarea>
+        <input type="checkbox" name="consentContact" />
+        <input type="checkbox" name="consentUpdates" />
       </form>
 
-      <!-- Remortgage -->
+      <!-- Remortgage quotation -->
       <form name="remortgage-quote" netlify>
         <input type="hidden" name="form-name" value="remortgage-quote" />
+        <input type="text" name="applicants" />
+        <input type="text" name="title" />
         <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="country" />
+        <input type="number" name="propertyPrice" />
+        <input type="text" name="tenure" />
+        <textarea name="address"></textarea>
+        <input type="text" name="lender" />
+        <input type="text" name="mortgageCount" />
+        <input type="number" name="loanAmount" />
+        <textarea name="notes"></textarea>
+        <input type="checkbox" name="consentContact" />
+        <input type="checkbox" name="consentUpdates" />
       </form>
 
-      <!-- Survey -->
+      <!-- Survey quotation -->
       <form name="survey-quote" netlify>
         <input type="hidden" name="form-name" value="survey-quote" />
+        <input type="text" name="title" />
         <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="country" />
+        <input type="text" name="propertyAge" />
+        <textarea name="address"></textarea>
+        <textarea name="notes"></textarea>
+        <input type="checkbox" name="consentContact" />
+        <input type="checkbox" name="consentUpdates" />
       </form>
     </div>
 

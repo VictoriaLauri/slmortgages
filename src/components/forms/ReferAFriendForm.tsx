@@ -36,13 +36,36 @@ export default function ReferAFriendForm() {
     }))
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    alert('Thank you! Your referral has been submitted.')
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    formData.set('form-name', 'refer-a-friend')
+    try {
+      await fetch('/', { method: 'POST', body: formData })
+      alert('Thank you! Your referral has been submitted.')
+      setFormData({
+        yourName: '',
+        yourEmail: '',
+        friendName: '',
+        friendEmail: '',
+        message: '',
+        consent: false,
+      })
+    } catch {
+      alert('Something went wrong. Please try again later.')
+    }
   }
 
   return (
-    <form className='space-y-5' onSubmit={handleSubmit}>
+    <form
+      className='space-y-5'
+      onSubmit={handleSubmit}
+      method='POST'
+      data-netlify='true'
+      name='refer-a-friend'
+    >
+      <input type='hidden' name='form-name' value='refer-a-friend' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>
           <label className='block font-medium mb-1 text-text-dark'>
