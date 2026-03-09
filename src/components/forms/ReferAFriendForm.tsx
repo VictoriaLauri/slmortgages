@@ -1,5 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
+import { sanitizeFormText } from '../../lib/utils/sanitizeFormText'
+import { Alert, Button } from '../ui/index'
 
 type FormState = {
   yourName: string
@@ -10,7 +12,10 @@ type FormState = {
   consent: boolean
 }
 
+type Status = 'idle' | 'submitting' | 'success' | 'error'
+
 export default function ReferAFriendForm() {
+  const [status, setStatus] = useState<Status>('idle')
   const [formData, setFormData] = useState<FormState>({
     yourName: '',
     yourEmail: '',
@@ -42,7 +47,11 @@ export default function ReferAFriendForm() {
     const data = new FormData(form)
     data.set('form-name', 'refer-a-friend')
     const body = new URLSearchParams()
-    data.forEach((value, key) => body.append(key, value.toString()))
+    data.forEach((value, key) => {
+      const str = value.toString()
+      body.append(key, key === 'message' ? sanitizeFormText(str, 10000) : sanitizeFormText(str, 500))
+    })
+    setStatus('submitting')
     try {
       const res = await fetch('/', {
         method: 'POST',
@@ -60,9 +69,9 @@ export default function ReferAFriendForm() {
         message: '',
         consent: false,
       })
-      alert('Thank you! Your referral has been submitted.')
+      setStatus('success')
     } catch {
-      alert('Something went wrong. Please try again later.')
+      setStatus('error')
     }
   }
 
@@ -85,6 +94,7 @@ export default function ReferAFriendForm() {
             type='text'
             name='yourName'
             value={formData.yourName}
+            maxLength={200}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -99,6 +109,7 @@ export default function ReferAFriendForm() {
             type='email'
             name='yourEmail'
             value={formData.yourEmail}
+            maxLength={254}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -115,6 +126,7 @@ export default function ReferAFriendForm() {
             type='text'
             name='friendName'
             value={formData.friendName}
+            maxLength={200}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -129,6 +141,7 @@ export default function ReferAFriendForm() {
             type='email'
             name='friendEmail'
             value={formData.friendEmail}
+            maxLength={254}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -143,6 +156,7 @@ export default function ReferAFriendForm() {
           name='message'
           rows={4}
           value={formData.message}
+          maxLength={10000}
           onChange={handleChange}
           className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
         ></textarea>
@@ -160,9 +174,31 @@ export default function ReferAFriendForm() {
         I confirm that my friend is aware and happy to be contacted.
       </label>
 
-      <button type='submit' className='btn-primary w-full md:w-auto'>
-        Submit Referral
-      </button>
+      <Button
+        variant='primary'
+        type='submit'
+        disabled={status === 'submitting'}
+        className='w-full md:w-auto'
+      >
+        {status === 'submitting' ? 'Submitting…' : 'Submit Referral'}
+      </Button>
+
+      {status === 'success' && (
+        <Alert
+          type='success'
+          message='Thank you! Your referral has been submitted.'
+          dismissible
+        />
+      )}
+
+      {status === 'error' && (
+        <Alert
+          type='error'
+          message='Something went wrong. Please try again later.'
+          dismissible
+          onDismiss={() => setStatus('idle')}
+        />
+      )}
     </form>
   )
 }

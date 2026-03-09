@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { sanitizeFormText } from '../../../lib/utils/sanitizeFormText'
 import {
   Alert,
   Button,
@@ -87,7 +88,10 @@ export default function SurveyForm() {
 
     try {
       const body = new URLSearchParams()
-      formData.forEach((value, key) => body.append(key, value.toString()))
+      const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
+      formData.forEach((value, key) =>
+        body.append(key, sanitizeFormText(value.toString(), textMax(key)))
+      )
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

@@ -1,5 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
+import { sanitizeFormText } from '../../lib/utils/sanitizeFormText'
+import { Alert, Button } from '../ui/index'
 
 type CareersFormState = {
   fullName: string
@@ -10,7 +12,12 @@ type CareersFormState = {
   consent: boolean
 }
 
+type Status = 'idle' | 'submitting' | 'success' | 'error'
+type ErrorType = 'file_size' | 'submit'
+
 export default function CareersForm() {
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorType, setErrorType] = useState<ErrorType | null>(null)
   const [formData, setFormData] = useState<CareersFormState>({
     fullName: '',
     email: '',
@@ -28,6 +35,8 @@ export default function CareersForm() {
     if (type === 'file') {
       const file = (e.target as HTMLInputElement).files?.[0] || null
       setFormData((prev) => ({ ...prev, cv: file }))
+      setStatus('idle')
+      setErrorType(null)
       return
     }
 
@@ -42,14 +51,28 @@ export default function CareersForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (formData.cv && formData.cv.size > 5 * 1024 * 1024) {
-      alert('CV file size must be under 5MB.')
+    const maxSizeBytes = 1.5 * 1024 * 1024 // 1.5MB (fits within Netlify free tier 10MB/month)
+    if (formData.cv && formData.cv.size > maxSizeBytes) {
+      setErrorType('file_size')
+      setStatus('error')
       return
     }
 
     const form = e.currentTarget
-    const submitData = new FormData(form)
+    const rawData = new FormData(form)
+    const submitData = new FormData()
     submitData.set('form-name', 'careers')
+    rawData.forEach((value, key) => {
+      if (value instanceof File) {
+        submitData.set(key, value)
+      } else {
+        const str = value.toString()
+        const max = key === 'message' ? 10000 : 500
+        submitData.set(key, sanitizeFormText(str, max))
+      }
+    })
+    setErrorType(null)
+    setStatus('submitting')
     try {
       const res = await fetch('/', { method: 'POST', body: submitData })
       if (!res.ok) {
@@ -64,11 +87,17 @@ export default function CareersForm() {
         cv: null,
         consent: false,
       })
-      alert('Thank you! Your application has been submitted.')
+      setStatus('success')
     } catch {
-      alert('Something went wrong. Please try again later.')
+      setErrorType('submit')
+      setStatus('error')
     }
   }
+
+  const errorMessage =
+    errorType === 'file_size'
+      ? 'CV file size must be under 1.5MB.'
+      : 'Something went wrong. Please try again later.'
 
   return (
     <form
@@ -89,6 +118,7 @@ export default function CareersForm() {
             type='text'
             name='fullName'
             value={formData.fullName}
+            maxLength={200}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -103,6 +133,7 @@ export default function CareersForm() {
             type='email'
             name='email'
             value={formData.email}
+            maxLength={254}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -117,6 +148,7 @@ export default function CareersForm() {
           type='tel'
           name='phone'
           value={formData.phone}
+          maxLength={30}
           onChange={handleChange}
           className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
         />
@@ -130,6 +162,7 @@ export default function CareersForm() {
           name='message'
           rows={4}
           value={formData.message}
+          maxLength={10000}
           onChange={handleChange}
           className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
         ></textarea>
@@ -148,7 +181,7 @@ export default function CareersForm() {
           className='w-full p-3 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-teal'
         />
         <p className='text-sm text-text-light mt-1'>
-          Accepted formats: PDF, DOC, DOCX — max 5MB
+          Accepted formats: PDF, DOC, DOCX — max 1.5MB
         </p>
       </div>
 
@@ -164,9 +197,31 @@ export default function CareersForm() {
         I consent to being contacted regarding career opportunities.
       </label>
 
-      <button type='submit' className='btn-primary w-full md:w-auto'>
-        Submit Application
-      </button>
+      <Button
+        variant='primary'
+        type='submit'
+        disabled={status === 'submitting'}
+        className='w-full md:w-auto'
+      >
+        {status === 'submitting' ? 'Submitting…' : 'Submit Application'}
+      </Button>
+
+      {status === 'success' && (
+        <Alert
+          type='success'
+          message='Thank you! Your application has been submitted.'
+          dismissible
+        />
+      )}
+
+      {status === 'error' && (
+        <Alert
+          type='error'
+          message={errorMessage}
+          dismissible
+          onDismiss={() => { setStatus('idle'); setErrorType(null) }}
+        />
+      )}
     </form>
   )
 }

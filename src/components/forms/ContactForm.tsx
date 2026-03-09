@@ -1,5 +1,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
+import { sanitizeFormText } from '../../lib/utils/sanitizeFormText'
+import { Alert, Button } from '../ui/index'
 
 type ContactFormState = {
   fullName: string
@@ -9,7 +11,10 @@ type ContactFormState = {
   consent: boolean
 }
 
+type Status = 'idle' | 'submitting' | 'success' | 'error'
+
 export default function ContactForm() {
+  const [status, setStatus] = useState<Status>('idle')
   const [formData, setFormData] = useState<ContactFormState>({
     fullName: '',
     email: '',
@@ -39,7 +44,11 @@ export default function ContactForm() {
     const data = new FormData(form)
     data.set('form-name', 'contact')
     const body = new URLSearchParams()
-    data.forEach((value, key) => body.append(key, value.toString()))
+    data.forEach((value, key) => {
+      const str = value.toString()
+      body.append(key, key === 'message' ? sanitizeFormText(str, 10000) : sanitizeFormText(str, 500))
+    })
+    setStatus('submitting')
     try {
       const res = await fetch('/', {
         method: 'POST',
@@ -50,9 +59,9 @@ export default function ContactForm() {
         throw new Error(`Submission failed: ${res.status}`)
       }
       setFormData({ fullName: '', email: '', phone: '', message: '', consent: false })
-      alert('Thank you! Your message has been sent.')
+      setStatus('success')
     } catch {
-      alert('Something went wrong. Please try again later.')
+      setStatus('error')
     }
   }
 
@@ -75,6 +84,7 @@ export default function ContactForm() {
             type='text'
             name='fullName'
             value={formData.fullName}
+            maxLength={200}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -89,6 +99,7 @@ export default function ContactForm() {
             type='email'
             name='email'
             value={formData.email}
+            maxLength={254}
             onChange={handleChange}
             className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
           />
@@ -103,6 +114,7 @@ export default function ContactForm() {
           type='tel'
           name='phone'
           value={formData.phone}
+          maxLength={30}
           onChange={handleChange}
           className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
         />
@@ -117,6 +129,7 @@ export default function ContactForm() {
           name='message'
           rows={5}
           value={formData.message}
+          maxLength={10000}
           onChange={handleChange}
           className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
         ></textarea>
@@ -134,9 +147,31 @@ export default function ContactForm() {
         I agree to be contacted regarding my enquiry.
       </label>
 
-      <button type='submit' className='btn-primary w-full md:w-auto'>
-        Send Message
-      </button>
+      <Button
+        variant='primary'
+        type='submit'
+        disabled={status === 'submitting'}
+        className='w-full md:w-auto'
+      >
+        {status === 'submitting' ? 'Sending…' : 'Send Message'}
+      </Button>
+
+      {status === 'success' && (
+        <Alert
+          type='success'
+          message='Thank you! Your message has been sent.'
+          dismissible
+        />
+      )}
+
+      {status === 'error' && (
+        <Alert
+          type='error'
+          message='Something went wrong. Please try again later.'
+          dismissible
+          onDismiss={() => setStatus('idle')}
+        />
+      )}
     </form>
   )
 }
