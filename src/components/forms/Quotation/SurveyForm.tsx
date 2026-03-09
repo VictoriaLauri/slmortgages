@@ -95,10 +95,9 @@ export default function SurveyForm() {
     try {
       const body = new URLSearchParams()
       body.set('form-name', 'survey-quote')
-      body.set('Form type', 'Survey quotation')
       const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
       formData.forEach((value, key) => {
-        if (key === 'form-name' || key === 'Form type') return
+        if (key === 'form-name') return
         body.append(key, sanitizeFormText(value.toString(), textMax(key)))
       })
       const res = await fetch('/', {
@@ -128,7 +127,15 @@ export default function SurveyForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='survey-quote' />
-      <input type='hidden' name='Form type' value='Survey quotation' />
+
+      {Object.keys(errors).length > 0 && (
+        <Alert
+          type='error'
+          message='Please check the highlighted fields and try again.'
+          dismissible
+          onDismiss={() => setErrors({})}
+        />
+      )}
 
       {/* Personal details */}
       <div className='grid md:grid-cols-3 gap-4'>

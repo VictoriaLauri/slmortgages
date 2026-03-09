@@ -123,11 +123,10 @@ export default function SaleAndPurchaseForm() {
     try {
       const body = new URLSearchParams()
       body.set('form-name', 'sale-and-purchase-quote')
-      body.set('Form type', 'Sale and purchase quotation')
       const textMax = (k: string) =>
         k.includes('Address') || k.includes('Notes') ? 10000 : 500
       formData.forEach((value, key) => {
-        if (key === 'form-name' || key === 'Form type') return
+        if (key === 'form-name') return
         body.append(key, sanitizeFormText(value.toString(), textMax(key)))
       })
       const res = await fetch('/', {
@@ -157,7 +156,6 @@ export default function SaleAndPurchaseForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='sale-and-purchase-quote' />
-      <input type='hidden' name='Form type' value='Sale and purchase quotation' />
 
       {/* -------------------------------------------------
           APPLICANT DETAILS

@@ -109,9 +109,7 @@ export default function CareersForm() {
     const rawData = new FormData(form)
     const submitData = new FormData()
     submitData.set('form-name', 'careers')
-    submitData.set('Form type', 'Careers application')
     rawData.forEach((value, key) => {
-      if (key === 'Form type') return
       if (value instanceof File) {
         submitData.set(key, value)
       } else {
@@ -159,7 +157,6 @@ export default function CareersForm() {
       noValidate
     >
       <input type='hidden' name='form-name' value='careers' />
-      <input type='hidden' name='Form type' value='Careers application' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>
           <label className='block font-medium mb-1 text-text-dark'>

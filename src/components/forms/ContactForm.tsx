@@ -90,7 +90,6 @@ export default function ContactForm() {
     const payload = getFormDataFromForm(form)
     const body = new URLSearchParams()
     body.set('form-name', 'contact')
-    body.set('Form type', 'Contact enquiry')
     body.set('fullName', sanitizeFormText(payload.fullName, 500))
     body.set('email', sanitizeFormText(payload.email, 500))
     body.set('phone', sanitizeFormText(payload.phone, 500))
@@ -124,7 +123,6 @@ export default function ContactForm() {
       noValidate
     >
       <input type='hidden' name='form-name' value='contact' />
-      <input type='hidden' name='Form type' value='Contact enquiry' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>
           <label className='block font-medium mb-1 text-text-dark'>

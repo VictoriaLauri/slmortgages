@@ -99,10 +99,9 @@ export default function SaleForm() {
     try {
       const body = new URLSearchParams()
       body.set('form-name', 'sale-quote')
-      body.set('Form type', 'Sale quotation')
       const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
       formData.forEach((value, key) => {
-        if (key === 'form-name' || key === 'Form type') return
+        if (key === 'form-name') return
         body.append(key, sanitizeFormText(value.toString(), textMax(key)))
       })
       const res = await fetch('/', {
@@ -132,7 +131,6 @@ export default function SaleForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='sale-quote' />
-      <input type='hidden' name='Form type' value='Sale quotation' />
 
       {/* Applicants */}
       <Select

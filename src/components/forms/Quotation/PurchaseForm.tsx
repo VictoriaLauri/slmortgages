@@ -102,10 +102,9 @@ export default function PurchaseForm() {
     try {
       const body = new URLSearchParams()
       body.set('form-name', 'purchase-quote')
-      body.set('Form type', 'Purchase quotation')
       const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
       formData.forEach((value, key) => {
-        if (key === 'form-name' || key === 'Form type') return
+        if (key === 'form-name') return
         body.append(key, sanitizeFormText(value.toString(), textMax(key)))
       })
       const res = await fetch('/', {
@@ -135,7 +134,6 @@ export default function PurchaseForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='purchase-quote' />
-      <input type='hidden' name='Form type' value='Purchase quotation' />
 
       {/* Applicants */}
       <Select
