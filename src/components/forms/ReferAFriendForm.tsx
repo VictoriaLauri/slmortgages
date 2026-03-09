@@ -39,11 +39,19 @@ export default function ReferAFriendForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const form = e.currentTarget
-    const formData = new FormData(form)
-    formData.set('form-name', 'refer-a-friend')
+    const data = new FormData(form)
+    data.set('form-name', 'refer-a-friend')
+    const body = new URLSearchParams()
+    data.forEach((value, key) => body.append(key, value.toString()))
     try {
-      await fetch('/', { method: 'POST', body: formData })
-      alert('Thank you! Your referral has been submitted.')
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      })
+      if (!res.ok) {
+        throw new Error(`Submission failed: ${res.status}`)
+      }
       setFormData({
         yourName: '',
         yourEmail: '',
@@ -52,6 +60,7 @@ export default function ReferAFriendForm() {
         message: '',
         consent: false,
       })
+      alert('Thank you! Your referral has been submitted.')
     } catch {
       alert('Something went wrong. Please try again later.')
     }

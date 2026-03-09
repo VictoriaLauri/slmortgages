@@ -86,7 +86,14 @@ export default function SurveyForm() {
     setStatus('submitting')
 
     try {
-      await fetch('/', { method: 'POST', body: formData })
+      const body = new URLSearchParams()
+      formData.forEach((value, key) => body.append(key, value.toString()))
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      })
+      if (!res.ok) throw new Error(`Submission failed: ${res.status}`)
       e.currentTarget.reset()
       setStatus('success')
     } catch {

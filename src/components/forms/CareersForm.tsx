@@ -51,7 +51,10 @@ export default function CareersForm() {
     const submitData = new FormData(form)
     submitData.set('form-name', 'careers')
     try {
-      await fetch('/', { method: 'POST', body: submitData })
+      const res = await fetch('/', { method: 'POST', body: submitData })
+      if (!res.ok) {
+        throw new Error(`Submission failed: ${res.status}`)
+      }
       form.reset()
       setFormData({
         fullName: '',
