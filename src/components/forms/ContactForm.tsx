@@ -1,5 +1,5 @@
 import type { ChangeEvent, FormEvent } from 'react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { sanitizeFormText } from '../../lib/utils/sanitizeFormText'
 import { Alert, Button } from '../ui/index'
 
@@ -13,8 +13,26 @@ type ContactFormState = {
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const PHONE_PATTERN = /^[+0-9\s-]{6,}$/
+
+function validate(data: ContactFormState): Record<string, string> {
+  const err: Record<string, string> = {}
+  if (!data.fullName.trim()) err.fullName = 'Full name is required.'
+  const email = data.email.trim()
+  if (!email) err.email = 'Email is required.'
+  else if (!EMAIL_PATTERN.test(email)) err.email = 'Please enter a valid email address.'
+  const phone = data.phone.trim()
+  if (phone && !PHONE_PATTERN.test(phone)) err.phone = 'Please enter a valid phone number.'
+  if (!data.message.trim()) err.message = 'Message is required.'
+  if (!data.consent) err.consent = 'Please agree to be contacted.'
+  return err
+}
+
 export default function ContactForm() {
+  const formRef = useRef<HTMLFormElement>(null)
   const [status, setStatus] = useState<Status>('idle')
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [formData, setFormData] = useState<ContactFormState>({
     fullName: '',
     email: '',
@@ -22,6 +40,13 @@ export default function ContactForm() {
     message: '',
     consent: false,
   })
+
+  function focusFirstError(errs: Record<string, string>) {
+    const first = Object.keys(errs)[0]
+    if (!first || !formRef.current) return
+    const el = formRef.current.querySelector(`[name="${first}"]`) as HTMLElement
+    el?.focus()
+  }
 
   function handleChange(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,6 +65,13 @@ export default function ContactForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const errs = validate(formData)
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs)
+      focusFirstError(errs)
+      return
+    }
+    setErrors({})
     const form = e.currentTarget
     const data = new FormData(form)
     data.set('form-name', 'contact')
@@ -48,6 +80,7 @@ export default function ContactForm() {
       const str = value.toString()
       body.append(key, key === 'message' ? sanitizeFormText(str, 10000) : sanitizeFormText(str, 500))
     })
+    body.set('Form type', 'Contact enquiry')
     setStatus('submitting')
     try {
       const res = await fetch('/', {
@@ -67,11 +100,13 @@ export default function ContactForm() {
 
   return (
     <form
+      ref={formRef}
       className='space-y-5'
       onSubmit={handleSubmit}
       method='POST'
       data-netlify='true'
       name='contact'
+      noValidate
     >
       <input type='hidden' name='form-name' value='contact' />
       <input type='hidden' name='Form type' value='Contact enquiry' />
@@ -81,14 +116,20 @@ export default function ContactForm() {
             Full Name <span className='text-error'>*</span>
           </label>
           <input
-            required
             type='text'
             name='fullName'
             value={formData.fullName}
             maxLength={200}
             onChange={handleChange}
-            className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.fullName ? 'border-error' : 'border-gray-300'}`}
+            aria-invalid={!!errors.fullName}
+            aria-describedby={errors.fullName ? 'fullName-error' : undefined}
           />
+          {errors.fullName && (
+            <p id='fullName-error' className='mt-1 text-sm text-error' role='alert'>
+              {errors.fullName}
+            </p>
+          )}
         </div>
 
         <div>
@@ -96,14 +137,20 @@ export default function ContactForm() {
             Email <span className='text-error'>*</span>
           </label>
           <input
-            required
             type='email'
             name='email'
             value={formData.email}
             maxLength={254}
             onChange={handleChange}
-            className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.email ? 'border-error' : 'border-gray-300'}`}
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? 'email-error' : undefined}
           />
+          {errors.email && (
+            <p id='email-error' className='mt-1 text-sm text-error' role='alert'>
+              {errors.email}
+            </p>
+          )}
         </div>
       </div>
 
@@ -117,8 +164,15 @@ export default function ContactForm() {
           value={formData.phone}
           maxLength={30}
           onChange={handleChange}
-          className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+          className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.phone ? 'border-error' : 'border-gray-300'}`}
+          aria-invalid={!!errors.phone}
+          aria-describedby={errors.phone ? 'phone-error' : undefined}
         />
+        {errors.phone && (
+          <p id='phone-error' className='mt-1 text-sm text-error' role='alert'>
+            {errors.phone}
+          </p>
+        )}
       </div>
 
       <div>
@@ -126,27 +180,41 @@ export default function ContactForm() {
           Message <span className='text-error'>*</span>
         </label>
         <textarea
-          required
           name='message'
           rows={5}
           value={formData.message}
           maxLength={10000}
           onChange={handleChange}
-          className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+          className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.message ? 'border-error' : 'border-gray-300'}`}
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? 'message-error' : undefined}
         ></textarea>
+        {errors.message && (
+          <p id='message-error' className='mt-1 text-sm text-error' role='alert'>
+            {errors.message}
+          </p>
+        )}
       </div>
 
-      <label className='flex items-center gap-3 text-text-dark'>
-        <input
-          type='checkbox'
-          name='consent'
-          checked={formData.consent}
-          onChange={handleChange}
-          required
-          className='w-4 h-4'
-        />
-        I agree to be contacted regarding my enquiry.
-      </label>
+      <div>
+        <label className='flex items-center gap-3 text-text-dark'>
+          <input
+            type='checkbox'
+            name='consent'
+            checked={formData.consent}
+            onChange={handleChange}
+            className='w-4 h-4'
+            aria-invalid={!!errors.consent}
+            aria-describedby={errors.consent ? 'consent-error' : undefined}
+          />
+          I agree to be contacted regarding my enquiry.
+        </label>
+        {errors.consent && (
+          <p id='consent-error' className='mt-1 text-sm text-error' role='alert'>
+            {errors.consent}
+          </p>
+        )}
+      </div>
 
       <Button
         variant='primary'

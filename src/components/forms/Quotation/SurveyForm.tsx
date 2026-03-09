@@ -92,6 +92,7 @@ export default function SurveyForm() {
       formData.forEach((value, key) =>
         body.append(key, sanitizeFormText(value.toString(), textMax(key)))
       )
+      body.set('Form type', 'Survey quotation')
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

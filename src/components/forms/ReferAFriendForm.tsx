@@ -1,5 +1,5 @@
 import type { ChangeEvent, FormEvent } from 'react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { sanitizeFormText } from '../../lib/utils/sanitizeFormText'
 import { Alert, Button } from '../ui/index'
 
@@ -14,8 +14,26 @@ type FormState = {
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function validate(data: FormState): Record<string, string> {
+  const err: Record<string, string> = {}
+  if (!data.yourName.trim()) err.yourName = 'Your name is required.'
+  const yourEmail = data.yourEmail.trim()
+  if (!yourEmail) err.yourEmail = 'Your email is required.'
+  else if (!EMAIL_PATTERN.test(yourEmail)) err.yourEmail = 'Please enter a valid email address.'
+  if (!data.friendName.trim()) err.friendName = "Friend's name is required."
+  const friendEmail = data.friendEmail.trim()
+  if (!friendEmail) err.friendEmail = "Friend's email is required."
+  else if (!EMAIL_PATTERN.test(friendEmail)) err.friendEmail = 'Please enter a valid email address.'
+  if (!data.consent) err.consent = 'Please confirm your friend is aware and happy to be contacted.'
+  return err
+}
+
 export default function ReferAFriendForm() {
+  const formRef = useRef<HTMLFormElement>(null)
   const [status, setStatus] = useState<Status>('idle')
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [formData, setFormData] = useState<FormState>({
     yourName: '',
     yourEmail: '',
@@ -41,8 +59,22 @@ export default function ReferAFriendForm() {
     }))
   }
 
+  function focusFirstError(errs: Record<string, string>) {
+    const first = Object.keys(errs)[0]
+    if (!first || !formRef.current) return
+    const el = formRef.current.querySelector(`[name="${first}"]`) as HTMLElement
+    el?.focus()
+  }
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const errs = validate(formData)
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs)
+      focusFirstError(errs)
+      return
+    }
+    setErrors({})
     const form = e.currentTarget
     const data = new FormData(form)
     data.set('form-name', 'refer-a-friend')
@@ -51,6 +83,7 @@ export default function ReferAFriendForm() {
       const str = value.toString()
       body.append(key, key === 'message' ? sanitizeFormText(str, 10000) : sanitizeFormText(str, 500))
     })
+    body.set('Form type', 'Refer a friend')
     setStatus('submitting')
     try {
       const res = await fetch('/', {
@@ -77,11 +110,13 @@ export default function ReferAFriendForm() {
 
   return (
     <form
+      ref={formRef}
       className='space-y-5'
       onSubmit={handleSubmit}
       method='POST'
       data-netlify='true'
       name='refer-a-friend'
+      noValidate
     >
       <input type='hidden' name='form-name' value='refer-a-friend' />
       <input type='hidden' name='Form type' value='Refer a friend' />
@@ -91,14 +126,20 @@ export default function ReferAFriendForm() {
             Your Name <span className='text-error'>*</span>
           </label>
           <input
-            required
             type='text'
             name='yourName'
             value={formData.yourName}
             maxLength={200}
             onChange={handleChange}
-            className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.yourName ? 'border-error' : 'border-gray-300'}`}
+            aria-invalid={!!errors.yourName}
+            aria-describedby={errors.yourName ? 'refer-yourName-error' : undefined}
           />
+          {errors.yourName && (
+            <p id='refer-yourName-error' className='mt-1 text-sm text-error' role='alert'>
+              {errors.yourName}
+            </p>
+          )}
         </div>
 
         <div>
@@ -106,14 +147,20 @@ export default function ReferAFriendForm() {
             Your Email <span className='text-error'>*</span>
           </label>
           <input
-            required
             type='email'
             name='yourEmail'
             value={formData.yourEmail}
             maxLength={254}
             onChange={handleChange}
-            className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.yourEmail ? 'border-error' : 'border-gray-300'}`}
+            aria-invalid={!!errors.yourEmail}
+            aria-describedby={errors.yourEmail ? 'refer-yourEmail-error' : undefined}
           />
+          {errors.yourEmail && (
+            <p id='refer-yourEmail-error' className='mt-1 text-sm text-error' role='alert'>
+              {errors.yourEmail}
+            </p>
+          )}
         </div>
       </div>
 
@@ -123,14 +170,20 @@ export default function ReferAFriendForm() {
             Friend's Name <span className='text-error'>*</span>
           </label>
           <input
-            required
             type='text'
             name='friendName'
             value={formData.friendName}
             maxLength={200}
             onChange={handleChange}
-            className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.friendName ? 'border-error' : 'border-gray-300'}`}
+            aria-invalid={!!errors.friendName}
+            aria-describedby={errors.friendName ? 'refer-friendName-error' : undefined}
           />
+          {errors.friendName && (
+            <p id='refer-friendName-error' className='mt-1 text-sm text-error' role='alert'>
+              {errors.friendName}
+            </p>
+          )}
         </div>
 
         <div>
@@ -138,14 +191,20 @@ export default function ReferAFriendForm() {
             Friend's Email <span className='text-error'>*</span>
           </label>
           <input
-            required
             type='email'
             name='friendEmail'
             value={formData.friendEmail}
             maxLength={254}
             onChange={handleChange}
-            className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
+            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-teal ${errors.friendEmail ? 'border-error' : 'border-gray-300'}`}
+            aria-invalid={!!errors.friendEmail}
+            aria-describedby={errors.friendEmail ? 'refer-friendEmail-error' : undefined}
           />
+          {errors.friendEmail && (
+            <p id='refer-friendEmail-error' className='mt-1 text-sm text-error' role='alert'>
+              {errors.friendEmail}
+            </p>
+          )}
         </div>
       </div>
 
@@ -160,20 +219,28 @@ export default function ReferAFriendForm() {
           maxLength={10000}
           onChange={handleChange}
           className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal'
-        ></textarea>
+        />
       </div>
 
-      <label className='flex items-center gap-3 text-text-dark'>
-        <input
-          type='checkbox'
-          name='consent'
-          checked={formData.consent}
-          onChange={handleChange}
-          className='w-4 h-4'
-          required
-        />
-        I confirm that my friend is aware and happy to be contacted.
-      </label>
+      <div>
+        <label className='flex items-center gap-3 text-text-dark'>
+          <input
+            type='checkbox'
+            name='consent'
+            checked={formData.consent}
+            onChange={handleChange}
+            className='w-4 h-4'
+            aria-invalid={!!errors.consent}
+            aria-describedby={errors.consent ? 'refer-consent-error' : undefined}
+          />
+          I confirm that my friend is aware and happy to be contacted.
+        </label>
+        {errors.consent && (
+          <p id='refer-consent-error' className='mt-1 text-sm text-error' role='alert'>
+            {errors.consent}
+          </p>
+        )}
+      </div>
 
       <Button
         variant='primary'

@@ -96,6 +96,7 @@ export default function SaleForm() {
       formData.forEach((value, key) =>
         body.append(key, sanitizeFormText(value.toString(), textMax(key)))
       )
+      body.set('Form type', 'Sale quotation')
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
