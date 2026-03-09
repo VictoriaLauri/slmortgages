@@ -39,7 +39,7 @@ export default function CareersForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     if (formData.cv && formData.cv.size > 5 * 1024 * 1024) {

@@ -36,7 +36,7 @@ export default function ReferAFriendForm() {
     }))
   }
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const form = e.currentTarget
     const formData = new FormData(form)
