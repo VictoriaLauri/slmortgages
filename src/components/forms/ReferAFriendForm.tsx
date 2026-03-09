@@ -94,7 +94,6 @@ export default function ReferAFriendForm() {
     const payload = getFormDataFromForm(form)
     const body = new URLSearchParams()
     body.set('form-name', 'refer-a-friend')
-    body.set('Form type', 'Refer a friend')
     body.set('formType', 'Refer a friend')
     body.set('yourName', sanitizeFormText(payload.yourName, 500))
     body.set('yourEmail', sanitizeFormText(payload.yourEmail, 500))
@@ -137,7 +136,6 @@ export default function ReferAFriendForm() {
       noValidate
     >
       <input type='hidden' name='form-name' value='refer-a-friend' />
-      <input type='hidden' name='Form type' value='Refer a friend' />
       <input type='hidden' name='formType' value='Refer a friend' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>

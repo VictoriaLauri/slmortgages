@@ -158,11 +158,6 @@ export default function SaleAndPurchaseForm() {
       <input type='hidden' name='form-name' value='sale-and-purchase-quote' />
       <input
         type='hidden'
-        name='Form type'
-        value='Sale and purchase quotation'
-      />
-      <input
-        type='hidden'
         name='formType'
         value='Sale and purchase quotation'
       />
