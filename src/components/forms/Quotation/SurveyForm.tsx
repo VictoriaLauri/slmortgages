@@ -127,15 +127,7 @@ export default function SurveyForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='survey-quote' />
-
-      {Object.keys(errors).length > 0 && (
-        <Alert
-          type='error'
-          message='Please check the highlighted fields and try again.'
-          dismissible
-          onDismiss={() => setErrors({})}
-        />
-      )}
+      <input type='hidden' name='formType' value='Survey quotation' />
 
       {/* Personal details */}
       <div className='grid md:grid-cols-3 gap-4'>

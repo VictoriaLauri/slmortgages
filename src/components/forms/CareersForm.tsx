@@ -157,6 +157,7 @@ export default function CareersForm() {
       noValidate
     >
       <input type='hidden' name='form-name' value='careers' />
+      <input type='hidden' name='formType' value='Careers application' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>
           <label className='block font-medium mb-1 text-text-dark'>

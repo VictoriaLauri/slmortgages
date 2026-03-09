@@ -156,6 +156,11 @@ export default function SaleAndPurchaseForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='sale-and-purchase-quote' />
+      <input
+        type='hidden'
+        name='formType'
+        value='Sale and purchase quotation'
+      />
 
       {/* -------------------------------------------------
           APPLICANT DETAILS
