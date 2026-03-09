@@ -119,6 +119,7 @@ export default function SurveyForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='survey-quote' />
+      <input type='hidden' name='Form type' value='Survey quotation' />
 
       {/* Personal details */}
       <div className='grid md:grid-cols-3 gap-4'>

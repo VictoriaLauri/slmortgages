@@ -123,6 +123,7 @@ export default function RemortgageForm() {
       className='space-y-6'
     >
       <input type='hidden' name='form-name' value='remortgage-quote' />
+      <input type='hidden' name='Form type' value='Remortgage quotation' />
 
       {/* Applicants */}
       <Select

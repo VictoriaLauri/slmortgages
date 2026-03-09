@@ -84,6 +84,7 @@ export default function ReferAFriendForm() {
       name='refer-a-friend'
     >
       <input type='hidden' name='form-name' value='refer-a-friend' />
+      <input type='hidden' name='Form type' value='Refer a friend' />
       <div className='grid md:grid-cols-2 gap-4'>
         <div>
           <label className='block font-medium mb-1 text-text-dark'>
