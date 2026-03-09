@@ -81,6 +81,10 @@ export default function CareersForm() {
         : e.target.value
 
     setFormData((prev) => ({ ...prev, [name]: value }))
+    setErrors((prev) => {
+      const { [name]: _, ...rest } = prev
+      return rest
+    })
   }
 
   function focusFirstError(errs: Record<string, string>) {

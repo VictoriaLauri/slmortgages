@@ -68,6 +68,12 @@ export default function SurveyForm() {
     element?.focus()
   }
 
+  const clearFieldError = (name: string) =>
+    setErrors((prev) => {
+      const { [name]: _, ...rest } = prev
+      return rest
+    })
+
   // ------------------------------
   // SUBMIT HANDLER
   // ------------------------------
@@ -88,18 +94,20 @@ export default function SurveyForm() {
 
     try {
       const body = new URLSearchParams()
-      const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
-      formData.forEach((value, key) =>
-        body.append(key, sanitizeFormText(value.toString(), textMax(key)))
-      )
+      body.set('form-name', 'survey-quote')
       body.set('Form type', 'Survey quotation')
+      const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
+      formData.forEach((value, key) => {
+        if (key === 'form-name' || key === 'Form type') return
+        body.append(key, sanitizeFormText(value.toString(), textMax(key)))
+      })
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
       })
       if (!res.ok) throw new Error(`Submission failed: ${res.status}`)
-      e.currentTarget.reset()
+      formRef.current?.reset()
       setStatus('success')
     } catch {
       setStatus('error')
@@ -139,6 +147,7 @@ export default function SurveyForm() {
             { value: 'Other', label: 'Other...' },
           ]}
           error={errors.title}
+          onChange={() => clearFieldError('title')}
         />
 
         <Input
@@ -147,6 +156,7 @@ export default function SurveyForm() {
           label='First name'
           required
           error={errors.firstName}
+          onChange={() => clearFieldError('firstName')}
         />
 
         <Input
@@ -155,6 +165,7 @@ export default function SurveyForm() {
           label='Last name'
           required
           error={errors.lastName}
+          onChange={() => clearFieldError('lastName')}
         />
       </div>
 
@@ -167,6 +178,7 @@ export default function SurveyForm() {
           label='Email'
           required
           error={errors.email}
+          onChange={() => clearFieldError('email')}
         />
 
         <Input
@@ -175,6 +187,7 @@ export default function SurveyForm() {
           type='tel'
           label='Phone (optional)'
           error={errors.phone}
+          onChange={() => clearFieldError('phone')}
         />
       </div>
 
@@ -192,6 +205,22 @@ export default function SurveyForm() {
           { value: 'Northern Ireland', label: 'Northern Ireland' },
         ]}
         error={errors.country}
+        onChange={() => clearFieldError('country')}
+      />
+
+      {/* Survey type */}
+      <Select
+        id='surveyType'
+        name='surveyType'
+        label='Survey type'
+        required
+        options={[
+          { value: '', label: 'Select' },
+          { value: 'Level 2', label: 'RICS Level 2 (Homebuyers Report)' },
+          { value: 'Level 3', label: 'RICS Level 3 (Building Survey)' },
+        ]}
+        error={errors.surveyType}
+        onChange={() => clearFieldError('surveyType')}
       />
 
       {/* Age of property */}
@@ -206,13 +235,14 @@ export default function SurveyForm() {
 
         <Radio
           name='propertyAge'
-          label='' // keep empty or remove if optional
+          label=''
           required
           options={[
             { value: 'Under 100', label: 'Under 100 years' },
             { value: '100+', label: '100 years and over' },
           ]}
           error={errors.propertyAge}
+          onChange={() => clearFieldError('propertyAge')}
         />
       </div>
 
@@ -224,6 +254,7 @@ export default function SurveyForm() {
         rows={3}
         required
         error={errors.address}
+        onChange={() => clearFieldError('address')}
       />
 
       {/* Notes */}
@@ -232,6 +263,7 @@ export default function SurveyForm() {
         name='notes'
         label='Additional information (optional)'
         rows={3}
+        onChange={() => clearFieldError('notes')}
       />
 
       {/* Consent */}
@@ -241,12 +273,14 @@ export default function SurveyForm() {
         label='I agree to be contacted regarding my quotation request.'
         required
         error={errors.consentContact}
+        onChange={() => clearFieldError('consentContact')}
       />
 
       <Checkbox
         id='consentUpdates'
         name='consentUpdates'
         label='I would like to receive occasional updates and mortgage tips.'
+        onChange={() => clearFieldError('consentUpdates')}
       />
 
       {/* Submit */}
@@ -259,11 +293,9 @@ export default function SurveyForm() {
       </Button>
 
       {status === 'success' && (
-        <Alert
-          type='success'
-          message='Thank you! Your survey quotation request has been submitted and you will be contacted within 24 hours.'
-          dismissible
-        />
+        <p className='text-sm text-green-700' role='status'>
+          Thank you! Your survey quotation request has been submitted and you will be contacted within 24 hours.
+        </p>
       )}
 
       {status === 'error' && (
@@ -271,6 +303,7 @@ export default function SurveyForm() {
           type='error'
           message='Something went wrong. Please try again later.'
           dismissible
+          onDismiss={() => setStatus('idle')}
         />
       )}
     </form>

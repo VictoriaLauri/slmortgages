@@ -72,6 +72,12 @@ export default function RemortgageForm() {
     element?.focus()
   }
 
+  const clearFieldError = (name: string) =>
+    setErrors((prev) => {
+      const { [name]: _, ...rest } = prev
+      return rest
+    })
+
   // ------------------------------
   // SUBMIT
   // ------------------------------
@@ -92,18 +98,20 @@ export default function RemortgageForm() {
 
     try {
       const body = new URLSearchParams()
-      const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
-      formData.forEach((value, key) =>
-        body.append(key, sanitizeFormText(value.toString(), textMax(key)))
-      )
+      body.set('form-name', 'remortgage-quote')
       body.set('Form type', 'Remortgage quotation')
+      const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
+      formData.forEach((value, key) => {
+        if (key === 'form-name' || key === 'Form type') return
+        body.append(key, sanitizeFormText(value.toString(), textMax(key)))
+      })
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
       })
       if (!res.ok) throw new Error(`Submission failed: ${res.status}`)
-      e.currentTarget.reset()
+      formRef.current?.reset()
       setStatus('success')
     } catch {
       setStatus('error')
@@ -139,6 +147,7 @@ export default function RemortgageForm() {
           { value: '3+', label: '3+' },
         ]}
         error={errors.applicants}
+        onChange={() => clearFieldError('applicants')}
       />
 
       {/* Personal details */}
@@ -158,6 +167,7 @@ export default function RemortgageForm() {
             { value: 'Other', label: 'Other...' },
           ]}
           error={errors.title}
+          onChange={() => clearFieldError('title')}
         />
 
         <Input
@@ -166,6 +176,7 @@ export default function RemortgageForm() {
           label='First name'
           required
           error={errors.firstName}
+          onChange={() => clearFieldError('firstName')}
         />
 
         <Input
@@ -174,6 +185,7 @@ export default function RemortgageForm() {
           label='Last name'
           required
           error={errors.lastName}
+          onChange={() => clearFieldError('lastName')}
         />
       </div>
 
@@ -186,6 +198,7 @@ export default function RemortgageForm() {
           label='Email'
           required
           error={errors.email}
+          onChange={() => clearFieldError('email')}
         />
 
         <Input
@@ -194,6 +207,7 @@ export default function RemortgageForm() {
           type='tel'
           label='Phone (optional)'
           error={errors.phone}
+          onChange={() => clearFieldError('phone')}
         />
       </div>
 
@@ -211,6 +225,7 @@ export default function RemortgageForm() {
           { value: 'Northern Ireland', label: 'Northern Ireland' },
         ]}
         error={errors.country}
+        onChange={() => clearFieldError('country')}
       />
 
       <Input
@@ -220,6 +235,7 @@ export default function RemortgageForm() {
         label='Property price (£)'
         required
         error={errors.propertyPrice}
+        onChange={() => clearFieldError('propertyPrice')}
       />
 
       <Select
@@ -234,6 +250,7 @@ export default function RemortgageForm() {
           { value: 'Share of Freehold', label: 'Share of Freehold' },
         ]}
         error={errors.tenure}
+        onChange={() => clearFieldError('tenure')}
       />
 
       <Textarea
@@ -243,6 +260,7 @@ export default function RemortgageForm() {
         rows={3}
         required
         error={errors.address}
+        onChange={() => clearFieldError('address')}
       />
 
       {/* Mortgage count */}
@@ -251,6 +269,7 @@ export default function RemortgageForm() {
         name='lender'
         label='Mortgage lender (optional)'
         placeholder='Enter lender name if known'
+        onChange={() => clearFieldError('lender')}
       />
 
       <Select
@@ -268,14 +287,16 @@ export default function RemortgageForm() {
           { value: '5+', label: '5+' },
         ]}
         error={errors.mortgageCount}
+        onChange={() => clearFieldError('mortgageCount')}
       />
 
-<Input
+      <Input
         id='loanAmount'
         name='loanAmount'
         type='number'
         label='Loan amount (£)'
         placeholder='Enter loan amount if known'
+        onChange={() => clearFieldError('loanAmount')}
       />
 
       {/* Considerations */}
@@ -304,6 +325,7 @@ export default function RemortgageForm() {
         name='notes'
         label='Additional information (optional)'
         rows={3}
+        onChange={() => clearFieldError('notes')}
       />
 
       {/* Consent */}
@@ -313,12 +335,14 @@ export default function RemortgageForm() {
         label='I agree to be contacted regarding my quotation request.'
         required
         error={errors.consentContact}
+        onChange={() => clearFieldError('consentContact')}
       />
 
       <Checkbox
         id='consentUpdates'
         name='consentUpdates'
         label='I would like to receive occasional updates and mortgage tips.'
+        onChange={() => clearFieldError('consentUpdates')}
       />
 
       {/* Submit */}
@@ -331,11 +355,9 @@ export default function RemortgageForm() {
       </Button>
 
       {status === 'success' && (
-        <Alert
-          type='success'
-          message='Thank you! Your remortgage quotation request has been submitted and you will be contacted within 24 hours.'
-          dismissible
-        />
+        <p className='text-sm text-green-700' role='status'>
+          Thank you! Your remortgage quotation request has been submitted and you will be contacted within 24 hours.
+        </p>
       )}
 
       {status === 'error' && (
@@ -343,6 +365,7 @@ export default function RemortgageForm() {
           type='error'
           message='Something went wrong. Please try again later.'
           dismissible
+          onDismiss={() => setStatus('idle')}
         />
       )}
     </form>

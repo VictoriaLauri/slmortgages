@@ -67,6 +67,10 @@ export default function ReferAFriendForm() {
       ...prev,
       [name]: value,
     }))
+    setErrors((prev) => {
+      const { [name]: _, ...rest } = prev
+      return rest
+    })
   }
 
   function focusFirstError(errs: Record<string, string>) {
@@ -87,14 +91,16 @@ export default function ReferAFriendForm() {
       return
     }
     setErrors({})
-    const data = new FormData(form)
-    data.set('form-name', 'refer-a-friend')
+    const payload = getFormDataFromForm(form)
     const body = new URLSearchParams()
-    data.forEach((value, key) => {
-      const str = value.toString()
-      body.append(key, key === 'message' ? sanitizeFormText(str, 10000) : sanitizeFormText(str, 500))
-    })
+    body.set('form-name', 'refer-a-friend')
     body.set('Form type', 'Refer a friend')
+    body.set('yourName', sanitizeFormText(payload.yourName, 500))
+    body.set('yourEmail', sanitizeFormText(payload.yourEmail, 500))
+    body.set('friendName', sanitizeFormText(payload.friendName, 500))
+    body.set('friendEmail', sanitizeFormText(payload.friendEmail, 500))
+    body.set('message', sanitizeFormText(payload.message, 10000))
+    body.set('consent', payload.consent ? 'on' : '')
     setStatus('submitting')
     try {
       const res = await fetch('/', {

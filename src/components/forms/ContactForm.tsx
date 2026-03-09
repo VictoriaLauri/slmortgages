@@ -70,6 +70,10 @@ export default function ContactForm() {
       ...prev,
       [name]: value,
     }))
+    setErrors((prev) => {
+      const { [name]: _, ...rest } = prev
+      return rest
+    })
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -83,14 +87,15 @@ export default function ContactForm() {
       return
     }
     setErrors({})
-    const data = new FormData(form)
-    data.set('form-name', 'contact')
+    const payload = getFormDataFromForm(form)
     const body = new URLSearchParams()
-    data.forEach((value, key) => {
-      const str = value.toString()
-      body.append(key, key === 'message' ? sanitizeFormText(str, 10000) : sanitizeFormText(str, 500))
-    })
+    body.set('form-name', 'contact')
     body.set('Form type', 'Contact enquiry')
+    body.set('fullName', sanitizeFormText(payload.fullName, 500))
+    body.set('email', sanitizeFormText(payload.email, 500))
+    body.set('phone', sanitizeFormText(payload.phone, 500))
+    body.set('message', sanitizeFormText(payload.message, 10000))
+    body.set('consent', payload.consent ? 'on' : '')
     setStatus('submitting')
     try {
       const res = await fetch('/', {

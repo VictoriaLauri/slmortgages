@@ -75,6 +75,12 @@ export default function PurchaseForm() {
     element?.focus()
   }
 
+  const clearFieldError = (name: string) =>
+    setErrors((prev) => {
+      const { [name]: _, ...rest } = prev
+      return rest
+    })
+
   // ------------------------------
   // SUBMIT HANDLER
   // ------------------------------
@@ -95,18 +101,20 @@ export default function PurchaseForm() {
 
     try {
       const body = new URLSearchParams()
-      const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
-      formData.forEach((value, key) =>
-        body.append(key, sanitizeFormText(value.toString(), textMax(key)))
-      )
+      body.set('form-name', 'purchase-quote')
       body.set('Form type', 'Purchase quotation')
+      const textMax = (k: string) => (k === 'address' || k === 'notes' ? 10000 : 500)
+      formData.forEach((value, key) => {
+        if (key === 'form-name' || key === 'Form type') return
+        body.append(key, sanitizeFormText(value.toString(), textMax(key)))
+      })
       const res = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
       })
       if (!res.ok) throw new Error(`Submission failed: ${res.status}`)
-      e.currentTarget.reset()
+      formRef.current?.reset()
       setStatus('success')
     } catch {
       setStatus('error')
@@ -142,6 +150,7 @@ export default function PurchaseForm() {
           { value: '3+', label: '3+' },
         ]}
         error={errors.applicants}
+        onChange={() => clearFieldError('applicants')}
       />
 
       {/* Personal details */}
@@ -161,6 +170,7 @@ export default function PurchaseForm() {
             { value: 'Other', label: 'Other...' },
           ]}
           error={errors.title}
+          onChange={() => clearFieldError('title')}
         />
 
         <Input
@@ -169,6 +179,7 @@ export default function PurchaseForm() {
           label='First name'
           required
           error={errors.firstName}
+          onChange={() => clearFieldError('firstName')}
         />
 
         <Input
@@ -177,6 +188,7 @@ export default function PurchaseForm() {
           label='Last name'
           required
           error={errors.lastName}
+          onChange={() => clearFieldError('lastName')}
         />
       </div>
 
@@ -189,6 +201,7 @@ export default function PurchaseForm() {
           label='Email'
           required
           error={errors.email}
+          onChange={() => clearFieldError('email')}
         />
 
         <Input
@@ -197,6 +210,7 @@ export default function PurchaseForm() {
           type='tel'
           label='Phone (optional)'
           error={errors.phone}
+          onChange={() => clearFieldError('phone')}
         />
       </div>
 
@@ -214,6 +228,7 @@ export default function PurchaseForm() {
           { value: 'Northern Ireland', label: 'Northern Ireland' },
         ]}
         error={errors.country}
+        onChange={() => clearFieldError('country')}
       />
 
       <Input
@@ -223,6 +238,7 @@ export default function PurchaseForm() {
         label='Purchase price (£)'
         required
         error={errors.purchasePrice}
+        onChange={() => clearFieldError('purchasePrice')}
       />
 
       <Select
@@ -237,6 +253,7 @@ export default function PurchaseForm() {
           { value: 'Share of Freehold', label: 'Share of Freehold' },
         ]}
         error={errors.tenure}
+        onChange={() => clearFieldError('tenure')}
       />
 
       <Textarea
@@ -246,6 +263,7 @@ export default function PurchaseForm() {
         rows={3}
         required
         error={errors.address}
+        onChange={() => clearFieldError('address')}
       />
 
       <Radio
@@ -257,6 +275,7 @@ export default function PurchaseForm() {
           { value: 'No', label: 'No' },
         ]}
         error={errors.firstTimeBuyer}
+        onChange={() => clearFieldError('firstTimeBuyer')}
       />
 
       {/* Mortgage */}
@@ -265,6 +284,7 @@ export default function PurchaseForm() {
         name='lender'
         label='Mortgage lender (optional)'
         placeholder='Enter lender name if known'
+        onChange={() => clearFieldError('lender')}
       />
 
       {/* Considerations */}
@@ -306,6 +326,7 @@ export default function PurchaseForm() {
         name='notes'
         label='Additional information (optional)'
         rows={3}
+        onChange={() => clearFieldError('notes')}
       />
 
       {/* Consent */}
@@ -315,12 +336,14 @@ export default function PurchaseForm() {
         label='I agree to be contacted regarding my quotation request.'
         required
         error={errors.consentContact}
+        onChange={() => clearFieldError('consentContact')}
       />
 
       <Checkbox
         id='consentUpdates'
         name='consentUpdates'
         label='I would like to receive occasional updates and mortgage tips.'
+        onChange={() => clearFieldError('consentUpdates')}
       />
 
       {/* Submit */}
@@ -333,11 +356,9 @@ export default function PurchaseForm() {
       </Button>
 
       {status === 'success' && (
-        <Alert
-          type='success'
-          message='Thank you! Your purchase quotation request has been submitted and you will be contacted within 24 hours.'
-          dismissible
-        />
+        <p className='text-sm text-green-700' role='status'>
+          Thank you! Your purchase quotation request has been submitted and you will be contacted within 24 hours.
+        </p>
       )}
 
       {status === 'error' && (
@@ -345,6 +366,7 @@ export default function PurchaseForm() {
           type='error'
           message='Something went wrong. Please try again later.'
           dismissible
+          onDismiss={() => setStatus('idle')}
         />
       )}
     </form>
