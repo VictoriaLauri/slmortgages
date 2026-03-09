@@ -16,15 +16,24 @@ type Status = 'idle' | 'submitting' | 'success' | 'error'
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const PHONE_PATTERN = /^[+0-9\s-]{6,}$/
 
+function getFormDataFromForm(form: HTMLFormElement): ContactFormState {
+  const data = new FormData(form)
+  return {
+    fullName: (data.get('fullName') ?? '').toString().trim(),
+    email: (data.get('email') ?? '').toString().trim(),
+    phone: (data.get('phone') ?? '').toString().trim(),
+    message: (data.get('message') ?? '').toString().trim(),
+    consent: data.get('consent') === 'on',
+  }
+}
+
 function validate(data: ContactFormState): Record<string, string> {
   const err: Record<string, string> = {}
-  if (!data.fullName.trim()) err.fullName = 'Full name is required.'
-  const email = data.email.trim()
-  if (!email) err.email = 'Email is required.'
-  else if (!EMAIL_PATTERN.test(email)) err.email = 'Please enter a valid email address.'
-  const phone = data.phone.trim()
-  if (phone && !PHONE_PATTERN.test(phone)) err.phone = 'Please enter a valid phone number.'
-  if (!data.message.trim()) err.message = 'Message is required.'
+  if (!data.fullName) err.fullName = 'Full name is required.'
+  if (!data.email) err.email = 'Email is required.'
+  else if (!EMAIL_PATTERN.test(data.email)) err.email = 'Please enter a valid email address.'
+  if (data.phone && !PHONE_PATTERN.test(data.phone)) err.phone = 'Please enter a valid phone number.'
+  if (!data.message) err.message = 'Message is required.'
   if (!data.consent) err.consent = 'Please agree to be contacted.'
   return err
 }
@@ -65,14 +74,15 @@ export default function ContactForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const errs = validate(formData)
+    const form = e.currentTarget
+    const dataToValidate = getFormDataFromForm(form)
+    const errs = validate(dataToValidate)
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
       focusFirstError(errs)
       return
     }
     setErrors({})
-    const form = e.currentTarget
     const data = new FormData(form)
     data.set('form-name', 'contact')
     const body = new URLSearchParams()
@@ -226,11 +236,9 @@ export default function ContactForm() {
       </Button>
 
       {status === 'success' && (
-        <Alert
-          type='success'
-          message='Thank you! Your message has been sent.'
-          dismissible
-        />
+        <p className='text-sm text-green-700' role='status'>
+          Thank you! Your message has been sent.
+        </p>
       )}
 
       {status === 'error' && (

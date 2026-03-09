@@ -16,16 +16,26 @@ type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+function getFormDataFromForm(form: HTMLFormElement): FormState {
+  const data = new FormData(form)
+  return {
+    yourName: (data.get('yourName') ?? '').toString().trim(),
+    yourEmail: (data.get('yourEmail') ?? '').toString().trim(),
+    friendName: (data.get('friendName') ?? '').toString().trim(),
+    friendEmail: (data.get('friendEmail') ?? '').toString().trim(),
+    message: (data.get('message') ?? '').toString().trim(),
+    consent: data.get('consent') === 'on',
+  }
+}
+
 function validate(data: FormState): Record<string, string> {
   const err: Record<string, string> = {}
-  if (!data.yourName.trim()) err.yourName = 'Your name is required.'
-  const yourEmail = data.yourEmail.trim()
-  if (!yourEmail) err.yourEmail = 'Your email is required.'
-  else if (!EMAIL_PATTERN.test(yourEmail)) err.yourEmail = 'Please enter a valid email address.'
-  if (!data.friendName.trim()) err.friendName = "Friend's name is required."
-  const friendEmail = data.friendEmail.trim()
-  if (!friendEmail) err.friendEmail = "Friend's email is required."
-  else if (!EMAIL_PATTERN.test(friendEmail)) err.friendEmail = 'Please enter a valid email address.'
+  if (!data.yourName) err.yourName = 'Your name is required.'
+  if (!data.yourEmail) err.yourEmail = 'Your email is required.'
+  else if (!EMAIL_PATTERN.test(data.yourEmail)) err.yourEmail = 'Please enter a valid email address.'
+  if (!data.friendName) err.friendName = "Friend's name is required."
+  if (!data.friendEmail) err.friendEmail = "Friend's email is required."
+  else if (!EMAIL_PATTERN.test(data.friendEmail)) err.friendEmail = 'Please enter a valid email address.'
   if (!data.consent) err.consent = 'Please confirm your friend is aware and happy to be contacted.'
   return err
 }
@@ -68,14 +78,15 @@ export default function ReferAFriendForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const errs = validate(formData)
+    const form = e.currentTarget
+    const dataToValidate = getFormDataFromForm(form)
+    const errs = validate(dataToValidate)
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
       focusFirstError(errs)
       return
     }
     setErrors({})
-    const form = e.currentTarget
     const data = new FormData(form)
     data.set('form-name', 'refer-a-friend')
     const body = new URLSearchParams()
@@ -252,11 +263,9 @@ export default function ReferAFriendForm() {
       </Button>
 
       {status === 'success' && (
-        <Alert
-          type='success'
-          message='Thank you! Your referral has been submitted.'
-          dismissible
-        />
+        <p className='text-sm text-green-700' role='status'>
+          Thank you! Your referral has been submitted.
+        </p>
       )}
 
       {status === 'error' && (

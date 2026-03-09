@@ -19,14 +19,25 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const PHONE_PATTERN = /^[+0-9\s-]{6,}$/
 const MAX_CV_BYTES = 1.5 * 1024 * 1024
 
+function getFormDataFromForm(form: HTMLFormElement): CareersFormState {
+  const data = new FormData(form)
+  const cv = data.get('cv') as File | null
+  return {
+    fullName: (data.get('fullName') ?? '').toString().trim(),
+    email: (data.get('email') ?? '').toString().trim(),
+    phone: (data.get('phone') ?? '').toString().trim(),
+    message: (data.get('message') ?? '').toString().trim(),
+    cv: (cv && cv instanceof File && cv.size > 0 ? cv : null) ?? null,
+    consent: data.get('consent') === 'on',
+  }
+}
+
 function validate(data: CareersFormState): Record<string, string> {
   const err: Record<string, string> = {}
-  if (!data.fullName.trim()) err.fullName = 'Full name is required.'
-  const email = data.email.trim()
-  if (!email) err.email = 'Email is required.'
-  else if (!EMAIL_PATTERN.test(email)) err.email = 'Please enter a valid email address.'
-  const phone = data.phone.trim()
-  if (phone && !PHONE_PATTERN.test(phone)) err.phone = 'Please enter a valid phone number.'
+  if (!data.fullName) err.fullName = 'Full name is required.'
+  if (!data.email) err.email = 'Email is required.'
+  else if (!EMAIL_PATTERN.test(data.email)) err.email = 'Please enter a valid email address.'
+  if (data.phone && !PHONE_PATTERN.test(data.phone)) err.phone = 'Please enter a valid phone number.'
   if (!data.consent) err.consent = 'Please consent to being contacted.'
   if (!data.cv) err.cv = 'Please upload your CV.'
   else if (data.cv.size > MAX_CV_BYTES) err.cv = 'CV file size must be under 1.5MB.'
@@ -81,8 +92,9 @@ export default function CareersForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
-    const errs = validate(formData)
+    const form = e.currentTarget
+    const dataToValidate = getFormDataFromForm(form)
+    const errs = validate(dataToValidate)
     if (Object.keys(errs).length > 0) {
       setErrors(errs)
       focusFirstError(errs)
@@ -90,8 +102,6 @@ export default function CareersForm() {
       return
     }
     setErrors({})
-
-    const form = e.currentTarget
     const rawData = new FormData(form)
     const submitData = new FormData()
     submitData.set('form-name', 'careers')
@@ -278,11 +288,9 @@ export default function CareersForm() {
       </Button>
 
       {status === 'success' && (
-        <Alert
-          type='success'
-          message='Thank you! Your application has been submitted.'
-          dismissible
-        />
+        <p className='text-sm text-green-700' role='status'>
+          Thank you! Your application has been submitted.
+        </p>
       )}
 
       {status === 'error' && (
