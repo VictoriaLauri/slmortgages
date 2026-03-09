@@ -57,7 +57,10 @@ export default function CareersForm() {
       setFormData((prev) => ({ ...prev, cv: file }))
       setStatus('idle')
       setErrorType(null)
-      setErrors((prev) => ({ ...prev, cv: undefined }))
+      setErrors((prev) => {
+        const { cv: _, ...rest } = prev
+        return rest
+      })
       return
     }
 
