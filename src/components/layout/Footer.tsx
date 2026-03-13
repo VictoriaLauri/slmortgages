@@ -72,7 +72,7 @@ export default function Footer() {
         <div className='mt-2 text-gray-400'>
           <p>
             &copy; {new Date().getFullYear()} Svetlana Latiseva - Mortgages. All
-            rights reserved. Approved by The Openwork Partnership on xx/xx/2026.
+            rights reserved. Approved by The Openwork Partnership on 04/03/2026.
           </p>
         </div>
       </div>
